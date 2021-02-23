@@ -7,7 +7,7 @@
     <title>MMHS Baseball</title>
 </head>
 <body>
-    Welcome to MMHS Baseball
+    <h1>Welcome to MMHS Baseball</h1>
     <div>
         <button> <a href="Login.php">Login</a></button>
         <button> <a href="Players.php">Players</a></button>
