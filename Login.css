@@ -1,15 +1,24 @@
 body{
     background-color: #501124;
-    
-    }
+    color: white;
+}
     
     div.container {
-        max-width: 1000px;
-        min-width: 500px;
+        /* max-width: 1000px; */
+        /* min-width: 500px; */
+        width: 170px;
+        text-align: center;
         align-content: center;
-        box-shadow: 1px 1px 8px #5471D1;
+        /* box-shadow: 1px 1px 8px #5471D1; */
         margin: 0 auto;
-        background-color: white;
+        /* background-color: white; */
+    }
+
+    div.reset-password-container {
+        width: 315px;
+        text-align: left;
+        align-content: center;
+        margin: 0 auto;
     }
     
     h1, h2, h3{
@@ -18,5 +27,9 @@ body{
     
     p{
         font-family: "Arial";
+    }
+
+    a{
+        color: white;
     }
     

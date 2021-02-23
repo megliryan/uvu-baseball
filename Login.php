@@ -26,12 +26,13 @@
 <body>
     <!-- <?php include('header.php'); ?> -->
     <?php if(!$logged_in) :?>
-        <div id="data_entry">
+        <div id="data_entry", class="container">
         <form action="login.php" method="post">
             <input type="text" id="username" placeholder="Username"><br>
             <input type="password" id="password" placeholder="Password"><br>
             <!-- <input type="checkbox" name="stay_logged_in">Stay logged in? -->
-            <input type="submit" value="Login">
+            <!-- <input type="submit" value="Login"><br><br> -->
+            <button><a href="SprayChart.php">Login</a></button>
             <a href="ForgotPassword.php">Forgot Password</a><br><br>
             <a href="Register.php">Register Here</a>
             <div class="errors"><?=$errors?></div>
@@ -39,7 +40,7 @@
         </div>
 
     <?php else : ?>
-        <div id="data_entry">
+        <div id="data_entry", class="container">
         <a href="enter_nums.php">Click to begin</a>
         <a href="logout.php">Click to logout</a>
         </div>

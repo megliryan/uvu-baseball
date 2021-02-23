@@ -9,15 +9,10 @@
 </head>
 <body>
     <div class="reset-password-container">
-        Please enter your email here:<br>
-        Please enter your desired Username:<br>
-        Please enter a password:<br>
+        Please enter your email <input type="text" id="email" placeholder="Email"><br>
+        Please enter a username <input type="text" id="username" placeholder="Username"><br>
+        Please enter a password <input type="password" id="password" placeholder="Password"><br><br>
+        <button type="submit">Register</button>
     </div>
-    <div>
-        <input type="text" id="email" placeholder="Email"><br>
-        <input type="text" id="username" placeholder="Username"><br>
-        <input type="password" id="password" placeholder="Password">
-    </div>
-    <button type="submit">Register</button>
 </body>
 </html>
