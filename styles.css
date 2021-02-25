@@ -2,7 +2,6 @@ body{
     background-color: #501124;
     color: white;
 }
-    
     div.container {
         /* max-width: 1000px; */
         /* min-width: 500px; */
@@ -12,6 +11,10 @@ body{
         /* box-shadow: 1px 1px 8px #5471D1; */
         margin: 0 auto;
         /* background-color: white; */
+    }
+
+    div.front-page {
+        border: black 2px;
     }
 
     div.reset-password-container {
