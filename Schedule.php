@@ -8,6 +8,6 @@
     <title>Calendar</title>
 </head>
 <body>
-This is the schedule
+This is the schedule.
 </body>
 </html>
