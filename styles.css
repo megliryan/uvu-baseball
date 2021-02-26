@@ -35,4 +35,11 @@ body{
     a{
         color: white;
     }
+
+    .MMLogo{
+        size: 10%;
+    }
     
+    .jumbotron{
+        color: black;
+        }
