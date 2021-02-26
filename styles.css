@@ -24,9 +24,22 @@ body{
         margin: 0 auto;
     }
     
-    h1, h2, h3{
-        font-family: "Oswald";
+    h1{
+        font-family: "Calibri";
+        text-align: center;
     }
+
+    h2{
+        font-family: "Calibri";
+        text-align: center;
+    }
+
+    h3{
+        font-family: "Calibri";
+        text-align: center;
+    }
+
+
     
     p{
         font-family: "Arial";
@@ -43,3 +56,20 @@ body{
     .jumbotron{
         color: black;
         }
+    
+    .jumbotron-fluid{
+        color: black;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: 15px;
+        margin-left: 15px;
+        border-radius: 6px;
+        
+    }
+
+    .container-sm{
+        padding-left: 20px;
+        padding-right: 0px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
