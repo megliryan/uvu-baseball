@@ -49,5 +49,17 @@
 </nav>
 <!-- END OF NAVIGATION BAR. DO NOT TOUCH. -->
 
+<div class="row no-gutters align-items-center">
+    <div class= "col no-gutters">
+        <div class = "d-flex justify-content-center align-items-center">Hello</div>
+        <div></div>
+    </div>
+    <div class = "col no-gutters">
+        <div class="d-flex justify-content-center align-items-center">
+            <img " src="images/School_Logo.png" alt="School Logo" >
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
