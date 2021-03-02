@@ -73,3 +73,15 @@ body{
         padding-top: 10px;
         padding-bottom: 10px;
     }
+
+    .fill-height-schedule{
+        display:flex;
+        flex-direction: column;
+
+    }
+
+    .fill-height-schedule > div{
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto;
+    }

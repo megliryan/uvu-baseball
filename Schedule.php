@@ -51,8 +51,15 @@
 
 <div class="row no-gutters align-items-center">
     <div class= "col no-gutters">
-        <div class = "d-flex justify-content-center align-items-center">Hello</div>
-        <div></div>
+      
+      <div class="container-fluid text-center fill-height-schedule"><div class="row" >dfghkjhkjhkjh</div></div>
+      
+      <div class="row">
+        <div class="container-fluid fill-height-schedule text-center">dfghkjhkjhkjh</div>
+      </div>
+      <div class="row">
+        <div class="container-fluid fill-height-schedule text-center">dfghkjhkjhkjh</div>
+      </div>
     </div>
     <div class = "col no-gutters">
         <div class="d-flex justify-content-center align-items-center">
