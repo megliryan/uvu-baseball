@@ -44,6 +44,10 @@
         <a class="nav-link" href="Players.php">Forms</a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="Login.php">Login</a>
+      </li>
+
     </ul>
   </div>
 </nav>
