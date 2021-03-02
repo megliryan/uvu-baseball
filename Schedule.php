@@ -56,7 +56,7 @@
     </div>
     <div class = "col no-gutters">
         <div class="d-flex justify-content-center align-items-center">
-            <img " src="images/School_Logo.png" alt="School Logo" >
+            <img " src="images/MMHS_Logo2.jpg" alt="School Logo" >
         </div>
     </div>
 </div>
