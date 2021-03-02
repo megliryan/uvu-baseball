@@ -27,17 +27,54 @@
     <title>Login</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <!--<a class="navbar-brand" href="#">Navbar</a>-->
+  <div id=MMLogo>
+    <a class="navbar-brand" href="#"><img src="images/School_Logo.png" alt="Logo" style="width:60px;"></a>
+  </div>
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" href="Main.html">Home</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="Schedule.php">Schedule</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="Players.php">Roster</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="Forms.html">Forms</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="Login.php">Login</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
     <!-- <?php include('header.php'); ?> -->
     <?php if(!$logged_in) :?>
         <div id="data_entry", class="container">
         <form action="login.php" method="post">
             <input type="text" id="username" placeholder="Username"><br>
             <input type="password" id="password" placeholder="Password"><br>
+            <p>Please reach out to your coach to get a profile set up</p>
             <!-- <input type="checkbox" name="stay_logged_in">Stay logged in? -->
             <!-- <input type="submit" value="Login"><br><br> -->
-            <button><a href="SprayChart.php">Login</a></button>
-            <a href="ForgotPassword.php">Forgot Password</a><br><br>
-            <a href="Register.php">Register Here</a>
+            <button><a href="Main.html">Login</a></button>
             <div class="errors"><?=$errors?></div>
         </form>  
         </div>
