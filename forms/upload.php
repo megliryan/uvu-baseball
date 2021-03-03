@@ -2,16 +2,15 @@
 
 session_start();
 
-if (!isset($_SESSION['username']) or !isset($_SESSION['logged_in'])) {
-    header('location:/login.php'); // Tell the user they need to log in.
-}
+// if (!isset($_SESSION['username']) or !isset($_SESSION['logged_in'])) {
+//     header('location:/login.php'); // Tell the user they need to log in.
+// }
 
 $success = null;
 $error = '';
 
-if (isset($_SESSION['success'])) {
-    $success = $_SESSION['success'];
-}
+$success = filter_input(INPUT_GET, 'success', FILTER_VALIDATE_BOOL);
+
 if (isset($_SESSION['error'])) {
     $error = $_SESSION['error'];
 }
@@ -78,17 +77,18 @@ if (isset($_SESSION['error'])) {
 
 </div>
 <!-- End of heading for forms page -->
-
-<? if ($success === true) :?>
+<?php if ($success !== null):?>
+  <?php if ($success === true) :?>
     <div class="alert alert-success">
         <strong>Success!</strong> Your file was successully uploaded.
     </div>
-  <? elseif ($success === false) :?>
+  <?php elseif ($success === false) :?>
     <div class="alert alert-danger">
         <strong>Error!</strong> <?=$error?>
     </div>
-  <? endif;?>
-  <form action="process-upload.php" method="post">
+  <?php endif;?>
+<?php endif?>
+  <form action="process-upload.php" method="post" enctype="multipart/form-data">
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Submit">
   </form>

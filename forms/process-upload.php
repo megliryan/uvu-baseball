@@ -27,10 +27,7 @@ if ($_FILES['fileToUpload']['size'] > 1_000_000) {
     $error = 'That file is too large (maximum size = 1 MB)';
 }
 
-if (!$success) {
-    // Redirect the user back to the upload page with the error.
-    // Likely include $success and $error in it.
-} else {
+if ($success) {
     // Try to move the file into the uploaded files.
     if (move_uploaded_file($_FILES['fileToUpload']['name'], $target_file)) {
         // Returns true on success.
@@ -43,5 +40,10 @@ if (!$success) {
         // Redirect back to upload page.
     }
 }
+
+
+$_SESSION['error'] = $error;
+header("location:upload.php?success=$success")
+
 
 ?>
