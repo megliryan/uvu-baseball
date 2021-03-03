@@ -67,23 +67,23 @@
 </nav>
     <!-- <?php include('header.php'); ?> -->
     <?php if(!$logged_in) :?>
+      <!-- Login Form -->
         <div id="data_entry", class="container">
         <form action="login.php" method="post">
-            <input type="text" id="username" placeholder="Username"><br>
+            <br><input type="text" id="username" placeholder="Username"><br>
             <input type="password" id="password" placeholder="Password"><br>
+            <!-- Instructions for players to reach out to the coach if they don't have a login -->
             <p>Please reach out to your coach to get a profile set up</p>
-            <!-- <input type="checkbox" name="stay_logged_in">Stay logged in? -->
-            <!-- <input type="submit" value="Login"><br><br> -->
-            <button><a href="Main.html">Login</a></button>
-            <div class="errors"><?=$errors?></div>
+            <button type="submit" id="login">Login</button> <br><br>
+            <!-- <div class="errors"><?=$errors?></div> -->
         </form>  
         </div>
 
-    <?php else : ?>
+    <!-- <?php else : ?>
         <div id="data_entry", class="container">
         <a href="enter_nums.php">Click to begin</a>
         <a href="logout.php">Click to logout</a>
         </div>
-    <?php endif; ?>
+    <?php endif; ?> -->
 </body>
 </html>
