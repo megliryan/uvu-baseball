@@ -27,7 +27,7 @@
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="Main.html">Home</a>
+        <a class="nav-link" href="index.html">Home</a>
       </li>
 
       <li class="nav-item">
