@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 $target_dir = "uploaded_files/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -34,6 +35,7 @@ if (!$success) {
     if (move_uploaded_file($_FILES['fileToUpload']['name'], $target_file)) {
         // Returns true on success.
         // Redirect back to the upload page and let the user know it was a success.
+        // ALSO: do database stuff. Make sure the file owner is added, too.
     }
     else {
         // Internal error.
