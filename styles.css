@@ -24,34 +24,26 @@ body{
         margin: 0 auto;
     }
     
-    h1{
+    h1, h2, h3, h4, h5, h6{
         font-family: "Calibri";
         text-align: center;
-    }
-
-    h2{
-        font-family: "Calibri";
-        text-align: center;
-    }
-
-    h3{
-        font-family: "Calibri";
-        text-align: center;
+        color:#501124;
     }
 
 
     
-    p{
+    p, blockquote{
         font-family: "Arial";
+        color: black;
     }
 
     .MMLogo{
         size: 10%;
     }
     
-    .jumbotron{
+    /*.jumbotron{
         color: black;
-        }
+        }*/
     
     .jumbotron-fluid{
         color: black;
