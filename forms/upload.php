@@ -25,7 +25,7 @@ if (isset($_SESSION['error'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <title>Forms</title>
 </head>
 <body>
@@ -73,25 +73,29 @@ if (isset($_SESSION['error'])) {
 
 <!-- Heading for forms page -->
 <div class="jumbotron">
-  <h1>Forms</h1>      
+  <h1>Upload Form</h1>      
 
 </div>
 <!-- End of heading for forms page -->
 <?php if ($success !== null):?>
   <?php if ($success === true) :?>
-    <div class="alert alert-success">
+    <div class="m-4 alert alert-success">
         <strong>Success!</strong> Your file was successully uploaded.
     </div>
   <?php elseif ($success === false) :?>
-    <div class="alert alert-danger">
+    <div class="m-4 alert alert-danger">
         <strong>Error!</strong> <?=$error?>
     </div>
   <?php endif;?>
 <?php endif?>
-  <form action="process-upload.php" method="post" enctype="multipart/form-data">
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Submit">
-  </form>
+  <div class="m-4 p-3 container-fluid bg-light text-body"
+    <form action="process-upload.php" method="post" enctype="multipart/form-data">
+      <label for="name">Form name:</label><br/>
+      <input type="text" name="name" id="name"><br/><br/>
+      <label for="fileToUpload">Form to upload: (Must be a pdf)</label><br/>
+      <input type="file" name="fileToUpload" id="fileToUpload"><br/><br/>
+      <input type="submit" value="Submit">
+    </form>
 
 </body>
 </html>
