@@ -1,14 +1,14 @@
 <?php
 
-$forms_paths = glob('all_forms/*');
+$forms_paths = glob('all_forms/*.pdf');
 $forms_friendly = array();
 foreach ($forms_paths as $formpath) {
-  $formpath_steps = explode(',', $formpath);
+  $formpath_steps = explode('/', $formpath);
   $formname = end($formpath_steps);
   array_push($forms_friendly, $formname);
 }
 $forms_available = array_combine($forms_friendly, $forms_paths)
-
+# forms_available is now an array of (file friendly name => relative file path)
 
 ?>
 <!DOCTYPE html>
@@ -73,8 +73,8 @@ $forms_available = array_combine($forms_friendly, $forms_paths)
   <h4></h4>
 </div>
 <!-- End of heading for forms page -->
-
-<ul class="list-group">
+<?php if (sizeof($forms_available) >= 1):?>
+<ul class="list-group m-4">
   <?php foreach ($forms_available as $formname => $formpath) {
     echo("<li class=\"list-group-item d-flex justify-content-between align-items-center\">
             $formname
@@ -88,7 +88,9 @@ $forms_available = array_combine($forms_friendly, $forms_paths)
           </li>");
   }?>
 </ul> 
-
+<?php else:?>
+  <span class="m-4">There are no forms available for download right now. Try back later!</span>
+<?php endif;?>
 
 </body>
 </html>
