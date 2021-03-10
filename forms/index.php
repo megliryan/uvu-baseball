@@ -1,8 +1,22 @@
+<?php
+
+$forms_paths = glob('all_forms/*');
+$forms_friendly = array();
+foreach ($forms_paths as $formpath) {
+  $formpath_steps = explode(',', $formpath);
+  $formname = end($formpath_steps);
+  array_push($forms_friendly, $formname);
+}
+$forms_available = array_combine($forms_friendly, $forms_paths)
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,67 +74,20 @@
 </div>
 <!-- End of heading for forms page -->
 
-<div id="downloads" class="carousel slide" data-ride="carousel">
-
-  <!-- Indicators -->
-  <ul class="carousel-indicators">
-    <li data-target="#downloads" data-slide-to="0" class="active"></li>
-    <li data-target="#downloads" data-slide-to="1"></li>
-    <li data-target="#downloads" data-slide-to="2"></li>
-  </ul>
-
-  <!-- The slideshow -->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="card-deck">
-          <div class="card-body text-center">
-              <p class="card-text">This is card 1</p>
-          </div>
-          <div class="card-body text-center">
-              <p class="card-text">And card 2</p>
-          </div>
-          <div class="card-body text-center">
-              <p class="card-text">Card 3!</p>
-          </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="card-deck">
-          <div class="card-body text-center">
-              <p class="card-text">This is card 4</p>
-          </div>
-          <div class="card-body text-center">
-              <p class="card-text">And card 5</p>
-          </div>
-          <div class="card-body text-center">
-              <p class="card-text">Card 6!</p>
-          </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="card-deck">
-          <div class="card-body text-center">
-              <p class="card-text">This is card 7</p>
-          </div>
-          <div class="card-body text-center">
-              <p class="card-text">And card 8</p>
-          </div>
-          <div class="card-body text-center">
-              <p class="card-text">Card 9!</p>
-          </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </a>
-
-</div>
+<ul class="list-group">
+  <?php foreach ($forms_available as $formname => $formpath) {
+    echo("<li class=\"list-group-item d-flex justify-content-between align-items-center\">
+            $formname
+            <a href='$formpath'>
+              <span class=\"badge badge-primary\">
+                <i class=\"material-icons\">
+                  &#xe2c4;
+                </i>
+              </span>
+            </a>
+          </li>");
+  }?>
+</ul> 
 
 
 </body>
