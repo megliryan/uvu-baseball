@@ -21,7 +21,7 @@ $forms_available = array_combine($forms_friendly, $forms_paths)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <title>Forms</title>
 </head>
 <body>
@@ -77,7 +77,7 @@ $forms_available = array_combine($forms_friendly, $forms_paths)
 <ul class="list-group m-4">
   <?php foreach ($forms_available as $formname => $formpath) {
     echo("<li class=\"list-group-item d-flex justify-content-between align-items-center\">
-            $formname
+            <span class='text-body'>$formname</span>
             <a href='$formpath'>
               <span class=\"badge badge-primary\">
                 <i class=\"material-icons\">
