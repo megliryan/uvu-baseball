@@ -31,7 +31,7 @@ $forms_available = array_combine($forms_friendly, $forms_paths)
   <!-- Brand -->
   <!--<a class="navbar-brand" href="#">Navbar</a>-->
   <div id=MMLogo>
-    <a class="navbar-brand" href="#"><img src="images/School_Logo.png" alt="Logo" style="width:60px;"></a>
+    <a class="navbar-brand" href="#"><img src="../images/School_Logo.png" alt="Logo" style="width:60px;"></a>
   </div>
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
