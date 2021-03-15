@@ -1,6 +1,7 @@
 <?php
 
 # Gets all pdf files in the all_forms directory.
+
 $forms_paths = glob('all_forms/*.pdf');
 $forms_friendly = array();
 foreach ($forms_paths as $formpath) {
@@ -75,6 +76,7 @@ $forms_available = array_combine($forms_friendly, $forms_paths)
 </div>
 <!-- End of heading for forms page -->
 <?php if (sizeof($forms_available) >= 1):?>
+<div class="m-4">Find the document you want to download, then click the download button.</div>
 <ul class="list-group m-4">
   <?php foreach ($forms_available as $formname => $formpath) {
     echo("<li class=\"list-group-item d-flex justify-content-between align-items-center\">
