@@ -1,5 +1,6 @@
 <?php
 
+# Gets all pdf files in the all_forms directory.
 $forms_paths = glob('all_forms/*.pdf');
 $forms_friendly = array();
 foreach ($forms_paths as $formpath) {
