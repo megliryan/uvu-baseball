@@ -44,10 +44,23 @@
       <li class="nav-item">
         <a class="nav-link" href="forms">Forms</a>
       </li>
-
+      <?php if (!isset($_SESSION['username'])):
+        # If the user is logged out, show the login button.?>
       <li class="nav-item">
         <a class="nav-link" href="Login.php">Login</a>
       </li>
+      <?php endif?>
+      <?php if (isset($_SESSION['is_admin'])):
+        # If the user is logged in, show the logout button.?>
+      <li class="nav-item">
+        <a class="nav-link" href="Logout.php">Logout</a>
+      </li>
+      <?php if ($_SESSION['is_admin']):
+        # If previous & the user is an admin, show the manage button.?>
+      <li class="nav-item">
+       <a class="nav-link" href="/admin">Manage</a>
+      </li>
+      <?php endif; endif; # Close navbar options.?>
 
     </ul>
   </div>
