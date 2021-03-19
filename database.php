@@ -5,7 +5,7 @@ $password = 'INFO4430 is the class for you and me';
 try {
     $db = new PDO($dsn, $username, $password);
 } catch (PDOException $err) {
-    $error_message = $e->getMessage();
+    $error_message = $err->getMessage();
     echo 'Internal Server Error: ' . $error_message;
     exit();
 }

@@ -60,7 +60,7 @@ include('views/header.php');
             <!-- Instructions for players to reach out to the coach if they don't have a login -->
             <p>Please reach out to your coach to get a profile set up.</p>
             <button type="submit" id="login">Login</button> <br><br>
-            <?=$error_msg?>
+            <?=$error_msg?><?php # I would use an alert box, personally, but that can be done later.?>
         </form>  
     </div>
 <?php include('views/footer.php');?>
