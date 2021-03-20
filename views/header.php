@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 <title>MMHS Baseball</title>
 </head>
 <body>
@@ -30,30 +30,30 @@
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="Main.html">Home</a>
+        <a class="nav-link" href="/index.php">Home</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="Schedule.php">Schedule</a>
+        <a class="nav-link" href="/Schedule.php">Schedule</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="Players.php">Roster</a>
+        <a class="nav-link" href="/Players.php">Roster</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="forms">Forms</a>
+        <a class="nav-link" href="/forms">Forms</a>
       </li>
       <?php if (!isset($_SESSION['username'])):
         # If the user is logged out, show the login button.?>
       <li class="nav-item">
-        <a class="nav-link" href="Login.php">Login</a>
+        <a class="nav-link" href="/Login.php">Login</a>
       </li>
       <?php endif?>
       <?php if (isset($_SESSION['is_admin'])):
         # If the user is logged in, show the logout button.?>
       <li class="nav-item">
-        <a class="nav-link" href="Logout.php">Logout</a>
+        <a class="nav-link" href="/Logout.php">Logout</a>
       </li>
       <?php if ($_SESSION['is_admin']):
         # If previous & the user is an admin, show the manage button.?>

@@ -28,7 +28,7 @@ $success = null;
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
         // NEEDS VALIDATING - values cannot be false or null (except for is_admin, which can be false)
 
-        if ($add_to_database == true) {
+        if ($success == true) {
             $query = 'INSERT INTO users (username, email, password_hash, is_admin)
                       VALUES (:username, :email, :password_hash, :is_admin);';
             $statement = $db->prepare($query);
