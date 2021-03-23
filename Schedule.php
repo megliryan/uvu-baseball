@@ -30,7 +30,7 @@
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="index.php">Home</a>
       </li>
 
       <li class="nav-item">
@@ -42,7 +42,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="Players.php">Forms</a>
+        <a class="nav-link" href="Forms.html">Forms</a>
       </li>
 
       <li class="nav-item">
