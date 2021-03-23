@@ -1,5 +1,5 @@
 <?php
-require('../database.php');
+// require('../database.php');
 session_start();
 $error_msg = '';
 $success = null;
