@@ -5,6 +5,7 @@ body{
     div.container {
         border: black 2px;
         width: 300px;
+        height: 200px;
         color: black;
         text-align: center;
         align-content: center;
@@ -72,4 +73,8 @@ body{
         flex-grow: 1;
         flex-shrink: 1;
         flex-basis: auto;
+    }
+
+    .white-text {
+        color: white;
     }
