@@ -201,6 +201,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
         </form>
+        <div class="white-text">Admin? <button href="admin-login.php";> Click here!</button>
+        </div>
     </div>
 </body>
 </html>
