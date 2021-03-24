@@ -1,6 +1,6 @@
 <?php
 <<<<<<< Updated upstream
-// require('../database.php');
+require('../database.php');
 =======
 require('../database.php');
 >>>>>>> Stashed changes

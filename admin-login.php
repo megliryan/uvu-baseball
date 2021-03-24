@@ -4,7 +4,7 @@
          
         // Check if the user is already logged in, if yes then redirect him to welcome page
         if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-            header("location: admin-welcome.php");
+            header("location: admin.php");
             exit;
         }
          
@@ -12,7 +12,7 @@
         require_once "config.php";
          
         // Define variables and initialize with empty values
-        $admin_username = $admin_password = "";
+        $username = $password = "";
         $username_err = $password_err = $login_err = "";
          
         // Processing form data when form is submitted
@@ -22,27 +22,27 @@
             if(empty(trim($_POST["username"]))){
                 $username_err = "Please enter username.";
             } else{
-                $admin_username = trim($_POST["username"]);
+                $username = trim($_POST["username"]);
             }
             
             // Check if password is empty
             if(empty(trim($_POST["password"]))){
                 $password_err = "Please enter your password.";
             } else{
-                $admin_password = trim($_POST["password"]);
+                $password = trim($_POST["password"]);
             }
             
             // Validate credentials
             if(empty($username_err) && empty($password_err)){
                 // Prepare a select statement
-                $sql = "SELECT id, username, password FROM users WHERE username = ?";
+                $sql = "SELECT id, username, password FROM admins WHERE username = ?";
                 
                 if($stmt = mysqli_prepare($link, $sql)){
                     // Bind variables to the prepared statement as parameters
                     mysqli_stmt_bind_param($stmt, "s", $param_username);
                     
                     // Set parameters
-                    $param_username = $admin_username;
+                    $param_username = $username;
                     
                     // Attempt to execute the prepared statement
                     if(mysqli_stmt_execute($stmt)){
@@ -52,19 +52,19 @@
                         // Check if username exists, if yes then verify password
                         if(mysqli_stmt_num_rows($stmt) == 1){                    
                             // Bind result variables
-                            mysqli_stmt_bind_result($stmt, $id, $admin_username, $hashed_password);
+                            mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
                             if(mysqli_stmt_fetch($stmt)){
-                                if(password_verify($admin_password, $hashed_password)){
+                                if(password_verify($password, $hashed_password)){
                                     // Password is correct, so start a new session
                                     session_start();
                                     
                                     // Store data in session variables
                                     $_SESSION["loggedin"] = true;
                                     $_SESSION["id"] = $id;
-                                    $_SESSION["username"] = $admin_username;                            
+                                    $_SESSION["username"] = $username;                            
                                     
                                     // Redirect user to welcome page
-                                    header("location: welcome.php");
+                                    header("location: admin.php");
                                 } else{
                                     // Password is not valid, display a generic error message
                                     $login_err = "Invalid username or password.";
@@ -173,7 +173,7 @@
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="form-group">
                         <label>Admin Username</label>
-                        <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $admin_username; ?>">
+                        <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                         <span class="invalid-feedback"><?php echo $username_err; ?></span>
                     </div>    
                     <div class="form-group">

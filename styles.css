@@ -83,6 +83,6 @@ body{
         align-items:center;
     }
 
-    .stats {
+    div.stats {
         border: black 2px;
     }

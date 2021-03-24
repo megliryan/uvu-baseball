@@ -1,6 +1,15 @@
 <?php
 // Include config file
 require_once "config.php";
+
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
@@ -166,9 +175,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
-            <p class="white-text">Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
     </div>
 </body>
