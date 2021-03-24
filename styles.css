@@ -82,3 +82,7 @@ body{
     .center{
         align-items:center;
     }
+
+    .stats {
+        border: black 2px;
+    }

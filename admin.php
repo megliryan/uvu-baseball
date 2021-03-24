@@ -3,10 +3,10 @@
 session_start();
  
 // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
+// if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    // header("location: login.php");
+    // exit;
+// }
 ?>
  
 <!DOCTYPE html>
@@ -14,6 +14,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{ font: 14px sans-serif; text-align: center; }
@@ -68,6 +69,25 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           <input type="text" name="date" id="date" placeholder="date"><br>
           <input type="text" name="time" id="time" placeholder="time"><br>
           <input type="text" name="opponent" id="opponent" placeholder="opponent"><br>
+        </div><br><br>
+        <div class="stats">
+            Update Stats<br>
+            Batting AVG: <input type="text" name="batting_average" id="batting_average"><br>
+            OBP: <input type="text" name="on_base_percentage" id="on_base_percentage"><br>
+            Hits: <input type="text" name="hits" id="hits"><br>
+            Singles: <input type="text" name="singles" id="singles"><br>
+            Doubles: <input type="text" name="doubles" id="doubles"><br>
+            Triples: <input type="text" name="triples" id="triples"><br>
+            Homeruns: <input type="text" name="homeruns" id="homeruns"><br>
+            Stolen Bases: <input type="text" name="stolen_bases" id="stolen_bases"><br>
+            Stolen Base Attempts: <input type="text" name="stolen_bases_attempts" id="stolen_bases_attempts"><br>
+            Wins: <input type="text" name="wins" id="wins"><br>
+            Losses: <input type="text" name="losses" id="losses"><br>
+            Earned Run AVG: <input type="text" name="earned_run_average" id="earned_run_average"><br>
+            WHIP: <input type="text" name="whip" id="whip"><br>
+            Strike Outs: <input type="text" name="strike_outs" id="strike_outs"><br>
+            Walks: <input type="text" name="walks" id="walks"><br>
+            Innings Pitched: <input type="text" name="innings_pitched" id="innings_pitched"><br>
         </div>
 </body>
 </html>
