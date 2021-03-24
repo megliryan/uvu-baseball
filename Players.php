@@ -91,8 +91,8 @@ if($_SESSION['isAdmin']) : ?><!--will need to link to admin page to check if log
 </form>
 
 <!-- statsbar-->
-<div>
-  <img class="center image" src="images/StatsBar.png" alt="centered image" width="800px" >
+<div id=center>
+  <img class="center" alt="center" src="images/StatsBar.png"  width="800px" >
 </div>
 
 </body>

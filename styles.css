@@ -78,3 +78,7 @@ body{
     .white-text {
         color: white;
     }
+
+    .center{
+        align-items:center;
+    }
