@@ -4,15 +4,18 @@ session_start();
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: admin.php");
     exit;
 }
+
+// Check if the user is an admin, if not then redirect him to welcome page
+
   // // Prepare a select statement
   // $sql = "SELECT id FROM players WHERE first_name = ?";
 
   // if($stmt = mysqli_prepare($link, $sql)){
   //   $name = trim($_GET("name"));
-  //   $school_year = trim($_GET("school_year"));
+    // $school_year = trim($_GET("school_year"));
   //   $batting_average = trim($_GET("batting_average"));
   //   $on_base_percentage = trim($_GET("on_base_percentage"));
   //   $hits = trim($_GET("hits"));
@@ -131,14 +134,30 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   </div>
 </nav>
     <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Edit site details below.</h1>
+    
     <div>
           Add a calendar event<br>
           <input type="text" name="date" id="date" placeholder="date"><br>
           <input type="text" name="time" id="time" placeholder="time"><br>
           <input type="text" name="opponent" id="opponent" placeholder="opponent"><br>
+          <input type="text" name="location" id="location" placeholder="location"><br>
     </div><br><br>
+
+    <div>
+      Announcements<br>
+      <input type="text" name="announcement" id="announcement"><br>
+      <input type="button" value="Add new announcement">
+    </div><br><br>
+
+    <div>
+      Player Videos<br>
+      <input type="button" value="Add new video">
+    </div><br><br>
+
     <form action="save">
-      <select name="players" id="players"></select><br>
+    <?php $players = "SELECT id FROM players WHERE name = ?" ?>
+
+      <select name="players" id="players"><?php $players?></select><br>
       Player Name: <input type="text" name="player" id="player" value=$name><br>
       School Year: <input type="text" name="school_year" id="school_year" value=$school_year><br><br>
       Update Stats<br>
