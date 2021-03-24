@@ -1,9 +1,5 @@
 <?php
-<<<<<<< Updated upstream
 require('../database.php');
-=======
-require('../database.php');
->>>>>>> Stashed changes
 session_start();
 $error_msg = '';
 $success = null;
