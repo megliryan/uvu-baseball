@@ -64,6 +64,7 @@
 
 
 
+ 
 <!-- section bellow is for uploading and displaying players info-->
 
 
@@ -71,24 +72,14 @@
 
 <?php
 session_start();
-if($_SESSION['isAdmin']) : ?><!--will need to link to admin page to check if logged in (need ryan to use "isadmin"
-                                  variable on his page for login)-->
-  <span>Edit</span>
-<?php endif; ?>
-<form method="POST">
-  <div style="position: absolute; right:50px; bottom:100px">
-    <button id="upload" type="submit">Upload</button>
-  </div>  
-  
-  <!--if button is clicked it will then upload a new statsbar with picture that was uploaded.
-  will need to figure out how to pull multiple fields for stats on each player (do i link the stats to player name?)-->
-  <?php
-  if(isset($_POST))
-  {
-    
-  }
-  ?>
+if($_SESSION["loggedin"] = true) : ?>
+
+<form action="PlayersPics.php" method="POST" enctype="multipart/form-data">
+<input type="file" name="file">
+<button type="submit" name="submit">Upload Player Pic</button>
 </form>
+
+<?php endif; ?>
 
 <!-- statsbar-->
 <div id=center>
