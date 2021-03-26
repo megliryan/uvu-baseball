@@ -1,4 +1,6 @@
-<?php include('views/header.php');?>
+<?php 
+$title = "Schedule";
+include('views/header.php');?>
 
 <div class="container-fluid" style="height: 100vh">
   <div class="row h-100 no-gutters">

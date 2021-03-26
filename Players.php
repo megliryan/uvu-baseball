@@ -1,4 +1,7 @@
-<?php include('views/header.php'); ?>
+<?php 
+$title = "Roster";
+include('views/header.php'); 
+?>
 
 <!-- section bellow is for uploading and displaying players info-->
 

@@ -1,4 +1,5 @@
 <?php
+$title = 'MMHS Baseball';
 /*php reference SQL database for current announcements data
 
 $servername = "localhost";

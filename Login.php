@@ -1,4 +1,5 @@
 <!-- <?php
+$title = 'Login'
     // session_start();
         // $logged_in = false;
         // $errors = filter_input(INPUT_GET, 'errors');
