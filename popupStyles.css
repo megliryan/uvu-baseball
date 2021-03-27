@@ -20,11 +20,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 /* The popup form - hidden by default */
 .form-popup {
   display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
+  position: center;
+  width: 55%;
+  margin-left: 20%;
+  margin-top: 10%;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  background-color: lightblue;
 }
 
 /* Add styles to the form container */
@@ -35,7 +37,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 /* Set a style for the submit button */
-.form-container, .btn {
+.btn {
   background-color: grey;
   color: white;
   padding: 16px 20px;
@@ -43,15 +45,22 @@ body {font-family: Arial, Helvetica, sans-serif;}
   cursor: pointer;
   width: 20%;
   margin-bottom:10px;
+  margin-left: 5%;
   opacity: 0.8;
 }
 
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: blue;
+.form-container {
+  background-color: white;
+  margin: auto;
+  width: 1000px;
+  color: black;
 }
 
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+.center {
+  margin-left: 5%;
 }
