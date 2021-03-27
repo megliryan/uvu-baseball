@@ -82,7 +82,7 @@ if($_SESSION["loggedin"] = true) : ?>
     <!-- display a button only if user is logged in  (will need to redirect to forms page)-->
     <form action="PlayersPics.php" method="POST" enctype="multipart/form-data">
     <input type="file" name="file">
-    <button type="submit" name="submit">Upload Player Pic</button>
+    <button type="submit" class="findPic" name="submit">Upload Player Pic</button>
     </form>
 
     <?php endif; ?>
