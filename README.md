@@ -1,9 +1,6 @@
 # Maple Meadows Baseball
 This is the website for the Maple Meadows baseball team.
 
-## /admin
-Contains the administrator console, or may in the future.
-
 ## /forms
 Contains the website for hosting and downloading PDF forms.
 
@@ -46,9 +43,6 @@ Logs out of the session and redirects to index.
 Roster for the team.
 
 ### PlayersPics.php
-to do
-
-### process_login.php
 to do
 
 ### Register.php
