@@ -119,7 +119,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="Forms.html">Forms</a>
+        <a class="nav-link" href="forms/index.php">Forms</a>
       </li>
 
       <li class="nav-item">
@@ -187,7 +187,6 @@ https://www.w3schools.com/howto/howto_js_popup_form.asp-->
 
 <!-- connect to session and check to see if admin is logged in-->
 <?php
-session_start();
 if($_SESSION["loggedin"] = true) : ?>
 
 
