@@ -22,13 +22,13 @@ if ($action == 'upload') {
     $success = true;
     $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-    // if ($fileType != 'pdf') {
-    //    // Send error back to upload.php that the upload wasn't completed.
-    //    $success = false;
-    //    $error = 'File type must be a PDF.';
-    // }
+    if ($fileType != 'pdf') {
+       // Send error that the upload wasn't completed.
+       $success = false;
+       $error = 'File type must be a PDF.';
+    }
     if (file_exists($target_file)) {
-        // Send error back to upload.php that a file with that name already exists.
+        // Send error that a file with that name already exists.
         // Also probably tell them to delete it first before trying again.
         $success = false;
         $error = 'A file with that name already exists. Please delete that file before trying again.';
@@ -37,7 +37,7 @@ if ($action == 'upload') {
         // If the file size is large.
         // 1 million bytes is 1 MB. This textbook I have is 6 MB.
         // So we will probably not have issues with these small forms.
-        // Send an error back saying the file is too large.
+        // Send an error saying the file is too large.
         $success = false;
         $error = 'That file is too large (maximum size = 1 MB)';
     }
