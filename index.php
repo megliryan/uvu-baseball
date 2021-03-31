@@ -106,18 +106,17 @@ echo "Connected successfully";
     </div>
   </div>
 
-  <!--declaration of livestream window -->
+  <!--declaration of livestream window-->
 <div class="row">
   <div class="col-sm-12">
     <div class="jumbotron jumbotron-fluid">
-      <h2>Livestream</h2>
-      <!-- 
-          Livestream Embed from Youtube
-      /* You have to ask users to store the 11 character code from the youtube video. For e.g. http://www.youtube.com/watch?v=Ahg6qcgoay4 The eleven character code is : Ahg6qcgoay4
-      You then take this code and place it in your database. Then wherever you want to place the youtube video in your page, load the character from the database and put the following 
-      code:-g. for Ahg6qcgoay4 it will be : 
-      <object width="425" height="350" data="http://www.youtube.com/v/Ahg6qcgoay4" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/Ahg6qcgoay4" /></object> -->
-      */
+    <!--code for the previous game-->
+      <h2>Previous Game</h2>
+      <div id=livestream>
+        <object width="1500" height="1050" data="http://www.youtube.com/v/crNtuGff1-w" 
+        type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/crNtuGff1-w" /></div>
+        </object>
+      
       </div>
   </div>
 </div>

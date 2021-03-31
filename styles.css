@@ -86,3 +86,7 @@ body{
     div.stats {
         border: black 2px;
     }
+
+    #livestream {
+        text-align: center;
+    }
