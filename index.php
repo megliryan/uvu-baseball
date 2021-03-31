@@ -15,11 +15,6 @@ if (!$conn) {
 echo "Connected successfully";
 // echo out the data needed
 
-// php reference database for upcoming games data (same thing as seen above)
-
-*/
-/*php Firebase alternate declaration
-
 */
 
 ?>
@@ -67,7 +62,7 @@ echo "Connected successfully";
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="forms/index.php">Forms</a>
+        <a class="nav-link" href="Forms.html">Forms</a>
       </li>
 
       <li class="nav-item">
@@ -91,6 +86,23 @@ echo "Connected successfully";
     <h2>Announcements</h2>
       <div class="container-sm">
         - Tryouts are set for 3/1/2021. Please do not forget!
+        <!--  
+        <?php 
+        /*
+        <?php foreach($announcements_entries as $announcement_entry): ?>
+          <tr class=rowheader>
+              <td><?=$announcement_entry['title']?></td>
+              <td><?=$announcement_entry['date']?></td>
+          </tr>
+          <tr class=rowbody>
+              <td><?=$announcement_entry['body']?></td>
+          </tr>
+          
+        <?php endforeach; ?>
+        */
+        ?>
+          
+        -->
       </div>
     </div>
   </div>
@@ -101,6 +113,21 @@ echo "Connected successfully";
       <h2>Upcoming Games</h2>
         <div class="container-sm">
           - @ Orem High -- 3/14/2021 4:00PM
+          <!--  
+        <?php 
+        /*
+        <?php foreach($game_entries as $game_entry): ?>
+          <tr>
+              <td><?=$game_entry['title']?></td>
+              <td><?=$game_entry['date']?></td>
+          </tr>
+          
+          
+        <?php endforeach; ?>
+        */
+        ?>
+          
+        -->
         </div>
       </div>
     </div>

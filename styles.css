@@ -90,3 +90,11 @@ body{
     #livestream {
         text-align: center;
     }
+
+    .rowheader{
+        background-color: #c48d9d;
+    }
+
+    .rowbody{
+        background-color: white;
+    }
