@@ -15,11 +15,6 @@ if (!$conn) {
 echo "Connected successfully";
 // echo out the data needed
 
-// php reference database for upcoming games data (same thing as seen above)
-
-*/
-/*php Firebase alternate declaration
-
 */
 
 ?>
@@ -91,6 +86,23 @@ echo "Connected successfully";
     <h2>Announcements</h2>
       <div class="container-sm">
         - Tryouts are set for 3/1/2021. Please do not forget!
+        <!--  
+        <?php 
+        /*
+        <?php foreach($announcements_entries as $announcement_entry): ?>
+          <tr class=rowheader>
+              <td><?=$announcement_entry['title']?></td>
+              <td><?=$announcement_entry['date']?></td>
+          </tr>
+          <tr class=rowbody>
+              <td><?=$announcement_entry['body']?></td>
+          </tr>
+          
+        <?php endforeach; ?>
+        */
+        ?>
+          
+        -->
       </div>
     </div>
   </div>
@@ -101,26 +113,63 @@ echo "Connected successfully";
       <h2>Upcoming Games</h2>
         <div class="container-sm">
           - @ Orem High -- 3/14/2021 4:00PM
+          <!--  
+        <?php 
+        /*
+        <?php foreach($game_entries as $game_entry): ?>
+          <tr>
+              <td><?=$game_entry['title']?></td>
+              <td><?=$game_entry['date']?></td>
+          </tr>
+          
+          
+        <?php endforeach; ?>
+        */
+        ?>
+          
+        -->
         </div>
       </div>
     </div>
   </div>
 
-  <!--declaration of livestream window -->
+  <!--declaration of livestream window-->
 <div class="row">
   <div class="col-sm-12">
     <div class="jumbotron jumbotron-fluid">
-      <h2>Livestream</h2>
-      <!-- 
-          Livestream Embed from Youtube
-      /* You have to ask users to store the 11 character code from the youtube video. For e.g. http://www.youtube.com/watch?v=Ahg6qcgoay4 The eleven character code is : Ahg6qcgoay4
-      You then take this code and place it in your database. Then wherever you want to place the youtube video in your page, load the character from the database and put the following 
-      code:-g. for Ahg6qcgoay4 it will be : 
-      <object width="425" height="350" data="http://www.youtube.com/v/Ahg6qcgoay4" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/Ahg6qcgoay4" /></object> -->
-      */
+    <!--code for the previous game-->
+      <h2>Previous Game</h2>
+      <div class="row">
+      <div class="col-sm-12">
+      <form >
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">YouTube Link</span>
+                </div>
+                <input type="link" class="form-control">
+                <button type="button" class="btn btn-primary">Make Change</button>
+            </div>
+        </form>
+        </div>
+        </div>
+      <div id=livestream>
+        <object width="1500" height="1050" data="http://www.youtube.com/v/crNtuGff1-w" 
+        type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/crNtuGff1-w" /></div>
+        </object>
+        
+        <!-- //reference code, please ignore
+        <form action="login.php" method="post">
+            Username <input type="text" name="username" placeholder="Username">
+            Password <input type="password" name="password" placeholder="Password">
+            <input type="checkbox" name="stay_logged_in">Stay logged in?
+            <input type="submit" value="Submit">
+            <div class="errors"><?=$errors?></div>
+        </form>  
+        -->
+      
       </div>
   </div>
 </div>
-
+            
 </body>
 </html>

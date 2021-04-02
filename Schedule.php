@@ -14,5 +14,4 @@ include('views/header.php');?>
     </div>
   </div>
 </div>
-
 <?php include('views/footer.php');?>
