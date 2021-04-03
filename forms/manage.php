@@ -1,8 +1,12 @@
 <?php
 $title = "Manage Forms";
 
-// TODO: Check if an admin is logged in.
-// Otherwise someone could just waltz in and delete stuff.
+// If the user is not logged in/an admin, send to admin login.
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ||
+   !isset($_SESSION['is_admin']) || $_SESSION['is_admin']) {
+    header("location: /admin-login.php");
+    exit;
+}
 
 // I'd also like for the buttons to use POST, but hey, one thing at a time.
 

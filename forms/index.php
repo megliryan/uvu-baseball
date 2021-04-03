@@ -24,7 +24,7 @@ include('../views/header.php');
 <?php if (sizeof($forms_available) >= 1):?>
 <div class="row m-4">
   <div class="col-sm-10">Find the document you want to download, then click the download button.</div>
-  <?php if (true):?>
+  <?php if (isset($_SESSION['is_admin']) and $_SESSION['is_admin']):?>
   <div class="col-sm-2"><a class="btn btn-light" href="manage.php">Manage Forms</a></div>
   <?php endif;?>
 </div>

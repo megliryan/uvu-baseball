@@ -5,11 +5,12 @@ require_once "config.php";
 // Initialize the session
 session_start();
  
-// Check if the user is logged in, if not then redirect him to login page
-// if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-//     header("location: login.php");
-//     exit;
-// }
+// Check if the user is logged in, if not then redirect them to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ||
+   !isset($_SESSION['is_admin']) || $_SESSION['is_admin']) {
+    header("location: login.php");
+    exit;
+}
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
