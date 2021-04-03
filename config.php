@@ -17,8 +17,8 @@ if($link === false){
 //The above code uses mysqli which is deprecated so we need to use PHP Data Objects I am keeping it for now but we
 //will delete it later so it doesn't clutter up the page needlessly
 $dsn = 'mysql:host=localhost;dbname=baseball';
-$username = 'Nathan';
-$password = '123';
-$db - new PDO($dsn,$username,$password);
+$username = 'database';
+$password = 'baseball';
+$db = new PDO($dsn,$username,$password);
 
 ?>
