@@ -5,7 +5,7 @@ $success = null;
 
 // If not admin/not logged in, redirect to login.
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ||
-   !isset($_SESSION['is_admin']) || $_SESSION['is_admin']) {
+   !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
     header("location: /admin-login.php");
     exit;
 }

@@ -4,7 +4,7 @@ session_start();
 
 // If the user is not logged in/an admin, send to admin login.
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ||
-   !isset($_SESSION['is_admin']) || $_SESSION['is_admin']) {
+   !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
     header("location: /admin-login.php");
     exit;
 }
