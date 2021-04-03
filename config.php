@@ -19,6 +19,13 @@ if($link === false){
 $dsn = 'mysql:host=localhost;dbname=baseball';
 $username = 'Nathan';
 $password = '123';
-$db - new PDO($dsn,$username,$password);
+try {
+    $db - new PDO($dsn,$username,$password);
+    echo '<p>You are connected to the DB!</p>';
+} catch (Exception $e) {
+    $errorMessage = $e->getMessage();
+    echo "<p>Error Message: $errorMessage</p>";
+}
+
 
 ?>
