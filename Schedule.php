@@ -2,7 +2,6 @@
 $title = "Schedule";
 include('views/header.php');
 require(config.php);
-//This is a test
 ?>
 
 <div class="container-fluid" style="height: 100vh">
