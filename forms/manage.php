@@ -1,5 +1,6 @@
 <?php
 $title = "Manage Forms";
+session_start();
 
 // If the user is not logged in/an admin, send to admin login.
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ||

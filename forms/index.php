@@ -1,5 +1,6 @@
 <?php
 $title = "Forms";
+session_start();
 # Gets all pdf files in the all_forms directory.
 
 $forms_paths = glob('all_forms/*.pdf');
