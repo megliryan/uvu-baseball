@@ -52,7 +52,11 @@ Registration page.
 Password reset page.
 
 ### schedule.php
-Displays the schedule for the team.
+Displays the schedule for the team. Populated using this query: 
+Select team.TeamName, schedule.Gametime, schedule.GameDate 
+FROM Team 
+    INNER JOIN Schedule 
+        ON Team.TeamID = Schedule.TeamID;
 
 ### welcome.php
 Login landing page. (to do)

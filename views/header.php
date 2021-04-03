@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/styles.css">
-<title>MMHS Baseball</title>
+<title><?=$title?></title>
 </head>
 <body>
   <!--declaration of navigation bar-->
@@ -18,7 +18,7 @@
   <!-- Brand -->
   <!--<a class="navbar-brand" href="#">Navbar</a>-->
   <div id=MMLogo>
-    <a class="navbar-brand" href="#"><img src="images/School_Logo.png" alt="Logo" style="width:60px;"></a>
+    <a class="navbar-brand" href="#"><img src="/images/School_Logo.png" alt="Logo" style="width:60px;"></a>
   </div>
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -44,13 +44,13 @@
       <li class="nav-item">
         <a class="nav-link" href="/forms">Forms</a>
       </li>
-      <?php if (!isset($_SESSION['username'])):
+      <?php if (!isset($_SESSION['loggedin']) or !$_SESSION['loggedin']):
         # If the user is logged out, show the login button.?>
       <li class="nav-item">
         <a class="nav-link" href="/Login.php">Login</a>
       </li>
       <?php endif?>
-      <?php if (isset($_SESSION['is_admin'])):
+      <?php if (isset($_SESSION['loggedin']) and $_SESSION['loggedin']):
         # If the user is logged in, show the logout button.?>
       <li class="nav-item">
         <a class="nav-link" href="/Logout.php">Logout</a>
@@ -58,7 +58,7 @@
       <?php if ($_SESSION['is_admin']):
         # If previous & the user is an admin, show the manage button.?>
       <li class="nav-item">
-       <a class="nav-link" href="/admin">Manage</a>
+       <a class="nav-link" href="/admin.php">Manage</a>
       </li>
       <?php endif; endif; # Close navbar options.?>
 
