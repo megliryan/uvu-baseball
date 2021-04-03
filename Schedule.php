@@ -1,7 +1,7 @@
 <?php 
 $title = "Schedule";
 include('views/header.php');
-require(config.php);
+require('config.php');
 ?>
 
 <div class="container-fluid" style="height: 100vh">
