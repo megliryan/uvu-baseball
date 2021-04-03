@@ -58,7 +58,7 @@
       <?php if ($_SESSION['is_admin']):
         # If previous & the user is an admin, show the manage button.?>
       <li class="nav-item">
-       <a class="nav-link" href="/admin">Manage</a>
+       <a class="nav-link" href="/admin.php">Manage</a>
       </li>
       <?php endif; endif; # Close navbar options.?>
 
