@@ -1,5 +1,4 @@
 <!-- <?php
-$title = 'Login'
     // session_start();
         // $logged_in = false;
         // $errors = filter_input(INPUT_GET, 'errors');
@@ -78,8 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;
-                            $_SESSION["is_admin"] = false;                           
+                            $_SESSION["username"] = $username;                            
                             
                             // Redirect user to welcome page
                             header("location: welcome.php");

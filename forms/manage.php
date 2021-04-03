@@ -72,5 +72,3 @@ include('../views/header.php');
     </tr>
     <?php endforeach;?>
 </table>
-
-<?php include('../views/footer.php');?>

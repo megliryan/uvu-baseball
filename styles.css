@@ -86,15 +86,3 @@ body{
     div.stats {
         border: black 2px;
     }
-
-    #livestream {
-        text-align: center;
-    }
-
-    .rowheader{
-        background-color: #c48d9d;
-    }
-
-    .rowbody{
-        background-color: white;
-    }
