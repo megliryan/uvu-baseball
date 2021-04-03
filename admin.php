@@ -119,7 +119,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="forms/index.php">Forms</a>
+        <a class="nav-link" href="Forms.html">Forms</a>
       </li>
 
       <li class="nav-item">
@@ -187,13 +187,14 @@ https://www.w3schools.com/howto/howto_js_popup_form.asp-->
 
 <!-- connect to session and check to see if admin is logged in-->
 <?php
+session_start();
 if($_SESSION["loggedin"] = true) : ?>
 
 
 <!-- button that opens the popup screen-->
 <button class="open-button" onclick="openForm()">Open Form</button>
 
-<!-- popup code below-->
+<!-- popup code below/ css code link-->
 <div class="form-popup" id="playersForm">
   <form action="/action_page.php" class="form-container">
   <link rel="stylesheet" href="popupStyles.css">
