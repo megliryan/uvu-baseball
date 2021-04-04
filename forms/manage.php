@@ -1,8 +1,13 @@
 <?php
 $title = "Manage Forms";
+session_start();
 
-// TODO: Check if an admin is logged in.
-// Otherwise someone could just waltz in and delete stuff.
+// If the user is not logged in/an admin, send to admin login.
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ||
+   !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+    header("location: /admin-login.php");
+    exit;
+}
 
 // I'd also like for the buttons to use POST, but hey, one thing at a time.
 
@@ -56,6 +61,7 @@ include('../views/header.php');
   <?php endif;?>
 <?php endif;?>
 <a class="m-4 btn btn-block btn-outline-success" href="upload.php">Upload New Form</a>
+<span class="m-4">Select the name of the file to view it, or click the delete button to delete it <strong>permanently.</strong></span>
 <table class="table table-hover table-light table-bordered m-4">
     <thead>
         <tr>
@@ -72,3 +78,5 @@ include('../views/header.php');
     </tr>
     <?php endforeach;?>
 </table>
+
+<?php include('../views/footer.php');?>

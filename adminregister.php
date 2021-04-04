@@ -5,8 +5,9 @@ require_once "config.php";
 // Initialize the session
 session_start();
  
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+// Check if the user is logged in, if not then redirect them to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ||
+   !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
     header("location: login.php");
     exit;
 }
@@ -23,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Please enter a username.";
     } else{
         // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE username = :username";
+        $sql = "SELECT id FROM adminusers WHERE username = :username";
         
         if($stmt = $db->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -74,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+        $sql = "INSERT INTO adminusers (username, password) VALUES (:username, :password)";
          
         if($stmt = $db->prepare($sql)){
             // Bind variables to the prepared statement as parameters

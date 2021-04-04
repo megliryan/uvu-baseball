@@ -3,8 +3,12 @@ $title = 'Upload Form';
 session_start();
 $success = null;
 
-// TODO: AND THIS IS IMPORATANT
-// Make sure that an admin is logged in to allow access.
+// If not admin/not logged in, redirect to login.
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ||
+   !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+    header("location: /admin-login.php");
+    exit;
+}
 
 
 $action = filter_input(INPUT_POST, 'action');

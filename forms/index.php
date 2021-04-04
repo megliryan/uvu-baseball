@@ -1,5 +1,6 @@
 <?php
-
+$title = "Forms";
+session_start();
 # Gets all pdf files in the all_forms directory.
 
 $forms_paths = glob('all_forms/*.pdf');
@@ -9,65 +10,11 @@ foreach ($forms_paths as $formpath) {
   $formname = end($formpath_steps);
   array_push($forms_friendly, $formname);
 }
-$forms_available = array_combine($forms_friendly, $forms_paths)
+$forms_available = array_combine($forms_friendly, $forms_paths);
 # forms_available is now an array of (file friendly name => relative file path)
 
+include('../views/header.php');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles.css">
-    <title>Forms</title>
-</head>
-<body>
-    
-<!-- NAVIGATION BAR. DO NOT TOUCH. -->
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <!-- Brand -->
-  <!--<a class="navbar-brand" href="#">Navbar</a>-->
-  <div id=MMLogo>
-    <a class="navbar-brand" href="#"><img src="../images/School_Logo.png" alt="Logo" style="width:60px;"></a>
-  </div>
-  <!-- Toggler/collapsibe Button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <!-- Navbar links -->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="Schedule.php">Schedule</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="Players.php">Roster</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="Players.php">Forms</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="Login.php">Login</a>
-      </li>
-
-    </ul>
-  </div>
-</nav>
-<!-- END OF NAVIGATION BAR. DO NOT TOUCH. -->
 
 <!-- Heading for forms page -->
 <div class="jumbotron">
@@ -78,7 +25,7 @@ $forms_available = array_combine($forms_friendly, $forms_paths)
 <?php if (sizeof($forms_available) >= 1):?>
 <div class="row m-4">
   <div class="col-sm-10">Find the document you want to download, then click the download button.</div>
-  <?php if (true):?>
+  <?php if (isset($_SESSION['is_admin']) and $_SESSION['is_admin']):?>
   <div class="col-sm-2"><a class="btn btn-light" href="manage.php">Manage Forms</a></div>
   <?php endif;?>
 </div>
@@ -86,7 +33,7 @@ $forms_available = array_combine($forms_friendly, $forms_paths)
 <?php foreach ($forms_available as $formname => $formpath):?>
   <li class="list-group-item d-flex justify-content-between align-items-center">
     <span class='text-body'><?=$formname?></span>
-    <a href='<?=$formpath?>'>
+    <a href='<?=$formpath?>' target="_blank">
       <span class="badge badge-primary">
         <i class="material-icons">
           &#xe2c4;
@@ -100,5 +47,4 @@ $forms_available = array_combine($forms_friendly, $forms_paths)
   <span class="m-4">There are no forms available for download right now. Try back later!</span>
 <?php endif;?>
 
-</body>
-</html>
+<?php include('../views/footer.php');?>
