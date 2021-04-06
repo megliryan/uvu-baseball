@@ -154,7 +154,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <input type="button" value="Add new video">
     </div><br><br>
 
-    <form action="save">
+    <!-- <form action="save">
     <?php $players = "SELECT id FROM players WHERE name = ?" ?>
 
       <select name="players" id="players"><?php $players?></select><br>
@@ -177,7 +177,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       Strike Outs: <input type="text" name="strike_outs" id="strike_outs" value=$strike_outs><br>
       Walks: <input type="text" name="walks" id="walks" value=$walks><br>
       Innings Pitched: <input type="text" name="innings_pitched" id="innings_pitched" value=$innings_pitched><br>
-    </form>
+    </form> -->
 
 
 
@@ -185,26 +185,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 https://www.w3schools.com/howto/howto_js_popup_form.asp-->
 
 
-<!-- connect to session and check to see if admin is logged in-->
-<?php
-if($_SESSION["loggedin"] = true) : ?>
-
-
-<!-- button that opens the popup screen-->
-<button class="open-button" onclick="openForm()">Open Form</button>
-
 <!-- popup code below-->
-<div class="form-popup" id="playersForm">
-  <form action="/action_page.php" class="form-container">
+<form action="">
+<select name="players" id="players"><?php $players?></select><br>
+<div id="playersForm">
+  <!-- <form action="/action_page.php" class="form-container"> -->
   <link rel="stylesheet" href="popupStyles.css">
 
     <!-- display a button only if user is logged in  (will need to redirect to forms page)-->
     <form action="PlayersPics.php" method="POST" enctype="multipart/form-data">
     <input type="file" name="file">
-    <button type="submit" class="findPic" name="submit">Upload Pic</button>
-    </form>
-
-    <?php endif; ?>
+    </form><br>
 
     <!-- user input and save/cancel buttons-->
     <label for="playersName"><b>Name </b></label>
@@ -217,26 +208,14 @@ if($_SESSION["loggedin"] = true) : ?>
     <input type="text" placeholder="Enter Position" name="playersPosition" required><br>
 
     <button type="submit" class="btn">Submit</button>
-    <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
 
      <!--statsbar-->
     <div id=center>
       <img class="center" alt="center" src="images/StatsBar.png"  width="800px" >
     </div> 
 
-
-    <!-- script that runs and designates the layout-->
-    <script>
-    function openForm() {
-      document.getElementById("playersForm").style.display = "block";
-    }
-    function closeForm() {
-      document.getElementById("playersForm").style.display = "none";
-    }
-    </script>
-
-  </form>
 </div>
+</form>
 
 
 </body>

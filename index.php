@@ -55,7 +55,7 @@ echo "Connected successfully";
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="Main.html">Home</a>
+        <a class="nav-link" href="index.php">Home</a>
       </li>
 
       <li class="nav-item">
@@ -67,7 +67,7 @@ echo "Connected successfully";
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="Forms.html">Forms</a>
+        <a class="nav-link" href="forms/index.php">Forms</a>
       </li>
 
       <li class="nav-item">
