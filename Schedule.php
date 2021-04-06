@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include('views/header.php');?>
+<?php include('views/header.php');
+require('database.php');?>
 <head>
 
 <!-- bootstrap declaration -->
@@ -13,9 +14,6 @@
     <title>Calendar</title>
 </head>
 <body>
-
-
-
 <div class="container-fluid" style="height: 100vh">
   <div class="row h-100 no-gutters">
     <div class = "col-sm-6 d-flex flex-column">

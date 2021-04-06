@@ -179,7 +179,23 @@ https://www.w3schools.com/howto/howto_js_popup_form.asp-->
 
 <!-- popup code below-->
 <form class="bottom-column" action="">
-Choose or add player: <select name="players" id="players"><?php $players?></select><br>
+<?php 
+require_once "config.php";
+
+global $db;
+    $query = 'SELECT * FROM players';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $players = $statement->fetchAll();
+    $statement->closeCursor();
+?>
+
+Choose or add player: <select name="players"><br>
+  <?php foreach ($players as $player): ?> 
+  <option value="<?php echo $player;?>"> 
+  <?php echo $player['PlayerName'];?>
+  </option> <?php endforeach ?>
+</select><br>
 <div id="playersForm">
   <!-- <form action="/action_page.php" class="form-container"> -->
   <link rel="stylesheet" href="popupStyles.css">
@@ -199,7 +215,6 @@ Choose or add player: <select name="players" id="players"><?php $players?></sele
     <label for="playersPosition"><b>Position </b></label>
     <input type="text" placeholder="Enter Position" name="playersPosition" required><br>
 
-    Player Name: <input type="text" name="player" id="player" value=$name><br>
       School Year: <input type="text" name="school_year" id="school_year" value=$school_year><br><br>
       Update Stats<br>
       AB: <input type="text" name="at-bats" id="at-bats"><br>

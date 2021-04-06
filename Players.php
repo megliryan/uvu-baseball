@@ -72,40 +72,7 @@ Select Player: <select name="players">
   </option> <?php endforeach ?>
 </select>
 
-<!-- function getPlayers() {
-    global $db;
-    $query = 'SELECT PlayerName FROM players';
-    $statement = $db->prepare($query);
-    $statement->execute();
-    $results = $statement->fetchAll();
-    $statement->closeCursor();
-    return $results;
-}
-
-
-$players = getPlayers(array($results));
-
-foreach ($players as $player) {
-  echo "<option value=$player>$player</option>";
-} -->
-<!-- </select><br> -->
-
 <img src="images/StatsBar.png" alt="">
-
-
-
-
-
- 
-
 
 </body>
 </html>
-
-
-
-  
-
-  
-
-
