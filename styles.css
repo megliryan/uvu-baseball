@@ -14,18 +14,19 @@ body{
         background-color: white;
     }
 
-    div.column {
+    /* div.column {
         border: solid black 1px;
         float: left;
         width: 30%;
-        height: 175px;
+        height: 190px;
         padding-top: 10px;
-        margin-right: 25;
-        margin-left: 25px;
+        padding-left: 1px;
+        margin-right: auto;
+        margin-left: auto;
         background-color: #e9ecef;
         border-radius: 6px;
         color: #501124;
-    }
+    } */
 
     div.front-page {
         border: black 2px;
@@ -65,14 +66,14 @@ body{
         color: black;
         padding-right: 0px;
         padding-left: 0px;
-        margin-right: 15px;
-        margin-left: 15px;
+        margin-right: 10px;
+        margin-left: 10px;
         border-radius: 6px;
         
     }
 
     .container-sm{
-        padding-left: 20px;
+        padding-left: 10px;
         padding-right: 0px;
         padding-top: 10px;
         padding-bottom: 10px;
@@ -102,8 +103,13 @@ body{
         border: black 2px;
     }
 
-    form.bottom-column {
+    /* form.bottom-column {
         border: solid black 2px;
         padding-top: 10px;
+        margin-right: 25px;
+        margin-left: 25px;
         margin-top: 150px;
-    }
+        background-color: #e9ecef;
+        border-radius: 6px;
+        color: #501124;
+    } */

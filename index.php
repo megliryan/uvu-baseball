@@ -79,7 +79,7 @@ echo "Connected successfully";
 </nav>
 
 <!--declaration of div Title-->
-<div class="jumbotron">
+<div class="jumbotron jumbotron-fluid">
     <h1>Maple Mountain Baseball</h1>      
     <h3>Welcome to the mountain!</h3>
 </div>
