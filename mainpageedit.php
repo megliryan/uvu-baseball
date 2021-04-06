@@ -32,7 +32,7 @@ echo "Connected successfully";
     <link rel="stylesheet" href="styles.css">
     <title>MMHS Baseball</title>
 </head>
-hi nathan
+hi nathan test
 <body>
   <!--declaration of navigation bar-->
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
