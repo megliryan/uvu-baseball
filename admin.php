@@ -84,10 +84,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body{ font: 14px sans-serif; text-align: center; }
+        body{ font: 14px sans-serif;
+        text-align: center;
+        background-color: #501124;
+        color: white;
+      }
     </style>
 </head>
 <body>
@@ -133,51 +138,38 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </ul>
   </div>
 </nav>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Edit site details below.</h1>
+    <h1 class="white">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Edit site details below.</h1>
     
-    <div>
-          Add a calendar event<br>
-          <input type="text" name="date" id="date" placeholder="date"><br>
-          <input type="text" name="time" id="time" placeholder="time"><br>
-          <input type="text" name="opponent" id="opponent" placeholder="opponent"><br>
-          <input type="text" name="location" id="location" placeholder="location"><br>
-    </div><br><br>
+    <form action="POST">
+      <div class="column">
+            Add a calendar event<br><br>
+            <input type="text" name="gameDate" id="gameDate" placeholder="Game Date"><br>
+            <input type="text" name="gameTime" id="gameTime" placeholder="Game Time"><br>
+            <input type="text" name="opponent" id="opponent" placeholder="Opponent"><br><br>
+            <input type="button" value="Add to calendar">
+      </div>
+    </form>
 
-    <div>
-      Announcements<br>
-      <input type="text" name="announcement" id="announcement"><br>
-      <input type="button" value="Add new announcement">
-    </div><br><br>
+    <form action="POST">
+      <div class="column">
+        Announcements<br><br>
+        <input type="text" name="announcement" id="announcement"><br><br>
+        <input type="button" value="Add new announcement">
+    </div>
+    </form>
 
-    <div>
-      Player Videos<br>
-      <input type="button" value="Add new video">
-    </div><br><br>
+    <div class="column">
+      Player Videos<br><br>
+      <input type="file" name="file"><br><br>
+      <input type="button" value="Upload new video">
+    </div><br>
 
-    <!-- <form action="save">
+    <form action="save">
     <?php $players = "SELECT id FROM players WHERE name = ?" ?>
 
-      <select name="players" id="players"><?php $players?></select><br>
-      Player Name: <input type="text" name="player" id="player" value=$name><br>
-      School Year: <input type="text" name="school_year" id="school_year" value=$school_year><br><br>
-      Update Stats<br>
-      Batting AVG: <input type="text" name="batting_average" id="batting_average" value=$batting_average><br>
-      OBP: <input type="text" name="on_base_percentage" id="on_base_percentage" value=$on_base_percentage><br>
-      Hits: <input type="text" name="hits" id="hits" value=$hits><br>
-      Singles: <input type="text" name="singles" id="singles" value=$singles><br>
-      Doubles: <input type="text" name="doubles" id="doubles" value=$doubles><br>
-      Triples: <input type="text" name="triples" id="triples" value=$triples><br>
-      Homeruns: <input type="text" name="homeruns" id="homeruns" value=$homeruns><br>
-      Stolen Bases: <input type="text" name="stolen_bases" id="stolen_bases" value=$stolen_bases><br>
-      Stolen Base Attempts: <input type="text" name="stolen_bases_attempts" id="stolen_bases_attempts" value=$stolen_bases_attempts><br>
-      Wins: <input type="text" name="wins" id="wins" value=$wins><br>
-      Losses: <input type="text" name="losses" id="losses" value=$losses><br>
-      Earned Run AVG: <input type="text" name="earned_run_average" id="earned_run_average" value=$earned_run_average><br>
-      WHIP: <input type="text" name="whip" id="whip" value=$whip><br>
-      Strike Outs: <input type="text" name="strike_outs" id="strike_outs" value=$strike_outs><br>
-      Walks: <input type="text" name="walks" id="walks" value=$walks><br>
-      Innings Pitched: <input type="text" name="innings_pitched" id="innings_pitched" value=$innings_pitched><br>
-    </form> -->
+      <!-- <select name="players" id="players"><?php $players?></select><br> -->
+      <br>
+    </form><br>
 
 
 
@@ -186,8 +178,8 @@ https://www.w3schools.com/howto/howto_js_popup_form.asp-->
 
 
 <!-- popup code below-->
-<form action="">
-<select name="players" id="players"><?php $players?></select><br>
+<form class="bottom-column" action="">
+Choose or add player: <select name="players" id="players"><?php $players?></select><br>
 <div id="playersForm">
   <!-- <form action="/action_page.php" class="form-container"> -->
   <link rel="stylesheet" href="popupStyles.css">
@@ -207,12 +199,27 @@ https://www.w3schools.com/howto/howto_js_popup_form.asp-->
     <label for="playersPosition"><b>Position </b></label>
     <input type="text" placeholder="Enter Position" name="playersPosition" required><br>
 
-    <button type="submit" class="btn">Submit</button>
+    Player Name: <input type="text" name="player" id="player" value=$name><br>
+      School Year: <input type="text" name="school_year" id="school_year" value=$school_year><br><br>
+      Update Stats<br>
+      AVG: <input type="text" name="batting_average" id="batting_average" value=$batting_average><br>
+      OBP: <input type="text" name="on_base_percentage" id="on_base_percentage" value=$on_base_percentage><br>
+      Hits: <input type="text" name="hits" id="hits" value=$hits><br>
+      Singles: <input type="text" name="singles" id="singles" value=$singles><br>
+      Doubles: <input type="text" name="doubles" id="doubles" value=$doubles><br>
+      Triples: <input type="text" name="triples" id="triples" value=$triples><br>
+      HRs: <input type="text" name="homeruns" id="homeruns" value=$homeruns><br>
+      Stolen Bases: <input type="text" name="stolen_bases" id="stolen_bases" value=$stolen_bases><br>
+      Stolen Base Attempts: <input type="text" name="stolen_bases_attempts" id="stolen_bases_attempts" value=$stolen_bases_attempts><br>
+      Wins: <input type="text" name="wins" id="wins" value=$wins><br>
+      Losses: <input type="text" name="losses" id="losses" value=$losses><br>
+      ERA: <input type="text" name="earned_run_average" id="earned_run_average" value=$earned_run_average><br>
+      WHIP: <input type="text" name="whip" id="whip" value=$whip><br>
+      Strike Outs: <input type="text" name="strike_outs" id="strike_outs" value=$strike_outs><br>
+      Walks: <input type="text" name="walks" id="walks" value=$walks><br>
+      Innings Pitched: <input type="text" name="innings_pitched" id="innings_pitched" value=$innings_pitched><br><br>
 
-     <!--statsbar-->
-    <div id=center>
-      <img class="center" alt="center" src="images/StatsBar.png"  width="800px" >
-    </div> 
+    <button type="submit" class="btn">Submit</button>
 
 </div>
 </form>

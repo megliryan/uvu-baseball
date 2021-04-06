@@ -53,8 +53,15 @@
   </div>
 </nav>
 <!-- END OF NAVIGATION BAR. DO NOT TOUCH. -->
+<?php 
 
+require_once "config.php";
+// $players = new PDO();
+$stmt = $db->prepare('SELECT PlayerName FROM players')
+?>
+Select Player: <select name="players" id="players"></select><br>
 
+<img src="images/StatsBar.png" alt="">
 
 
 
