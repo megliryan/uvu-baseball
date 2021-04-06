@@ -8,83 +8,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-// Check if the user is an admin, if not then redirect him to welcome page
-
-  // // Prepare a select statement
-  // $sql = "SELECT id FROM players WHERE first_name = ?";
-
-  // if($stmt = mysqli_prepare($link, $sql)){
-  //   $name = trim($_GET("name"));
-    // $school_year = trim($_GET("school_year"));
-  //   $batting_average = trim($_GET("batting_average"));
-  //   $on_base_percentage = trim($_GET("on_base_percentage"));
-  //   $hits = trim($_GET("hits"));
-  //   $singles = trim($_GET("singles"));
-  //   $doubles = trim($_GET("doubles"));
-  //   $triples = trim($_GET("triples"));
-  //   $homeruns = trim($_GET("homeruns"));
-  //   $stolen_bases = trim($_GET("stolen_bases"));
-  //   $stolen_bases_attempts = trim($_GET("stolen_bases_attempts"));
-  //   $wins = trim($_GET("wins"));
-  //   $losses = trim($_GET("losses"));
-  //   $earned_run_average = trim($_GET("earned_run_average"));
-  //   $whip = trim($_GET("whip"));
-  //   $strike_outs = trim($_GET("strike_outs"));
-  //   $walks = trim($_GET("walks"));
-  //   $innings_pitched  = trim($_GET("innings_pitched"));
-
-  //   $param_name = trim($_POST("name"));
-  //   $param_school_year = trim($_POST("school_year"));
-  //   $param_batting_average = trim($_POST("batting_average"));
-  //   $param_on_base_percentage = trim($_POST("on_base_percentage"));
-  //   $param_hits = trim($_POST("hits"));
-  //   $param_singles = trim($_POST("singles"));
-  //   $param_doubles = trim($_POST("doubles"));
-  //   $param_triples = trim($_POST("triples"));
-  //   $param_homeruns = trim($_POST("homeruns"));
-  //   $param_stolen_bases = trim($_POST("stolen_bases"));
-  //   $param_stolen_bases_attempts = trim($_POST("stolen_bases_attempts"));
-  //   $param_wins = trim($_POST("wins"));
-  //   $param_losses = trim($_POST("losses"));
-  //   $param_earned_run_average = trim($_POST("earned_run_average"));
-  //   $param_whip = trim($_POST("whip"));
-  //   $param_strike_outs = trim($_POST("strike_outs"));
-  //   $param_walks = trim($_POST("walks"));
-  //   $param_innings_pitched  = trim($_POST("innings_pitched"));
-  // }
-
-        
-  // if($stmt = mysqli_prepare($link, $sql)){
-  //     // Bind variables to the prepared statement as parameters
-  //     mysqli_stmt_bind_param($stmt, "s", $param_username);
-      
-  //     // Set parameters
-  //     $param_username = trim($_POST["username"]);
-      
-  //     // Attempt to execute the prepared statement
-  //     if(mysqli_stmt_execute($stmt)){
-  //         /* store result */
-  //         mysqli_stmt_store_result($stmt);
-          
-  //         if(mysqli_stmt_num_rows($stmt) == 1){
-  //             $username_err = "This username is already taken.";
-  //         } else{
-  //             $username = trim($_POST["username"]);
-  //         }
-  //     } else{
-  //         echo "Oops! Something went wrong. Please try again later.";
-  //     }
-
-  //     // Close statement
-  //     mysqli_stmt_close($stmt);
-  // }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -140,36 +69,48 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </nav>
     <h1 class="white">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Edit site details below.</h1>
     
-    <form action="POST">
-      <div class="column">
-            Add a calendar event<br><br>
-            <input type="text" name="gameDate" id="gameDate" placeholder="Game Date"><br>
-            <input type="text" name="gameTime" id="gameTime" placeholder="Game Time"><br>
-            <input type="text" name="opponent" id="opponent" placeholder="Opponent"><br><br>
-            <input type="button" value="Add to calendar">
+    <?php
+      if (isset($_POST['calendarSubmit'])){
+        echo "you submitted a calendar event";
+      }
+    ?>
+    <!-- FULL ROW -->
+    <div class="jumbotron jumbotron-fluid">
+      <div class="row">
+          <div class="col-sm-4">
+            <form action="POST">
+                <h6>Add a calendar event</h6>
+                <input type="text" name="gameDate" id="gameDate" placeholder="Game Date">
+                <input type="text" name="gameTime" id="gameTime" placeholder="Game Time">
+                <input type="text" name="opponent" id="opponent" placeholder="Opponent">
+                <input type="text" name="homeAway" id="homeAway" placeholder="Opponent">
+                <input type="button" name="calendarSubmit" value="Add to calendar">
+            </form>
+          </div>
+        
+          <div class="col-sm-4">
+            <form action="POST">
+            <h6>Announcements</h6>
+            <input type="text" name="announcement" id="announcement">
+            <input type="button" value="Add new announcement">
+            </form>
+          </div>
+
+          <div class="col-sm-4">
+            <form action="POST">
+            <h6>Player Videos</h6>
+            <input type="file" name="file">
+            <input type="button" value="Upload new video">
+            </form>
+          </div>
+
       </div>
-    </form>
-
-    <form action="POST">
-      <div class="column">
-        Announcements<br><br>
-        <input type="text" name="announcement" id="announcement"><br><br>
-        <input type="button" value="Add new announcement">
     </div>
-    </form>
-
-    <div class="column">
-      Player Videos<br><br>
-      <input type="file" name="file"><br><br>
-      <input type="button" value="Upload new video">
-    </div><br>
-
-    <form action="save">
+    <!-- END FULL ROW -->
     <?php $players = "SELECT id FROM players WHERE name = ?" ?>
 
       <!-- <select name="players" id="players"><?php $players?></select><br> -->
-      <br>
-    </form><br>
+    </form>
 
 
 
@@ -178,7 +119,7 @@ https://www.w3schools.com/howto/howto_js_popup_form.asp-->
 
 
 <!-- popup code below-->
-<form class="bottom-column" action="">
+<form class=".container-fluid" action="">
 <?php 
 require_once "config.php";
 
