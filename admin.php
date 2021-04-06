@@ -202,22 +202,27 @@ Choose or add player: <select name="players" id="players"><?php $players?></sele
     Player Name: <input type="text" name="player" id="player" value=$name><br>
       School Year: <input type="text" name="school_year" id="school_year" value=$school_year><br><br>
       Update Stats<br>
+      AB: <input type="text" name="at-bats" id="at-bats"><br>
+      PA: <input type="text" name="plate-appearances" id="plate-appearances"><br>
       AVG: <input type="text" name="batting_average" id="batting_average" value=$batting_average><br>
       OBP: <input type="text" name="on_base_percentage" id="on_base_percentage" value=$on_base_percentage><br>
-      Hits: <input type="text" name="hits" id="hits" value=$hits><br>
-      Singles: <input type="text" name="singles" id="singles" value=$singles><br>
-      Doubles: <input type="text" name="doubles" id="doubles" value=$doubles><br>
-      Triples: <input type="text" name="triples" id="triples" value=$triples><br>
-      HRs: <input type="text" name="homeruns" id="homeruns" value=$homeruns><br>
-      Stolen Bases: <input type="text" name="stolen_bases" id="stolen_bases" value=$stolen_bases><br>
-      Stolen Base Attempts: <input type="text" name="stolen_bases_attempts" id="stolen_bases_attempts" value=$stolen_bases_attempts><br>
-      Wins: <input type="text" name="wins" id="wins" value=$wins><br>
-      Losses: <input type="text" name="losses" id="losses" value=$losses><br>
+      SLG: <input type="text" name="slugging" id="slugging"><br>
+      H: <input type="text" name="hits" id="hits" value=$hits><br>
+      1B: <input type="text" name="singles" id="singles" value=$singles><br>
+      2B: <input type="text" name="doubles" id="doubles" value=$doubles><br>
+      3B: <input type="text" name="triples" id="triples" value=$triples><br>
+      HR: <input type="text" name="homeruns" id="homeruns" value=$homeruns><br>
+      RBI: <input type="text" name="runs-batted-in" id="runs-batted-in"><br>
+      SB: <input type="text" name="stolen_bases" id="stolen_bases" value=$stolen_bases><br>
+      CS: <input type="text" name="caught-stealing" id="caught-stealing"><br>
+      IP: <input type="text" name="innings_pitched" id="innings_pitched" value=$innings_pitched><br>
+      W: <input type="text" name="wins" id="wins" value=$wins><br>
+      L: <input type="text" name="losses" id="losses" value=$losses><br>
       ERA: <input type="text" name="earned_run_average" id="earned_run_average" value=$earned_run_average><br>
       WHIP: <input type="text" name="whip" id="whip" value=$whip><br>
-      Strike Outs: <input type="text" name="strike_outs" id="strike_outs" value=$strike_outs><br>
-      Walks: <input type="text" name="walks" id="walks" value=$walks><br>
-      Innings Pitched: <input type="text" name="innings_pitched" id="innings_pitched" value=$innings_pitched><br><br>
+      SO: <input type="text" name="strike_outs" id="strike_outs" value=$strike_outs><br>
+      BB: <input type="text" name="walks" id="walks" value=$walks><br>
+      BAA: <input type="text" name="opponent-batting-average" id="opponent-batting-average"><br><br>
 
     <button type="submit" class="btn">Submit</button>
 

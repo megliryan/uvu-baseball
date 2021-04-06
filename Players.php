@@ -53,13 +53,42 @@
   </div>
 </nav>
 <!-- END OF NAVIGATION BAR. DO NOT TOUCH. -->
-<?php 
-
+<!-- Select Player: <select name="players" id="players"> -->
+ <?php 
 require_once "config.php";
-// $players = new PDO();
-$stmt = $db->prepare('SELECT PlayerName FROM players')
+
+global $db;
+    $query = 'SELECT * FROM players';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $players = $statement->fetchAll();
+    $statement->closeCursor();
 ?>
-Select Player: <select name="players" id="players"></select><br>
+
+Select Player: <select name="players">
+  <?php foreach ($players as $player): ?> 
+  <option value="<?php echo $player;?>"> 
+  <?php echo $player['PlayerName']; ?> 
+  </option> <?php endforeach ?>
+</select>
+
+<!-- function getPlayers() {
+    global $db;
+    $query = 'SELECT PlayerName FROM players';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+
+
+$players = getPlayers(array($results));
+
+foreach ($players as $player) {
+  echo "<option value=$player>$player</option>";
+} -->
+<!-- </select><br> -->
 
 <img src="images/StatsBar.png" alt="">
 
