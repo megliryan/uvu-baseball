@@ -13,7 +13,12 @@ $GameInfo = $statement-> fetchAll();
 $statement -> closeCursor();
 ?>
 <head>
-
+<?php
+define("HvA","Home or Away");
+define("OpTeam","Opponent");
+define("Date","Date");
+define("Time","Time");
+?>
 <!-- bootstrap declaration -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -28,50 +33,49 @@ $statement -> closeCursor();
   <div class="row h-100 no-gutters">
     <div class = "col-sm-6 d-flex flex-column">
           <?php foreach ($GameInfo as $Game):
-            echo $GameInfo['HomeAway'];
-            echo $GameInfo['TeamName'];
-            echo $GameInfo['GameDate'];
-            echo $GameInfo['GameTime'];
-            //echo $GameInfo['HomeAway'];
-          endforeach
             ?>
-          <div class="bg-info align-items-center flex-grow-1 justify-content-center d-flex">
-            <div>Home or Away: <?php echo $GameInfo['HomeAway'];
-                 Opponent:           echo $GameInfo['TeamName'];
-                 Date:               echo $GameInfo['GameDate'];
-                 Time:               echo $GameInfo['GameTime']; ?> 
-            </div>
-          </div>  
-          <div class="bg-danger align-items-center flex-grow-1 justify-content-center d-flex">
-            <div>Home or Away: <?php echo $GameInfo['HomeAway'];
-                 Opponent:           echo $GameInfo['TeamName'];
-                 Date:               echo $GameInfo['GameDate'];
-                 Time:               echo $GameInfo['GameTime']; ?>
+          <div class="align-items-center flex-grow-1 justify-content-center d-flex">
+            <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
+            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo Date.": ".$Game['GameDate']." ";?> <br>
+            <?php echo Time.": ".$Game['GameTime']." ";?> <br>
             </div>
           </div>
-          <div class="bg-success align-items-center flex-grow-1 justify-content-center d-flex">
-            <div>Home or Away: <?php echo $GameInfo['HomeAway'];
-                 Opponent:           echo $GameInfo['TeamName'];
-                 Date:               echo $GameInfo['GameDate'];
-                 Time:               echo $GameInfo['GameTime']; ?>
-            </div>
-          </div>  
-          <div class="bg-success align-items-center flex-grow-1 justify-content-center d-flex">
-            <div>Home or Away: <?php echo $GameInfo['HomeAway'];
-                 Opponent:           echo $GameInfo['TeamName'];
-                 Date:               echo $GameInfo['GameDate'];
-                 Time:               echo $GameInfo['GameTime']; ?>
+          <span class="border-bottom"></span> 
+          <div class="align-items-center flex-grow-1 justify-content-center d-flex">
+            <div> <?php echo HvA.": ".$Game['HomeAway']." "?> <br>
+            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo Date.": ".$Game['GameDate']." ";?> <br>
+            <?php echo Time.": ".$Game['GameTime']." ";?> <br>
             </div>
           </div>
-          <div class="bg-success align-items-center flex-grow-1 justify-content-center d-flex">
-            <div>Home or Away: <?php echo $GameInfo['HomeAway'];
-                 Opponent:           echo $GameInfo['TeamName'];
-                 Date:               echo $GameInfo['GameDate'];
-                 Time:               echo $GameInfo['GameTime']; ?>
+          <span class="border-bottom"></span>
+          <div class="align-items-center flex-grow-1 justify-content-center d-flex">
+            <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
+            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo Date.": ".$Game['GameDate']." ";?> <br>
+            <?php echo Time.": ".$Game['GameTime']." ";?> <br>
             </div>
           </div>
+          <span class="border-bottom"></span>  
+          <div class="align-items-center flex-grow-1 justify-content-center d-flex">
+            <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
+            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo Date.": ".$Game['GameDate']." ";?> <br>
+            <?php echo Time.": ".$Game['GameTime']." ";?> <br>
+            </div>
+          </div>
+          <span class="border-bottom"></span>
+          <div class="align-items-center flex-grow-1 justify-content-center d-flex">
+            <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
+            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo Date.": ".$Game['GameDate']." ";?> <br>
+            <?php echo Time.": ".$Game['GameTime']." ";?> <br>
+            </div>
+          </div>
+        <?php endforeach ?>
     </div>
-    <div class = "col-sm-6 bg-warning">
+    <div class = "col-sm-6">
        <img class="img-fluid" src="images/MMHS_Logo2.jpg" alt="School Logo" >
     </div>
   </div>
