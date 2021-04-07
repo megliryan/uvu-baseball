@@ -1,5 +1,5 @@
 <<<<<<< HEAD:index.php
-<!-- <?php
+<?php
 =======
 <?php
 $title = "MMHS Baseball";
@@ -28,7 +28,7 @@ echo "Connected successfully";
 */
 
 <<<<<<< HEAD:index.html
-?> -->
+?>
 
 <!DOCTYPE html>
 <html lang="en">
