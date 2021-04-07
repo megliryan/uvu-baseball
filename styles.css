@@ -2,8 +2,8 @@ body{
     background-color: #501124;
     color: white;
      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
- overflow: auto;
- overflow-x: hidden;
+    overflow: auto;
+    overflow-x: hidden;
 }
     div.container {
         border: black 2px;
@@ -28,7 +28,16 @@ body{
         margin: 0 auto;
     }
     
-    h1, h2, h3, h4, h5, h6{
+    div.newsbackground {
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 25px; 
+    }
+    h1{
+        font-family: "Calibri";
+        text-align: center;
+        color:#501124;
+    }
+    h2, h3, h4, h5, h6{
         font-family: "Calibri";
         text-align: center;
         color:#501124;

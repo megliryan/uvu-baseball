@@ -14,7 +14,7 @@
 <body>
 
 <!-- NAVIGATION BAR. DO NOT TOUCH. -->
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
   <!-- Brand -->
   <!--<a class="navbar-brand" href="#">Navbar</a>-->
   <div id=MMLogo>
@@ -52,6 +52,7 @@
     </ul>
   </div>
 </nav>
+<br>
 <!-- END OF NAVIGATION BAR. DO NOT TOUCH. -->
 <!-- Select Player: <select name="players" id="players"> -->
  <?php 

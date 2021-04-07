@@ -26,7 +26,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
   <!-- Brand -->
   <!--<a class="navbar-brand" href="#">Navbar</a>-->
   <div id=MMLogo>

@@ -121,7 +121,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Login</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
   <!-- Brand -->
   <!--<a class="navbar-brand" href="#">Navbar</a>-->
   <div id=MMLogo>
@@ -159,6 +159,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </ul>
   </div>
 </nav>
+<br>
     <!-- <?php include('header.php'); ?> -->
     <!-- <?php if(!$logged_in) :?> -->
       <!-- Login Form -->
