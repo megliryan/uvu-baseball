@@ -20,7 +20,7 @@ $root = '/uvu-baseball/';
 </head>
 <body>
   <!--declaration of navigation bar-->
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
   <!-- Brand -->
   <!--<a class="navbar-brand" href="#">Navbar</a>-->
   <div id=MMLogo>
