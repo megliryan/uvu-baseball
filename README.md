@@ -26,9 +26,8 @@ Login page to admin console.
 ### admin.php
 Admin console. Contains calendar and player stat editor.
 
-### config.php and database.php
+### config.php
 Contain database variables for site connectivity.
-(todo: which are we using?)
 
 ### index.php
 Main page of the website.
@@ -55,4 +54,4 @@ Password reset page.
 Displays the schedule for the team.
 
 ### welcome.php
-Login landing page. (to do)
+Login landing page.
