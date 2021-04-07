@@ -1,4 +1,8 @@
 <?php 
+# Special variables for the header:
+  # $title = title of the page
+  # $head = other code that needs to go in <head>
+  # $root = (below) where all the files are stored on the server.
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
@@ -16,7 +20,8 @@ $root = '/uvu-baseball/';
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="<?=$root?>styles.css">
-<title>MMHS Baseball</title>
+<title><?php if (isset($title)) {echo $title;} else {echo 'MMHS Baseball';}?></title>
+<?php if (isset($head)) {echo $head;}?>
 </head>
 <body>
   <!--declaration of navigation bar-->
