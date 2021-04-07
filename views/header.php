@@ -76,3 +76,4 @@ $root = '/uvu-baseball/';
     </ul>
   </div>
 </nav>
+<br>
