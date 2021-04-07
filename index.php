@@ -1,4 +1,9 @@
+<<<<<<< HEAD:index.php
 <!-- <?php
+=======
+<?php
+$title = "MMHS Baseball";
+>>>>>>> 17a4ed5a8208c8fba58ba64a316aa4ed69e714f3:index.php
 /*php reference SQL database for current announcements data
 
 $servername = "localhost";
@@ -22,6 +27,7 @@ echo "Connected successfully";
 
 */
 
+<<<<<<< HEAD:index.html
 ?> -->
 
 <!DOCTYPE html>
@@ -83,6 +89,12 @@ echo "Connected successfully";
   </div>
 </nav>
 <br>
+=======
+
+include('views/header.php');
+?>
+
+>>>>>>> 17a4ed5a8208c8fba58ba64a316aa4ed69e714f3:index.php
 <!--declaration of div Title-->
 <div class="jumbotron">
     <h1>Maple Mountain Baseball</h1>      
@@ -163,5 +175,4 @@ echo "Connected successfully";
   </div>
 </div>
 
-</body>
-</html>
+<?php include('views/footer.php');?>

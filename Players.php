@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,6 +55,12 @@
 </nav>
 <br>
 <!-- END OF NAVIGATION BAR. DO NOT TOUCH. -->
+=======
+<?php 
+$title = "Players";
+include('views/header.php');
+?>
+
 <!-- Select Player: <select name="players" id="players"> -->
  <?php 
 require_once "config.php";
@@ -75,17 +82,4 @@ Select Player: <select name="players">
 
 <img src="images/StatsBar.png" alt="">
 
-
-
-
- 
-
-</body>
-</html>
-
-
-  
-
-  
-
-
+<?php include('views/footer.php');?>
