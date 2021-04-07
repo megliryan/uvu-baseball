@@ -2,10 +2,7 @@
 <html lang="en">
 <?php include('views/header.php');
 require('config.php');
-$query = 'SELECT * 
-            FROM Team   
-              INNER JOIN Schedule 
-                ON team.TeamID = Schedule.TeamID';
+$query = 'SELECT * FROM Schedule';
 $statement = $db->prepare($query);
 $statement->execute();
 //we used fetchAll below because we wanted to return multiple results in an array so we could loop through them
@@ -36,7 +33,7 @@ define("Time","Time");
             ?>
           <div class="align-items-center flex-grow-1 justify-content-center d-flex">
             <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
-            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo OpTeam.": ".$Game['Opponent']." ";?> <br>
             <?php echo Date.": ".$Game['GameDate']." ";?> <br>
             <?php echo Time.": ".$Game['GameTime']." ";?> <br>
             </div>
@@ -44,7 +41,7 @@ define("Time","Time");
           <span class="border-bottom"></span> 
           <div class="align-items-center flex-grow-1 justify-content-center d-flex">
             <div> <?php echo HvA.": ".$Game['HomeAway']." "?> <br>
-            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo OpTeam.": ".$Game['Opponent']." ";?> <br>
             <?php echo Date.": ".$Game['GameDate']." ";?> <br>
             <?php echo Time.": ".$Game['GameTime']." ";?> <br>
             </div>
@@ -52,7 +49,7 @@ define("Time","Time");
           <span class="border-bottom"></span>
           <div class="align-items-center flex-grow-1 justify-content-center d-flex">
             <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
-            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo OpTeam.": ".$Game['Opponent']." ";?> <br>
             <?php echo Date.": ".$Game['GameDate']." ";?> <br>
             <?php echo Time.": ".$Game['GameTime']." ";?> <br>
             </div>
@@ -60,7 +57,7 @@ define("Time","Time");
           <span class="border-bottom"></span>  
           <div class="align-items-center flex-grow-1 justify-content-center d-flex">
             <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
-            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo OpTeam.": ".$Game['Opponent']." ";?> <br>
             <?php echo Date.": ".$Game['GameDate']." ";?> <br>
             <?php echo Time.": ".$Game['GameTime']." ";?> <br>
             </div>
@@ -68,7 +65,7 @@ define("Time","Time");
           <span class="border-bottom"></span>
           <div class="align-items-center flex-grow-1 justify-content-center d-flex">
             <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
-            <?php echo OpTeam.": ".$Game['TeamName']." ";?> <br>
+            <?php echo OpTeam.": ".$Game['Opponent']." ";?> <br>
             <?php echo Date.": ".$Game['GameDate']." ";?> <br>
             <?php echo Time.": ".$Game['GameTime']." ";?> <br>
             </div>

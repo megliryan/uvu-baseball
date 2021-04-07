@@ -1,6 +1,9 @@
 body{
     background-color: #501124;
     color: white;
+     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+ overflow: auto;
+ overflow-x: hidden;
 }
     div.container {
         border: black 2px;
@@ -13,20 +16,6 @@ body{
         margin: 100px auto;
         background-color: white;
     }
-
-    /* div.column {
-        border: solid black 1px;
-        float: left;
-        width: 30%;
-        height: 190px;
-        padding-top: 10px;
-        padding-left: 1px;
-        margin-right: auto;
-        margin-left: auto;
-        background-color: #e9ecef;
-        border-radius: 6px;
-        color: #501124;
-    } */
 
     div.front-page {
         border: black 2px;
@@ -43,6 +32,7 @@ body{
         font-family: "Calibri";
         text-align: center;
         color:#501124;
+        
     }
 
     h1.white {
@@ -58,25 +48,25 @@ body{
         size: 10%;
     }
     
-    /*.jumbotron{
-        color: black;
-        }*/
-    
-    .jumbotron-fluid{
+     .jumbotron-fluid{
         color: black;
         padding-right: 0px;
         padding-left: 0px;
         margin-right: 10px;
         margin-left: 10px;
         border-radius: 6px;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        overflow: auto;
+        overflow-x: hidden;
         
-    }
+    } 
 
     .container-sm{
         padding-left: 10px;
         padding-right: 0px;
         padding-top: 10px;
         padding-bottom: 10px;
+        
     }
 
     .fill-height-schedule{
@@ -103,13 +93,21 @@ body{
         border: black 2px;
     }
 
-    /* form.bottom-column {
-        border: solid black 2px;
-        padding-top: 10px;
-        margin-right: 25px;
-        margin-left: 25px;
-        margin-top: 150px;
-        background-color: #e9ecef;
-        border-radius: 6px;
+    div.right {
+        text-align: right;
+        font-family: "calibri";
+        font-size: 14px;
         color: #501124;
-    } */
+        max-width: none;
+    }
+
+    iframe{
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .col-sm-4{
+        align-items: center;
+    }
+    
+    
