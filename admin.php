@@ -79,7 +79,7 @@ include('views/header.php');
           <form method="POST">
             <h6><b>Livestream URL</b></h6>
             <input type="text" name="livestream" id="livestream"><br>
-            <input type="button" value="Add livestream URL">
+            <input type="submit" value="Add livestream URL">
             </form>
           </div>
 
@@ -100,6 +100,20 @@ global $db;
     $statement->execute();
     $players = $statement->fetchAll();
     $statement->closeCursor();
+
+    if(isset($_POST['calendarSubmit'])){
+      $gameDate = $_POST["gameDate"];
+      $gameTime = $_POST["gameTime"];
+      $opponent = $_POST["opponent"];
+      $homeAway = $_POST["homeAway"];
+      
+      if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
+        echo "Missing required data.";
+      } else {
+        $query = "INSERT INTO statistics (PostDate, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) VALUES ('$gameDate', '$gameTime', '$opponent', '$homeAway')";
+        $db->exec($query);
+      }
+    }
 ?>
 
 <!-- ROW START -->
@@ -159,7 +173,7 @@ global $db;
         <b>SO:</b> <input type="text" name="strike_outs" id="strike_outs" value=$strike_outs><br>
         <b>BB:</b> <input type="text" name="walks" id="walks" value=$walks><br>
         <b>BAA:</b> <input type="text" name="opponent-batting-average" id="opponent-batting-average"><br><br>
-        <button type="submit" class="btn">Submit</button>
+        <button type="submit" name="playerSubmit" class="btn">Submit</button>
       </div>
     </form>
   </div>
