@@ -20,8 +20,10 @@ Select Player: <select name="players">
   <option value="<?php echo $player;?>"> 
   <?php echo $player['PlayerName']; ?> 
   </option> <?php endforeach ?>
-</select>
+</select><br><br>
 
+<div>
 <img src="images/StatsBar.png" alt="">
+</div>
 
 <?php include('views/footer.php');?>

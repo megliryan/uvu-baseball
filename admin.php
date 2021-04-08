@@ -52,12 +52,26 @@ include('views/header.php');
                 <input type="submit" name="calendarSubmit" value="Add to calendar">
             </form>
           </div>
+
+          <?php
+              if(isset($_POST['announcementSubmit'])){
+                $announcement = $_POST["announcement"];
+                
+                if (empty($announcement)){
+                  echo "Missing required data.";
+                } else {
+                  require_once('config.php');
+                  $query2 = "INSERT INTO announcements (Announcement) VALUE ('$announcement')";
+                  $db->exec($query2);
+                }
+              }
+            ?>
         
           <div class="col-sm-4">
             <form method="POST">
-            <h6><b>Announcements</b></h6>
-            <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br>
-            <input type="button" value="Add new announcement">
+              <h6><b>Announcements</b></h6>
+              <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br>
+              <input type="submit" name="announcementSubmit" value="Add new announcement">
             </form> <br>
           </div>
 
