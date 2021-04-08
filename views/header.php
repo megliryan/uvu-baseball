@@ -72,9 +72,16 @@ $root = '/uvu-baseball/';
       </li>
       <?php if ($_SESSION['is_admin']):
         # If previous & the user is an admin, show the manage button.?>
-      <li class="nav-item">
-       <a class="nav-link" href="<?=$root?>admin.php">Manage</a>
-      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Manage
+        </a>
+       <div class="dropdown-menu">
+          <a class="dropdown-item" href="<?=$root?>admin.php">Admin Dashboard</a>
+          <a class="dropdown-item" href="<?=$root?>Register.php">Register User</a>
+          <a class="dropdown-item" href="<?=$root?>adminregister.php">Register Admin</a>
+        </div>
+    </li>
       <?php endif; endif; # Close navbar options.?>
 
     </ul>
