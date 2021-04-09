@@ -25,7 +25,7 @@ include('views/header.php');
     <div class="jumbotron jumbotron-fluid">
       <div class="row">
           <div class="col-sm-4">
-
+            <!-- posts to schedule page-->
             <?php
               if(isset($_POST['calendarSubmit'])){
                 $gameDate = $_POST["gameDate"];
@@ -66,7 +66,7 @@ include('views/header.php');
                 }
               }
             ?>
-        
+          <!--boostrap for boxes/layout-->
           <div class="col-sm-4">
             <form method="POST">
               <h6><b>Announcements</b></h6>
@@ -101,17 +101,35 @@ global $db;
     $players = $statement->fetchAll();
     $statement->closeCursor();
 
-    if(isset($_POST['calendarSubmit'])){
-      $gameDate = $_POST["gameDate"];
-      $gameTime = $_POST["gameTime"];
-      $opponent = $_POST["opponent"];
-      $homeAway = $_POST["homeAway"];
+    if(isset($_POST['playerSubmit'])){
+      $atBats = $_POST["atBats"];
+      $plateAppearances = $_POST["plateAppearances"];
+      $battingAverage = $_POST["battingAverage"];
+      $onBasePercentage = $_POST["onBasePercentage"];
+      $slugging = $_POST["slugging"];
+      $hits = $_POST["hits"];
+      $singles = $_POST["singles"];
+      $doubles = $_POST["doubles"];
+      $triples = $_POST["triples"];
+      $homeruns = $_POST["homeruns"];
+      $runsBattedIn = $_POST["runsBattedIn"];
+      $stolenBases = $_POST["stolenBases"];
+      $caughtStealing = $_POST["caughtStealing"];
+      $inningsPitched = $_POST["inningsPitched"];
+      $wins = $_POST["wins"];
+      $losses = $_POST["losses"];
+      $earnedRunAverage = $_POST["earnedRunAverage"];
+      $whip = $_POST["whip"];
+      $strikeOuts = $_POST["strikeOuts"];
+      $walks = $_POST["walks"];
+      $opponentBattingAverage = $_POST["opponentBattingAverage"];
       
       if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
         echo "Missing required data.";
       } else {
-        $query = "INSERT INTO statistics (PostDate, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) VALUES ('$gameDate', '$gameTime', '$opponent', '$homeAway')";
-        $db->exec($query);
+        $query3 = "INSERT INTO statistics (PostDate, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) 
+        VALUES ('$atBats', '$plateAppearances', '$battingAverage', '$onBasePercentage', '$slugging', '$hits', '$singles', '$doubles', '$triples', '$homeruns', '$runsBattedIn', '$stolenBases', '$caughtStealing', '$inningsPitched', '$wins', '$losses', '$earnedRunAverage', '$whip', '$strikeOuts', '$walks', '$opponentBattingAverage')";
+        $db->exec($query3);
       }
     }
 ?>
@@ -148,31 +166,31 @@ global $db;
     
       <div class= "col-sm-4 right">
         <b>Update Hitting Stats</b><br>
-        <b>AB:</b> <input type="text" name="at-bats" id="at-bats"><br>
-        <b>PA:</b> <input type="text" name="plate-appearances" id="plate-appearances"><br>
-        <b>AVG:</b> <input type="text" name="batting_average" id="batting_average" value=$batting_average><br>
-        <b>OBP:</b> <input type="text" name="on_base_percentage" id="on_base_percentage" value=$on_base_percentage><br>
+        <b>AB:</b> <input type="text" name="atBats" id="atBats"><br>
+        <b>PA:</b> <input type="text" name="plateAppearances" id="plateAppearances"><br>
+        <b>AVG:</b> <input type="text" name="battingAverage" id="battingAverage"><br>
+        <b>OBP:</b> <input type="text" name="onBasePercentage" id="onBasePercentage"><br>
         <b>SLG:</b> <input type="text" name="slugging" id="slugging"><br>
-        <b>H:</b> <input type="text" name="hits" id="hits" value=$hits><br>
-        <b>1B:</b> <input type="text" name="singles" id="singles" value=$singles><br>
-        <b>2B:</b> <input type="text" name="doubles" id="doubles" value=$doubles><br>
-        <b>3B:</b> <input type="text" name="triples" id="triples" value=$triples><br>
-        <b>HR:</b> <input type="text" name="homeruns" id="homeruns" value=$homeruns><br>
-        <b>RBI:</b> <input type="text" name="runs-batted-in" id="runs-batted-in"><br>
-        <b>SB:</b> <input type="text" name="stolen_bases" id="stolen_bases" value=$stolen_bases><br>
-        <b>CS:</b> <input type="text" name="caught-stealing" id="caught-stealing"><br>
+        <b>H:</b> <input type="text" name="hits" id="hits"><br>
+        <b>1B:</b> <input type="text" name="singles" id="singles"><br>
+        <b>2B:</b> <input type="text" name="doubles" id="doubles"><br>
+        <b>3B:</b> <input type="text" name="triples" id="triples"><br>
+        <b>HR:</b> <input type="text" name="homeruns" id="homeruns"><br>
+        <b>RBI:</b> <input type="text" name="runsBattedIn" id="runsBattedIn"><br>
+        <b>SB:</b> <input type="text" name="stolenBases" id="stolenBases"><br>
+        <b>CS:</b> <input type="text" name="caughtStealing" id="caughtStealing"><br>
       </div>
 
       <div class="col-sm-4 right">
         <b>Update Pitching Stats</b><br>
-        <b>IP:</b> <input type="text" name="innings_pitched" id="innings_pitched" value=$innings_pitched><br></h7>
-        <b>W:</b> <input type="text" name="wins" id="wins" value=$wins><br>
-        <b>L:</b> <input type="text" name="losses" id="losses" value=$losses><br>
-        <b>ERA:</b> <input type="text" name="earned_run_average" id="earned_run_average" value=$earned_run_average><br>
-        <b>WHIP:</b> <input type="text" name="whip" id="whip" value=$whip><br>
-        <b>SO:</b> <input type="text" name="strike_outs" id="strike_outs" value=$strike_outs><br>
-        <b>BB:</b> <input type="text" name="walks" id="walks" value=$walks><br>
-        <b>BAA:</b> <input type="text" name="opponent-batting-average" id="opponent-batting-average"><br><br>
+        <b>IP:</b> <input type="text" name="inningsPitched" id="inningsPitched"><br></h7>
+        <b>W:</b> <input type="text" name="wins" id="wins"><br>
+        <b>L:</b> <input type="text" name="losses" id="losses"><br>
+        <b>ERA:</b> <input type="text" name="earnedRunAverage" id="earnedRunAverage"><br>
+        <b>WHIP:</b> <input type="text" name="whip" id="whip"><br>
+        <b>SO:</b> <input type="text" name="strikeOuts" id="strikeOuts"><br>
+        <b>BB:</b> <input type="text" name="walks" id="walks"><br>
+        <b>BAA:</b> <input type="text" name="opponentBattingAverage" id="opponentBattingAverage"><br><br>
         <button type="submit" name="playerSubmit" class="btn">Submit</button>
       </div>
     </form>
