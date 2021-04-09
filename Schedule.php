@@ -39,37 +39,6 @@ define("Time","Time");
             </div>
           </div>
           <span class="border-bottom"></span> 
-          <div class="align-items-center flex-grow-1 justify-content-center d-flex">
-            <div> <?php echo HvA.": ".$Game['HomeAway']." "?> <br>
-            <?php echo OpTeam.": ".$Game['Opponent']." ";?> <br>
-            <?php echo Date.": ".$Game['GameDate']." ";?> <br>
-            <?php echo Time.": ".$Game['GameTime']." ";?> <br>
-            </div>
-          </div>
-          <span class="border-bottom"></span>
-          <div class="align-items-center flex-grow-1 justify-content-center d-flex">
-            <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
-            <?php echo OpTeam.": ".$Game['Opponent']." ";?> <br>
-            <?php echo Date.": ".$Game['GameDate']." ";?> <br>
-            <?php echo Time.": ".$Game['GameTime']." ";?> <br>
-            </div>
-          </div>
-          <span class="border-bottom"></span>  
-          <div class="align-items-center flex-grow-1 justify-content-center d-flex">
-            <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
-            <?php echo OpTeam.": ".$Game['Opponent']." ";?> <br>
-            <?php echo Date.": ".$Game['GameDate']." ";?> <br>
-            <?php echo Time.": ".$Game['GameTime']." ";?> <br>
-            </div>
-          </div>
-          <span class="border-bottom"></span>
-          <div class="align-items-center flex-grow-1 justify-content-center d-flex">
-            <div><?php echo HvA.": ".$Game['HomeAway']." "?> <br>
-            <?php echo OpTeam.": ".$Game['Opponent']." ";?> <br>
-            <?php echo Date.": ".$Game['GameDate']." ";?> <br>
-            <?php echo Time.": ".$Game['GameTime']." ";?> <br>
-            </div>
-          </div>
         <?php endforeach ?>
     </div>
     <div class = "col-sm-6">
