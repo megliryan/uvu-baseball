@@ -49,7 +49,7 @@ include('views/header.php');
                 <input type="text" name="gameTime" id="gameTime" placeholder="Game Time">
                 <input type="text" name="opponent" id="opponent" placeholder="Opponent">
                 <input type="text" name="homeAway" id="homeAway" placeholder="Home or Away"><br>
-                <input type="submit" name="calendarSubmit" value="Add to calendar">
+                <input type="submit" class="btn" name="calendarSubmit" value="Add to calendar">
             </form>
           </div>
 
@@ -71,7 +71,7 @@ include('views/header.php');
             <form method="POST">
               <h6><b>Announcements</b></h6>
               <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br>
-              <input type="submit" name="announcementSubmit" value="Add new announcement">
+              <input type="submit" class="btn" name="announcementSubmit" value="Add new announcement">
             </form> <br>
           </div>
 
@@ -79,7 +79,7 @@ include('views/header.php');
           <form method="POST">
             <h6><b>Livestream URL</b></h6>
             <input type="text" name="livestream" id="livestream"><br>
-            <input type="submit" value="Add livestream URL">
+            <input type="submit" class="btn" value="Add livestream URL">
             </form>
           </div>
 
@@ -102,6 +102,11 @@ global $db;
     $statement->closeCursor();
 
     if(isset($_POST['playerSubmit'])){
+      $playerName = $_POST["playerName"];
+      $playerNumber = $_POST["playerNumber"];
+      $playerPosition = $_POST["playerPosition"];
+      $playerYear = $_POST["playerYear"];
+
       $atBats = $_POST["atBats"];
       $plateAppearances = $_POST["plateAppearances"];
       $battingAverage = $_POST["battingAverage"];
@@ -124,12 +129,14 @@ global $db;
       $walks = $_POST["walks"];
       $opponentBattingAverage = $_POST["opponentBattingAverage"];
       
-      if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
+      if (empty($atBats) || empty($plateAppearances) || empty($battingAverage) || empty($onBasePercentage) || empty($slugging) || empty($hits) || empty($singles) || empty($doubles) || empty($triples) || empty($homeruns) || empty($runsBattedIn) || empty($stolenBases) || empty($caughtStealing) || empty($inningsPitched) || empty($wins) || empty($losses) || empty($earnedRunAverage) || empty($whip) || empty($strikeOuts) || empty($walks) || empty($opponentBattingAverage || empty($playerName) || empty($playerNumber) || empty($playerPosition) || empty($playerYear))){
         echo "Missing required data.";
       } else {
-        $query3 = "INSERT INTO statistics (PostDate, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) 
-        VALUES ('$atBats', '$plateAppearances', '$battingAverage', '$onBasePercentage', '$slugging', '$hits', '$singles', '$doubles', '$triples', '$homeruns', '$runsBattedIn', '$stolenBases', '$caughtStealing', '$inningsPitched', '$wins', '$losses', '$earnedRunAverage', '$whip', '$strikeOuts', '$walks', '$opponentBattingAverage')";
+        require_once('config.php');
+        $query3 = "INSERT INTO stats (AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) VALUES ('$atBats', '$plateAppearances', '$battingAverage', '$onBasePercentage', '$slugging', '$hits', '$singles', '$doubles', '$triples', '$homeruns', '$runsBattedIn', '$stolenBases', '$caughtStealing', '$inningsPitched', '$wins', '$losses', '$earnedRunAverage', '$whip', '$strikeOuts', '$walks', '$opponentBattingAverage')";
+        $query4 = "INSERT INTO players (playerName, playerNumber, playerPosition, playerYear) VALUES ('$playerName', '$playerNumber', '$playerPosition', '$playerYear')";
         $db->exec($query3);
+        $db->exec($query4);
       }
     }
 ?>
@@ -152,15 +159,12 @@ global $db;
           <!-- display a button only if user is logged in  (will need to redirect to forms page)-->
           <form action="PlayersPics.php" method="POST" enctype="multipart/form-data">
             <input type="file" name="file">
-          </form><br>
+          <!-- </form><br> -->
           <!-- user input and save/cancel buttons-->
-          <label for="playersName"><b>Name:</b></label>
-          <input type="text" placeholder="Enter Name" name="playersName" required><br>
-          <label for="playersYear"><b>Year:</b></label>
-          <input type="text" placeholder="Enter Year" name="playersYear" required><br>
-          <label for="playersPosition"><b>Position:</b></label>
-          <input type="text" placeholder="Enter Position" name="playersPosition" required><br>
-          <b>School Year:</b> <input type="text" name="school_year" id="school_year" value=$school_year><br><br>
+          <b>Name: </b><input type="text" placeholder="Enter Name" name="playerName" required><br>
+          <b>Number: </b><input type="text" placeholder="Enter Number" name="playerNumber" required><br>
+          <b>Position: </b><input type="text" placeholder="Enter Position" name="playerPosition" required><br>
+          <b>School Year: </b> <input type="text" placeholder="Enter Year" name="playerYear" id="playerYear"><br><br>
         </div>
       </div>
     
@@ -191,8 +195,8 @@ global $db;
         <b>SO:</b> <input type="text" name="strikeOuts" id="strikeOuts"><br>
         <b>BB:</b> <input type="text" name="walks" id="walks"><br>
         <b>BAA:</b> <input type="text" name="opponentBattingAverage" id="opponentBattingAverage"><br><br>
-        <button type="submit" name="playerSubmit" class="btn">Submit</button>
       </div>
+      <input type="submit" name="playerSubmit" class="btn" value="Add Player">
     </form>
   </div>
 </div>
