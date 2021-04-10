@@ -142,7 +142,7 @@ global $db;
         require_once('config.php');
         $query3 = "INSERT INTO stats (AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         // Parameters to be added in the 'execute' step.
-        $query4 = "INSERT INTO players (playerName, playerNumber, playerPosition, playerYear) VALUES ('$playerName', '$playerNumber', '$playerPosition', '$playerYear')";
+        $query4 = "INSERT INTO players (playerName, playerNumber, playerPosition, playerYear) VALUES (:playerName, :playerNumber, :playerPosition, :layerYear)";
         $stmt3 = $db->prepare($query3);
         
         // Doing this a different way: I'm not writing 21 lines.
