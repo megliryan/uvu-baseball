@@ -27,17 +27,9 @@ include('views/header.php');
 ?>
 
 <!--declaration of div Title-->
-<div class="row">
-<div class="col-sm-3">
-<!-- ad image 1-->
-</div>
 <div class="jumbotron">
     <h1>Maple Mountain Baseball</h1>      
     <h3>Welcome to the mountain!</h3>
-</div>
-<div class="col-sm-3">
-<!-- ad image 2-->
-</div>
 </div>
 
 <style>
