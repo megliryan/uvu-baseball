@@ -37,8 +37,13 @@ include('views/header.php');
                   echo "Missing required data.";
                 } else {
                   require_once('config.php');
-                  $query = "INSERT INTO schedule (GameDate, GameTime, Opponent, HomeAway) VALUES ('$gameDate', '$gameTime', '$opponent', '$homeAway')";
-                  $db->exec($query);
+                  $query = "INSERT INTO schedule (GameDate, GameTime, Opponent, HomeAway) VALUES (:gameDate, :gameTime, :opponent, :homeAway)";
+                  $stmt = $db->prepare($query);
+                  $stmt->bindParam(':gameDate', $gameDate);
+                  $stmt->bindParam(':gameTime', $gameTime);
+                  $stmt->bindParam(':opponent', $opponent);
+                  $stmt->bindParam(':homeAway', $homeAway);
+                  $stmt->execute();
                 }
               }
             ?>
@@ -61,18 +66,24 @@ include('views/header.php');
                   echo "Missing required data.";
                 } else {
                   require_once('config.php');
-                  $query2 = "INSERT INTO announcements (Announcement) VALUE ('$announcement')";
-                  $db->exec($query2);
+                  $query2 = "INSERT INTO announcements (Announcement) VALUE (:announcement)";
+                  $stmt2 = $db->prepare($query2);
+                  $stmt2->bindParam(':announcement', $announcement);
+                  $stmt2->execute();
                 }
               }
             ?>
           <!--boostrap for boxes/layout-->
           <div class="col-sm-4">
             <form method="POST">
-              <h6><b>Announcements</b></h6>
+              <h6><b>Announcement heading</b></h6>
               <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br>
               <input type="submit" class="btn" name="announcementSubmit" value="Add new announcement">
-            </form> <br>
+            </form> <br
+            <h6><b>Announcement body</b></h6>
+              <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br>
+              <input type="submit" class="btn" name="announcementSubmit" value="Add new announcement">
+            </form>
           </div>
 
           <div class="col-sm-4">
@@ -133,10 +144,21 @@ global $db;
         echo "Missing required data.";
       } else {
         require_once('config.php');
-        $query3 = "INSERT INTO stats (AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) VALUES ('$atBats', '$plateAppearances', '$battingAverage', '$onBasePercentage', '$slugging', '$hits', '$singles', '$doubles', '$triples', '$homeruns', '$runsBattedIn', '$stolenBases', '$caughtStealing', '$inningsPitched', '$wins', '$losses', '$earnedRunAverage', '$whip', '$strikeOuts', '$walks', '$opponentBattingAverage')";
-        $query4 = "INSERT INTO players (playerName, playerNumber, playerPosition, playerYear) VALUES ('$playerName', '$playerNumber', '$playerPosition', '$playerYear')";
-        $db->exec($query3);
-        $db->exec($query4);
+        $query3 = "INSERT INTO stats (AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // Parameters to be added in the 'execute' step.
+        $query4 = "INSERT INTO players (playerName, playerNumber, playerPosition, playerYear) VALUES (:playerName, :playerNumber, :playerPosition, :layerYear)";
+        $stmt3 = $db->prepare($query3);
+        
+        // Doing this a different way: I'm not writing 21 lines.
+        $stmt3->execute([$atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
+        
+        $stmt4 = $db->prepare($query4);
+        // Chose the way I was taught for readability.
+        $stmt4->bindParam(':playerName', $playerName);
+        $stmt4->bindParam(':playerNumber', $playerNumber);
+        $stmt4->bindParam(':playerPosition', $playerPosition);
+        $stmt4->bindParam(':playerYear', $playerYear);
+        $stmt4->execute();
       }
     }
 ?>

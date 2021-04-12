@@ -50,7 +50,7 @@ include('views/header.php');
   </ul>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="images\Team_Photo.jpg" alt="Team_Photo" width="900" height="300">
+      <img src="images\Team_Photo.jpg" alt="Team_Photo" width="900" height="250">
     
       <div class="carousel-caption">
         <div class="newsbackground">
@@ -60,7 +60,7 @@ include('views/header.php');
     </div>  
   </div>
     <div class="carousel-item">
-      <img src="images\swing.jpg" alt="Swing" width="900" height="300">
+      <img src="images\swing.jpg" alt="Swing" width="900" height="250">
       <div class="carousel-caption">
         <div class="newsbackground">
         <h1>MMHS beats Provo</h1>
@@ -69,7 +69,7 @@ include('views/header.php');
       </div>   
     </div>
     <div class="carousel-item">
-      <img src="images\thumbs_up.jpg" alt="New York" width="900" height="300">
+      <img src="images\thumbs_up.jpg" alt="New York" width="900" height="250">
       <div class="carousel-caption">
         <div class="newsbackground">
         <h1>Team approves of new website</h1>

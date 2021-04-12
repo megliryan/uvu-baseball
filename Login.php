@@ -128,10 +128,11 @@ include('views/header.php');
         <a href="logout.php">Click to logout</a>
         </div>
     <?php endif; ?> -->
+<div class="jumbotron shadow-lg w-25 mx-auto container-md">
     <div class="wrapper">
         <h2>Login</h2>
-        <p class="white-text">Please fill in your credentials to login.</p>
-
+        <br>
+        
         <?php 
         if(!empty($login_err)){
             echo '<div class="alert alert-danger">' . $login_err . '</div>';
@@ -139,21 +140,24 @@ include('views/header.php');
         ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
+            <div class="form-group w-100 mx-auto">
+                <p class="text-dark">Username</p>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>    
-            <div class="form-group">
-                <label>Password</label>
+            <div class="form-group w-100 mx-auto">
+                <p class="text-dark">Password</p>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
+            <br>
+            <div class="form-group w-100 mx-auto">
+                <input type="submit" class="btn btn-primary w-100 shadow-lg" value="Login">
             </div>
         </form>
-        <div class="white-text">Admin? <button><a href="admin-login.php">Click here!</a></button>
+        <div class=" w-100 mx-auto">
+        <p class="text-dark" "text-center"> Admin?  <button><a href="admin-login.php">Click here!</a></button></p>
         </div>
     </div>
+</div>
 <?php include('views/footer.php');?>
