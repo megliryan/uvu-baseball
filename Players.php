@@ -22,7 +22,7 @@ include('views/header.php');
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="styles.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet" crossorigin="anonymous">
 
     <title>MAPLE MOUNTAIN BASEBALL</title>
   </head>
@@ -41,33 +41,39 @@ include('views/header.php');
           $players = $statement->fetchAll();
           $statement->closeCursor();
       ?>
+ 
+        Select Player: <select name="players">
+          <?php foreach ($players as $player): ?> 
+          <option value="<?php echo $player;?>"> 
+          <?php echo $player['PlayerName']; ?> 
+          </option> <?php endforeach ?>
+        </select><br><br>
+        <input type="submit">
 
-      Select Player: <select name="players">
-        <?php foreach ($players as $player): ?> 
-        <option value="<?php echo $player;?>"> 
-        <?php echo $player['PlayerName']; ?> 
-        </option> <?php endforeach ?>
-      </select><br><br>
 
-      <?
-      if($players == TRUE){
-        $playersName = $_POST["playersName"];
-        $playersYear = $_POST["playersYear"];
-        $playersPosition = $_POST["playersPosition"];
-      }
-      if(empty($playersName) || empty($playersPosition) || empty($playersYear)){
-        echo "Missing information";
-      } else {
-        require_once('config.php');
-        $query = "INSERT INTO players (PlayersName, PlayersPosition, PlayersYear) VALUES ('$playersName', '$playersPosition', '$playersYear')";
-        $db->exec($query);
-      }
-      ?>
+        <?
+          while($row = mysql_fetch_array($statement, MYSQL_ASSOC)){
+            $name = $row['PlayerName'];
+            $position = $row['PlayerPosition'];
+            $year = $row['playerYear'];
 
-      <form method="post">
-      <input type="text" name="playersName" id="playersName" placeholder="Players name">
+            echo" <div style='margin:30px 0px;'>
+            Name: $name<br />
+            Position: $position<br />
+            Year: $year 
+            </div>
+            ";
+          }
+          //https://www.inmotionhosting.com/support/website/grab-all-comments-from-database/
+          //https://www.sitepoint.com/community/t/passing-two-values-using-one-submit-button/34209
+        ?>
+
+
+
+
+
+
       
-      </form>
 
 
 
