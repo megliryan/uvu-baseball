@@ -2,6 +2,7 @@
 $title = "Welcome";
 // Initialize the session
 session_start();
+require('config.php');
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || !$_SESSION['is_admin']){
@@ -16,6 +17,44 @@ background-color: #501124;
 color: white;
 }
 </style>';
+
+$action = filter_input(INPUT_POST, 'action');
+if ($action == null) {
+  $action = filter_input(INPUT_GET, 'action');
+  if ($action == null) {
+    $action = 'view';
+  }
+}
+
+$livestream_msg = '';
+// Matches a youtube watch URL
+if ($action == 'livestream_edit') {
+  $link = filter_input(INPUT_POST, 'livestream');
+  if (!$link) {
+    $livestream_msg = 'Must enter a video URL!';
+  } else {
+    // Try to regex match the video link.
+    $youtube_regex = '/^https:\/\/www.youtube.com\/watch\?v=(.{11})$/';
+    if (preg_match($youtube_regex, $link, $matches)) {
+      // The entry is indeed a youtube link
+      $video_id = $matches[1];
+      // Clear the livestream table (we only want 1)
+      // No need to sanitize at this point.
+      $db->query('DELETE FROM livestream;');
+      $query = 'INSERT INTO livestream (url) values (:video_id);';
+      $stmt = $db->prepare($query);
+      $stmt->bindParam(':video_id', $video_id);
+      $stmt->execute();
+      if ($stmt->rowCount()) {
+        $livestream_msg = "Video changed successfully!";
+      } else {
+        $livestream_msg = "Error changing video.";
+      }
+    } else {
+      $livestream_msg = "Must be a YouTube 'watch' URL!";
+    }
+  }
+}
 
 include('views/header.php');
 ?>
@@ -88,9 +127,11 @@ include('views/header.php');
 
           <div class="col-sm-4">
           <form method="POST">
-            <h6><b>Livestream URL</b></h6>
-            <input type="text" name="livestream" id="livestream"><br>
+            <h6><b>Livestream Video URL</b></h6>
+            <input type="hidden" name="action" value="livestream_edit">
+            <input type="text" name="livestream" id="livestream" placeholder="https://www.youtube.com/watch?v=..."><br>
             <input type="submit" class="btn" value="Add livestream URL">
+            <?=$livestream_msg?>
             </form>
           </div>
 
