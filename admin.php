@@ -27,13 +27,14 @@ if ($action == null) {
 }
 
 $livestream_msg = '';
-// Matches a youtube watch URL
+// Edits the livestream video.
 if ($action == 'livestream_edit') {
   $link = filter_input(INPUT_POST, 'livestream');
   if (!$link) {
     $livestream_msg = 'Must enter a video URL!';
   } else {
     // Try to regex match the video link.
+    // Matches a youtube watch URL
     $youtube_regex = '/^https:\/\/www.youtube.com\/watch\?v=(.{11})$/';
     if (preg_match($youtube_regex, $link, $matches)) {
       // The entry is indeed a youtube link
