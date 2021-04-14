@@ -1,6 +1,51 @@
 <?php 
-$title = "Players";
+$title = "Roster";
 include('views/header.php');
+require_once('config.php');
+
+$action = filter_input(INPUT_POST, 'action');
+if ($action == null) {
+  $action = filter_input(INPUT_GET, 'action');
+  if ($action == null) {
+    $action = 'list';
+  }
+}
+
+$message = '';
+// If a player is selected to view
+if ($action == 'view_player') {
+  $player_id = filter_input(INPUT_POST, 'player');
+
+  $query = 'SELECT * FROM Players WHERE PlayerID = :player_id';
+  $stmt = $db->prepare($query);
+  $stmt->bindParam(':player_id', $player_id);
+  $stmt->execute();
+  if ($stmt->rowCount()) {
+    $viewplayer = $stmt->fetch();
+
+    // Get player photo.
+    $query2 = 'SELECT ImagePath FROM PlayerPhoto WHERE PlayerID = :player_id';
+    $stmt2 = $db->prepare($query);
+    $stmt2->bindParam(':player_id', $player_id);
+    $stmt2->execute();
+    $photo_link = $stmt2->fetch();
+    $stmt2->closeCursor();
+    // photo_link is an array that holds the image path. (Not sure how to use it though.)
+
+  } else {
+    $message = '<strong>Error!</strong> Player not found in the database!';
+  }
+  $stmt->closeCursor();
+}
+
+// Get all players for the dropdown box.
+$query = 'SELECT * FROM players';
+$statement = $db->prepare($query);
+$statement->execute();
+$players = $statement->fetchAll();
+$statement->closeCursor();
+
+
 
 ?>
 
@@ -14,72 +59,43 @@ include('views/header.php');
 
 <!--chads section -->
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="styles.css" rel="stylesheet" crossorigin="anonymous">
+<div class="jumbotron">
+  <h1>Roster</h1>      
+  <h4></h4>
+</div>
 
-    <title>MAPLE MOUNTAIN BASEBALL</title>
-  </head>
-  <body>
-    <h1>PLAYERS</h1>
-    <div class="container-fluid">
+<div class="container-fluid">
 
-      <!-- Select Player database: <select name="players" id="players"> -->
+    <?php if ($message): ?>
+      <div class="alert alert-danger"><?=$message?></div>
+    <?php endif?>
+
+    <form action="Players.php" method="POST">
+      <input type="hidden" name="action" value="view_player" class="form-inline">
+    Select Player: <select name="player">
+      <?php foreach ($players as $player): ?> 
+      <option value="<?php echo $player['PlayerID'];?>"> 
+        <?php echo $player['PlayerName']; ?> 
+      </option> <?php endforeach ?>
+      </select>
+      <input type="submit" value="Go" class="btn btn-light">
+    </form>
+
       <?php 
-      require_once "config.php";
-
-      global $db;
-          $query = 'SELECT * FROM players';
-          $statement = $db->prepare($query);
-          $statement->execute();
-          $players = $statement->fetchAll();
-          $statement->closeCursor();
-      ?>
- 
-        Select Player: <select name="players">
-          <?php foreach ($players as $player): ?> 
-          <option value="<?php echo $player;?>"> 
-          <?php echo $player['PlayerName']; ?> 
-          </option> <?php endforeach ?>
-        </select><br><br>
-        <input type="submit">
-
-
-        <?
-          while($row = mysql_fetch_array($statement, MYSQL_ASSOC)){
-            $name = $row['PlayerName'];
-            $position = $row['PlayerPosition'];
-            $year = $row['playerYear'];
-
-            echo" <div style='margin:30px 0px;'>
-            Name: $name<br />
-            Position: $position<br />
-            Year: $year 
-            </div>
-            ";
-          }
-          //https://www.inmotionhosting.com/support/website/grab-all-comments-from-database/
-          //https://www.sitepoint.com/community/t/passing-two-values-using-one-submit-button/34209
-        ?>
-
-
-
-
-
-
+        // If a player was selected, view the player.
+        if ($action == 'view_player' and isset($viewplayer)) { 
+          // TODO: Make this look prettier, add photo ?>
       
+      Name: <?=$viewplayer['PlayerName']?><br>
+      Year: <?=$viewplayer['playerYear']?><br>
+      Number: <?=$viewplayer['playerNumber']?><br>
+      Position: <?=$viewplayer['PlayerPosition']?><br>
+      <?php  }
 
+      ?>
+    </select><br><br>
 
-
-    </div>
-  </body>
-</html>
-
+</div>
 
 <?php include('views/footer.php');?>
