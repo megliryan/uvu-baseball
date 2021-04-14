@@ -1,5 +1,6 @@
 <?php
 $title = "MMHS Baseball";
+require('config.php');
 /*php reference SQL database for current announcements data
 
 $servername = "localhost";
@@ -22,6 +23,15 @@ echo "Connected successfully";
 /*php Firebase alternate declaration
 
 */
+
+// Get livestream URL
+$query = 'SELECT * FROM livestream;';
+$stmt = $db->prepare($query);
+$stmt->execute();
+$video_url = $stmt->fetch()['url'];
+$stmt->closeCursor();
+
+
 
 include('views/header.php');
 ?>
@@ -101,7 +111,7 @@ include('views/header.php');
       code:-g. for Ahg6qcgoay4 it will be : */
       <object width="425" height="350" data="http://www.youtube.com/v/Ahg6qcgoay4" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/Ahg6qcgoay4" /></object> -->
       
-      <iframe width="90%" height="600" src="https://www.youtube.com/embed/I0xDkNMrJqw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="90%" height="600" src="https://www.youtube.com/embed/<?=$video_url?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
   </div>
 </div>
