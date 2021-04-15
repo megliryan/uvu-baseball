@@ -43,6 +43,21 @@ define("Time","Time");
     </div>
     <div class = "col-sm-6">
        <img class="img-fluid" src="images/MMHS_Logo2.jpg" alt="School Logo" >
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <div class="text-center">
+        <form action="post" type="button" value="AddGameSchedule" class="btn btn-light">Add</form>
+        <form action="post" type="button" value="DeleteGameFromSchedule" class="btn btn-danger">Delete</form>
+       </div>   
     </div>
   </div>
 </div>

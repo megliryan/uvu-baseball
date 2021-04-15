@@ -188,7 +188,7 @@ global $db;
         require_once('config.php');
         $query3 = "INSERT INTO stats (AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         // Parameters to be added in the 'execute' step.
-        $query4 = "INSERT INTO players (playerName, playerNumber, playerPosition, playerYear) VALUES (:playerName, :playerNumber, :playerPosition, :layerYear)";
+        $query4 = "INSERT INTO players (PlayerName, playerNumber, PlayerPosition, playerYear) VALUES (:playerName, :playerNumber, :playerPosition, :playerYear)";
         $stmt3 = $db->prepare($query3);
         
         // Doing this a different way: I'm not writing 21 lines.
@@ -203,6 +203,13 @@ global $db;
         $stmt4->execute();
       }
     }
+
+    if (isset($_POST['upload'])) {
+      $playerPic = $_FILES["uploadfile"]["name"];
+      $folder = "PlayersPics/".$playerPic;
+      $query5 = "INSERT INTO playerphoto (ImagePath) VALUES ('$playerPic')";
+      $db->exec($query5);
+    }
 ?>
 
 <!-- ROW START -->
@@ -211,18 +218,13 @@ global $db;
     <form class=".container-fluid" method="POST">
       
       <div class="col-sm-4 right">
-        <b>Choose/add player: </b><select name="players"><br>
-          <?php foreach ($players as $player): ?> 
-          <option value="<?php echo $player;?>"> 
-            <?php echo $player['PlayerName'];?>
-          </option> <?php endforeach ?>
-        </select><br>
+        <b>Choose/add player: </b><br>
         <div id="playersForm">
-        <!-- <form action="/action_page.php" class="form-container"> -->
+        <form method="POST" class="form-container" enctype="multipart/form-data">
           <link rel="stylesheet" href="popupStyles.css">
           <!-- display a button only if user is logged in  (will need to redirect to forms page)-->
-          <form action="PlayersPics.php" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file">
+          <!-- <form action="PlayersPics.php" method="POST" enctype="multipart/form-data"> -->
+          <input type="file" name="uploadfile">
           <!-- </form><br> -->
           <!-- user input and save/cancel buttons-->
           <b>Name: </b><input type="text" placeholder="Enter Name" name="playerName" required><br>
@@ -260,7 +262,7 @@ global $db;
         <b>BB:</b> <input type="text" name="walks" id="walks"><br>
         <b>BAA:</b> <input type="text" name="opponentBattingAverage" id="opponentBattingAverage"><br><br>
       </div>
-      <input type="submit" name="playerSubmit" class="btn" value="Add Player">
+      <input type="submit" name="playerSubmit" class="btn" value="Add Player" name="upload">
     </form>
   </div>
 </div>
