@@ -31,6 +31,8 @@ $statement->closeCursor();
 
 <?php foreach($players as $player):?>
 <div>
+echo '<img src="' . $friendsid->picture->data->url . '">';
+
 Name: <?=$player['PlayerName']?><br>
 Year: <?=$player['playerYear']?><br>
 Number: <?=$player['playerNumber']?><br>
