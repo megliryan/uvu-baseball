@@ -39,7 +39,7 @@ to do
 ### logout.php
 Logs out of the session and redirects to index.
 
-### Players.php
+### Roster.php
 Roster for the team.
 
 ### PlayersPics.php

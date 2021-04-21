@@ -48,16 +48,24 @@ define("Time","Time");
        <br>
        <br>
        <br>
-       <br>
-       <br>
        <div class="text-center"><h1 style="color:white">Change The Schedule</h1></div>
        <br>
        <br>
        <br>
        <br>
-       <div class="text-center">
-       <form action="post" type="button" value="AddGameSchedule" class="btn btn-light" >Add</form>
-       <form action="post" type="button" value="DeleteGameFromSchedule" class="btn btn-danger">Delete</form>
+       <div class="text-center btn-link">
+       <form method="post" value="AddCalendarEvent">
+         <button style="padding: 10px;">
+            <a href="admin.php">Add a calendar event</a>
+         </button>
+       </form>
+       </div>
+       <div class="text-center btn-link">
+       <form action="post" value="DeleteCalendarEvent">
+        <button style="padding: 10px; margin:50px;">
+            <a href="admin.php">Delete a calendar event</a> 
+        </button>
+       </form>
        </div>   
     </div>
   </div>

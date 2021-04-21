@@ -53,7 +53,7 @@ $root = '/uvu-baseball/';
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="<?=$root?>Players.php">Roster</a>
+        <a class="nav-link" href="<?=$root?>Roster.php">Roster</a>
       </li>
 
       <li class="nav-item">

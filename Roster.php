@@ -31,11 +31,16 @@ $statement->closeCursor();
 
 <?php foreach($players as $player):?>
 <div>
-echo '<img src="' . $friendsid->picture->data->url . '">';
+
+<?php
+$result = $player['ImagePath'];
+$filename = "PlayersPics/".$result;
+?>
+<img src="<?php echo $filename?>"><br>
 
 Name: <?=$player['PlayerName']?><br>
-Year: <?=$player['playerYear']?><br>
-Number: <?=$player['playerNumber']?><br>
+Year: <?=$player['PlayerYear']?><br>
+Number: <?=$player['PlayerNumber']?><br>
 Position: <?=$player['PlayerPosition']?><br><br><br>
 </div>
 <?php endforeach ?>

@@ -156,7 +156,7 @@ include('views/header.php');
             </div>
         </form>
         <div class=" w-100 mx-auto">
-        <p class="text-dark" "text-center"> Admin?  <button><a href="admin-login.php">Click here!</a></button></p>
+        <p class="text-dark" "text-center"> Admin? <a href="admin-login.php">Click here!</a></p>
         </div>
     </div>
 </div>

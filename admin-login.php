@@ -87,6 +87,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Close connection
     //mysqli_close($link);
 }
+
+include('views/header.php');
 ?>
 
 <!DOCTYPE html>
@@ -127,7 +129,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </li>
 
         <li class="nav-item">
-        <a class="nav-link" href="Players.php">Roster</a>
+        <a class="nav-link" href="Roster.php">Roster</a>
         </li>
 
         <li class="nav-item">
@@ -161,9 +163,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <a href="logout.php">Click to logout</a>
         </div>
     <?php endif; ?> -->
+    <div class="jumbotron shadow-lg w-25 mx-auto container-md">
     <div class="wrapper">
+    
         <h2>Login</h2>
-        <p class="white-text">Please fill in your credentials to login.</p>
+        <br>
 
         <?php 
         if(!empty($login_err)){
@@ -172,20 +176,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Admin Username</label>
+            <div class="form-group w-100 mx-auto">
+                <p class="text-dark">Username</p>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>    
-            <div class="form-group">
-                <label>Admin Password</label>
+            <div class="form-group w-100 mx-auto">
+                <p class="text-dark">Password</p>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
+            <br>
+            <div class="form-group w-100 mx-auto">
+                <input type="submit" class="btn btn-primary w-100 shadow-lg" value="Login">
             </div>
+            
         </form>
+        <div class=" w-100 mx-auto">
+        <p class="text-dark" "text-center"> User?  <a href="Login.php">Click here!</a></p>
+        </div>
+    </div>
     </div>
 </body>
 </html>

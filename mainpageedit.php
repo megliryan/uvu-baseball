@@ -59,7 +59,7 @@ echo "Connected successfully";
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="Players.php">Roster</a>
+        <a class="nav-link" href="Roster.php">Roster</a>
       </li>
 
       <li class="nav-item">
