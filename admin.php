@@ -149,8 +149,6 @@ include('views/header.php');
     <!-- END FULL ROW -->
 
 <!-- section bellow is for uploading and displaying players info
-https://www.w3schools.com/howto/howto_js_popup_form.asp-->
-
 
 <?php 
 require_once "config.php";
@@ -220,14 +218,6 @@ global $db;
         }
       }
     }
-
-    // if (isset($_POST['upload'])) {
-    //   $playerPic = $_POST["uploadfile"];
-    //   $folder = "PlayersPics/".$playerPic;
-    //   $query5 = "INSERT INTO playerphoto (ImagePath) VALUES ($playerPic)";
-    //   $stmt = $db->prepare($query5);
-    //   $stmt->execute($query5);
-
 ?>
 
 <!-- ROW START -->
