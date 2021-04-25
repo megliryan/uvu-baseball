@@ -6,7 +6,7 @@ require('config.php');
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || !$_SESSION['is_admin']){
-    header("location: admin-login.php");
+    header("location: login.php");
     exit;
 }
 
@@ -148,8 +148,38 @@ include('views/header.php');
             <input type="text" name="livestream" id="livestream" placeholder="https://www.youtube.com/watch?v=..."><br>
             <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" value="Add livestream URL">
             <?=$livestream_msg?>
+            </form><br>
+
+            <?php
+              if(isset($_POST['videoSubmit'])){
+                $filenameVideo = $_FILES["uploadfile"]["name"];
+                $tempnameVideo = $_FILES["uploadfile"]["tmp_name"];
+                $folder = "PlayerVideos/".$filenameVideo;
+                
+                if (empty($filenameVideo)){
+                  echo "Missing required data.";
+                } else {
+                  require_once('config.php');
+                  $videoQuery = "INSERT INTO videos (VideoPath) VALUE (?)";
+                  $stmt2 = $db->prepare($videoQuery);
+                  $stmt2->execute([$filenameVideo]);
+
+                  if (move_uploaded_file($tempnameVideo, $folder))  {
+                    $msg = "Video uploaded successfully";
+                  } else{
+                    $msg = "Failed to upload video";
+              }
+                }
+              }
+            ?>
+          <!--boostrap for boxes/layout-->
+            <form method="POST" enctype="multipart/form-data">
+              <h6><b>Add a player video</b></h6>
+              <input type="file" name="uploadfile"><br>
+              <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="videoSubmit" value="Add new video">
             </form>
-          </div>
+
+          </div><br>
 
       </div>
     </div>
@@ -277,18 +307,65 @@ global $db;
   </div>
 </div>
 
+<?php foreach ($players as $player): ?>
+
+<?php
+
+if(isset($_POST['updatePlayer'])){
+
+  $playerName = $_POST["playerName"];
+      $playerNumber = $_POST["playerNumber"];
+      $playerPosition = $_POST["playerPosition"];
+      $playerYear = $_POST["playerYear"];
+
+      $atBats = $_POST["atBats"];
+      $plateAppearances = $_POST["plateAppearances"];
+      $battingAverage = $_POST["battingAverage"];
+      $onBasePercentage = $_POST["onBasePercentage"];
+      $slugging = $_POST["slugging"];
+      $hits = $_POST["hits"];
+      $singles = $_POST["singles"];
+      $doubles = $_POST["doubles"];
+      $triples = $_POST["triples"];
+      $homeruns = $_POST["homeruns"];
+      $runsBattedIn = $_POST["runsBattedIn"];
+      $stolenBases = $_POST["stolenBases"];
+      $caughtStealing = $_POST["caughtStealing"];
+      $inningsPitched = $_POST["inningsPitched"];
+      $wins = $_POST["wins"];
+      $losses = $_POST["losses"];
+      $earnedRunAverage = $_POST["earnedRunAverage"];
+      $whip = $_POST["whip"];
+      $strikeOuts = $_POST["strikeOuts"];
+      $walks = $_POST["walks"];
+      $opponentBattingAverage = $_POST["opponentBattingAverage"];
+
+      $filename = $_FILES["upload_file"]["name"];
+      $tempname = $_FILES["upload_file"]["tmp_name"];
+      $folder = "PlayersPics/".$filename;
+
+  $playerID = $player['PlayersID'];
+
+  $updateQuery = "UPDATE players
+  SET (PlayerName = $playerName, PlayerNumber = $playerNumber, PlayerPosition = $playerPosition, PlayerYear = $playerYear, ImagePath = $filename, AB = $atBats, PA = $plateAppearances, AVG = $battingAverage, OBP = $onBasePercentage, SLG = $slugging, H = $hits, 1B = $singles, 2B = $doubles, 3B = $triples, HR = $homeruns, RBI = $runsBattedIn, SB = $stolenBases, CS = $caughtStealing, IP = $inningsPitched, W = $wins, L = $losses, ERA = $earnedRunAverage, WHIP = $whip, SO = $strikeOuts, BB = $walks, BAA = $opponentBattingAverage)
+  -- SET (PlayerName, PlayerNumber, PlayerPosition, PlayerYear, ImagePath, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, IP, W, L, ERA, WHIP, SO, BB, BAA) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  WHERE PlayersID = $playerID;";
+
+  $statement = $db->prepare($updateQuery);
+  $statement->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
+  // $statement->execute();
+  $statement->closeCursor();
+}
+?>
+
 <div class= "jumbotron jumbotron-fluid">
   <div class= "row">
     <form class=".container-fluid" method="POST" enctype="multipart/form-data">
-      <b>Select Player to edit stats: </b><select name="players"><br>
-        <?php foreach ($players as $player): ?>
-        <option value="<? echo $player;?>">
-          <?php echo $player['PlayerName'];?>
-        </option> <?php endforeach?>
+      <b>Edit player: </b><br>
           <div class="col-sm-4 right">
         <div id="playersForm">
           <link rel="stylesheet" href="popupStyles.css">
-          <input type="file" name="upload_file" value=""><br>
+          <input type="file" name="upload_file" value="<?=$player['ImagePath']?>"><br>
           <b>Name: </b><input type="text" value="<?=$player['PlayerName']?>" name="playerName" required><br>
           <b>Number: </b><input type="text" value="<?=$player['PlayerNumber']?>" name="playerNumber" required><br>
           <b>Position: </b><input type="text" value="<?=$player['PlayerPosition']?>" name="playerPosition" required><br>
@@ -324,11 +401,12 @@ global $db;
         <b>BB:</b> <input type="text" name="walks" value="<?=$player['BB']?>" id="walks" required><br>
         <b>BAA:</b> <input type="text" name="opponentBattingAverage" value="<?=$player['BAA']?>" id="opponentBattingAverage" required><br><br>
         </div>
-        <input type="submit" name="updatePlayer" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Add Player">
-      </select><br>
+        <input type="submit" name="updatePlayer" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Update Player">
     </form>
   </div>
 </div>
+<?php endforeach?>
+
 
 
 </body>

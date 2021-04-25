@@ -20,3 +20,24 @@ include('views/header.php');
         <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
     </p>
 <?php include('views/footer.php');?>
+
+<?php
+  require_once('config.php');
+
+$query = 'SELECT * FROM videos';
+  $statement = $db->prepare($query);
+  $statement->execute();
+  $videos = $statement->fetchAll();
+  $statement->closeCursor();
+
+  foreach($videos as $video):?>
+  <div>
+    
+  <?php
+  $result = $video['VideoPath'];
+  $filename = "PlayerVideos/".$result;
+  ?>
+
+  <!-- pulls pictures form database-->
+  <img src="<?php echo $filename?>"><br>
+  <?php endforeach ?>

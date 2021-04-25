@@ -14,7 +14,7 @@
   require_once('config.php');
 
 
-  // Get all players for the dropdown box.
+  // Get all players.
   $query = 'SELECT * FROM players';
   $statement = $db->prepare($query);
   $statement->execute();
