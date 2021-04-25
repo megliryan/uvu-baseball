@@ -233,7 +233,7 @@ global $db;
     <form class=".container-fluid" method="POST" enctype="multipart/form-data">
       
       <div class="col-sm-4 right">
-        <b>Choose/add player: </b><br>
+        <b>Add player: </b><br>
         <div id="playersForm">
           <link rel="stylesheet" href="popupStyles.css">
           <input type="file" name="upload_file" value=""><br>
@@ -273,6 +273,59 @@ global $db;
         <b>BAA:</b> <input type="text" name="opponentBattingAverage" id="opponentBattingAverage" required><br><br>
       </div>
       <input type="submit" name="playerSubmit" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Add Player">
+    </form>
+  </div>
+</div>
+
+<div class= "jumbotron jumbotron-fluid">
+  <div class= "row">
+    <form class=".container-fluid" method="POST" enctype="multipart/form-data">
+      <b>Select Player to edit stats: </b><select name="players"><br>
+        <?php foreach ($players as $player): ?>
+        <option value="<? echo $player;?>">
+          <?php echo $player['PlayerName'];?>
+        </option> <?php endforeach?>
+          <div class="col-sm-4 right">
+        <div id="playersForm">
+          <link rel="stylesheet" href="popupStyles.css">
+          <input type="file" name="upload_file" value=""><br>
+          <b>Name: </b><input type="text" value="<?=$player['PlayerName']?>" name="playerName" required><br>
+          <b>Number: </b><input type="text" value="<?=$player['PlayerNumber']?>" name="playerNumber" required><br>
+          <b>Position: </b><input type="text" value="<?=$player['PlayerPosition']?>" name="playerPosition" required><br>
+          <b>School Year: </b> <input type="text" value="<?=$player['PlayerYear']?>" name="playerYear" id="playerYear"><br><br>
+        </div>
+        </div>
+    
+        <div class= "col-sm-4 right">
+        <b>Update Hitting Stats</b><br>
+        <b>AB:</b> <input type="text" name="atBats" value="<?=$player['AB']?>" id="atBats" required><br>
+        <b>PA:</b> <input type="text" name="plateAppearances" value="<?=$player['PA']?>" id="plateAppearances" required><br>
+        <b>AVG:</b> <input type="text" name="battingAverage" value="<?=$player['AVG']?>" id="battingAverage" required><br>
+        <b>OBP:</b> <input type="text" name="onBasePercentage" value="<?=$player['OBP']?>" id="onBasePercentage" required><br>
+        <b>SLG:</b> <input type="text" name="slugging" value="<?=$player['SLG']?>" id="slugging" required><br>
+        <b>H:</b> <input type="text" name="hits" value="<?=$player['H']?>" id="hits" required><br>
+        <b>1B:</b> <input type="text" name="singles" value="<?=$player['1B']?>" id="singles" required><br>
+        <b>2B:</b> <input type="text" name="doubles" value="<?=$player['2B']?>" id="doubles" required><br>
+        <b>3B:</b> <input type="text" name="triples" value="<?=$player['3B']?>" id="triples" required><br>
+        <b>HR:</b> <input type="text" name="homeruns" value="<?=$player['HR']?>" id="homeruns" required><br>
+        <b>RBI:</b> <input type="text" name="runsBattedIn" value="<?=$player['RBI']?>" id="runsBattedIn" required><br>
+        <b>SB:</b> <input type="text" name="stolenBases" value="<?=$player['SB']?>" id="stolenBases" required><br>
+        <b>CS:</b> <input type="text" name="caughtStealing" value="<?=$player['CS']?>" id="caughtStealing" required><br>
+        </div>
+
+        <div class="col-sm-4 right">
+        <b>Update Pitching Stats</b><br>
+        <b>IP:</b> <input type="text" name="inningsPitched" value="<?=$player['IP']?>" id="inningsPitched" required><br></h7>
+        <b>W:</b> <input type="text" name="wins" value="<?=$player['W']?>" id="wins" required><br>
+        <b>L:</b> <input type="text" name="losses" value="<?=$player['L']?>" id="losses" required><br>
+        <b>ERA:</b> <input type="text" name="earnedRunAverage" value="<?=$player['ERA']?>" id="earnedRunAverage" required><br>
+        <b>WHIP:</b> <input type="text" name="whip" value="<?=$player['WHIP']?>" id="whip" required><br>
+        <b>SO:</b> <input type="text" name="strikeOuts" value="<?=$player['SO']?>" id="strikeOuts" required><br>
+        <b>BB:</b> <input type="text" name="walks" value="<?=$player['BB']?>" id="walks" required><br>
+        <b>BAA:</b> <input type="text" name="opponentBattingAverage" value="<?=$player['BAA']?>" id="opponentBattingAverage" required><br><br>
+        </div>
+        <input type="submit" name="updatePlayer" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Add Player">
+      </select><br>
     </form>
   </div>
 </div>

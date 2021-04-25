@@ -1,7 +1,3 @@
-
-
-
-
 <!--chads section -->
 <!DOCTYPE html>
 <html lang="en">
