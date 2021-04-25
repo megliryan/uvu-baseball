@@ -78,24 +78,6 @@ include('views/header.php');
       </div> 
     </div>  
   </div>
-    <div class="carousel-item">
-      <img src="images\swing.jpg" alt="Swing" width="900" height="250">
-      <div class="carousel-caption">
-        <div class="newsbackground">
-        <h1>MMHS beats Provo</h1>
-        <p>Maple Mountain beat Provo on 4/5/21 with the final score of 6-5.</p>
-      </div>
-      </div>   
-    </div>
-    <div class="carousel-item">
-      <img src="images\thumbs_up.jpg" alt="New York" width="900" height="250">
-      <div class="carousel-caption">
-        <div class="newsbackground">
-        <h1>Team approves of new website</h1>
-        <p>Everyone loves the new site! Easy place to download forms, check video, and check stats!</p>
-      </div>
-      </div>   
-    </div>
     <?php foreach ($announcements as $announcement):
       $result = $announcement['ImagePath'];
       $filename = "Images/".$result;
