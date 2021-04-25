@@ -80,27 +80,27 @@ $statement->closeCursor();
     </thead>
     <tbody>
       <tr>
-        <td> <?=$player['AB']?> </td>
-        <td> <?=$player['PA']?> </td>
-        <td> <?=$player['AVG']?> </td>
-        <td> <?=$player['OBP']?> </td>
-        <td> <?=$player['SLG']?> </td>
-        <td> <?=$player['H']?> </td>
-        <td> <?=$player['1B']?> </td>
-        <td> <?=$player['2B']?> </td>
-        <td> <?=$player['3B']?> </td>
-        <td> <?=$player['HR']?> </td>
-        <td> <?=$player['RBI']?> </td>
-        <td> <?=$player['SB']?> </td>
-        <td> <?=$player['CS']?> </td>
-        <td> <?=$player['W']?> </td>
-        <td> <?=$player['L']?> </td>
-        <td> <?=$player['ERA']?> </td>
-        <td> <?=$player['WHIP']?> </td>
-        <td> <?=$player['SO']?> </td>
-        <td> <?=$player['BB']?> </td>
-        <td> <?=$player['BAA']?> </td>
-        <td> <?=$player['IP']?> </td>
+        <td scope ="row"> <?=$player['AB'];?> </td>
+        <td> <?=$player['PA'];?> </td>
+        <td> <?=$player['AVG'];?> </td>
+        <td> <?=$player['OBP'];?> </td>
+        <td> <?=$player['SLG'];?> </td>
+        <td> <?=$player['H'];?> </td>
+        <td> <?=$player['1B'];?> </td>
+        <td> <?=$player['2B'];?> </td>
+        <td> <?=$player['3B'];?> </td>
+        <td> <?=$player['HR'];?> </td>
+        <td> <?=$player['RBI'];?> </td>
+        <td> <?=$player['SB'];?> </td>
+        <td> <?=$player['CS'];?> </td>
+        <td> <?=$player['W'];?> </td>
+        <td> <?=$player['L'];?> </td>
+        <td> <?=$player['ERA'];?> </td>
+        <td> <?=$player['WHIP'];?> </td>
+        <td> <?=$player['SO'];?> </td>
+        <td> <?=$player['BB'];?> </td>
+        <td> <?=$player['BAA'];?> </td>
+        <td> <?=$player['IP'];?> </td>
       </tr>
       <br><br><br>
     </tbody>
