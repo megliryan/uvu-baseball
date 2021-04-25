@@ -82,7 +82,7 @@
     </thead>
     <tbody>
       <tr>
-        <td> <?php $player['AB']?> </td>
+        <td> <?php echo $player['AB']?> </td>
         <td> <?php echo $player['PA']?> </td>
         <td> <?php echo $player['AVG']?> </td>
         <td> <?php echo $player['OBP']?> </td>
@@ -103,7 +103,6 @@
         <td> <?php echo $player['BB']?> </td>
         <td> <?php echo $player['BAA']?> </td>
         <td> <?php echo $player['IP']?> </td>
-        <td>Debug- Delete- Edit</td>
       </tr>
       <br><br><br>
     </tbody>

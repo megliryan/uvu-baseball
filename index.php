@@ -51,6 +51,15 @@ include('views/header.php');
 
 </style>
 
+<?php
+  require('config.php');
+  $query = 'SELECT * FROM announcements';
+  $statement = $db->prepare($query);
+  $statement->execute();
+  $announcements = $statement-> fetchAll();
+  $statement -> closeCursor();
+?>
+
 <!--declaration of announcements section-->
 <div id="demo" class="carousel slide" data-ride="carousel">
   <ul class="carousel-indicators">
@@ -87,6 +96,20 @@ include('views/header.php');
       </div>
       </div>   
     </div>
+    <?php foreach ($announcements as $announcement):
+      $result = $announcement['ImagePath'];
+      $filename = "Images/".$result;
+            ?>
+      <div class="carousel-item">
+        <img src="<?=$filename?>" width="900" height="250">
+        <div class="carousel-caption">
+          <div class="newsbackground">
+            <h1><?=$announcement['AnnouncementTitle']?></h1>
+            <p><?=$announcement['Announcement']?></p>
+          </div>
+        </div>   
+      </div>
+    <?php endforeach ?>
   </div>
   <a class="carousel-control-prev" href="#demo" data-slide="prev">
     <span class="carousel-control-prev-icon"></span>

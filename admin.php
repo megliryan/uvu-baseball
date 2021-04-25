@@ -6,7 +6,7 @@ require('config.php');
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || !$_SESSION['is_admin']){
-    header("location: admin.php");
+    header("location: admin-login.php");
     exit;
 }
 
@@ -111,24 +111,31 @@ include('views/header.php');
           <?php
               if(isset($_POST['announcementSubmit'])){
                 $announcement = $_POST["announcement"];
+                $announcementTitle = $_POST["announcementTitle"];
+
+                $filenameAnnouncement = $_FILES["uploadFile"]["name"];
+                $tempnameAnnouncement = $_FILES["uploadFile"]["tmp_name"];
+                $folder = "Images/".$filenameAnnouncement;
                 
-                if (empty($announcement)){
+                if (empty($announcement) || empty($announcementTitle) || empty($filenameAnnouncement)){
                   echo "Missing required data.";
                 } else {
                   require_once('config.php');
-                  $query2 = "INSERT INTO announcements (Announcement) VALUE (:announcement)";
+                  $query2 = "INSERT INTO announcements (Announcement, AnnouncementTitle, ImagePath) VALUE (?, ?, ?)";
                   $stmt2 = $db->prepare($query2);
                   $stmt2->bindParam(':announcement', $announcement);
-                  $stmt2->execute();
+                  $stmt2->bindParam(':announcementTitle', $announcementTitle);
+                  $stmt2->execute([$announcement, $announcementTitle, $filenameAnnouncement]);
                 }
               }
             ?>
           <!--boostrap for boxes/layout-->
           <div class="col-sm-4">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
+              <input type="file" name="uploadFile"><br>
               <h6><b>Announcement heading</b></h6>
-              <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br><br>
-            <h6><b>Announcement body</b></h6>
+              <textarea name="announcementTitle" id="announcementTitle" cols="30" rows="2"></textarea><br><br>
+                <h6><b>Announcement body</b></h6>
               <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="announcementSubmit" value="Add new announcement">
             </form>
