@@ -270,7 +270,7 @@ global $db;
         // Update a player's information.
         $updateQuery = "UPDATE players
                         SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?, ImagePath=?, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
-                        WHERE PlayerID = ?";
+                        WHERE PlayersID = ?";
         $updateStmt = $db->prepare($updateQuery);
         $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
         if ($updateStmt->rowCount() > 0) {
@@ -296,7 +296,7 @@ global $db;
         <!-- Dropdown for players -->
         <select name="playerID" id="playerID" onchange="getPlayerStats()">
           <option value="new" selected>New Player</option>
-          <?php foreach ($players as $player):?><option value="<?=$player['PlayerID']?>"><?=$player['PlayerName']?></option><?php endforeach?>
+          <?php foreach ($players as $player):?><option value="<?=$player['PlayersID']?>"><?=$player['PlayerName']?></option><?php endforeach?>
         </select>
         <div id="playersForm">
           <!-- <link rel="stylesheet" href="popupStyles.css"> -->

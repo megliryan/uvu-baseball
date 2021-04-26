@@ -29,7 +29,7 @@ else {
 <?php if ($success):?>
 {
     "success":true,
-    "playerID":<?=$player['PlayerID']?>,
+    "playerID":<?=$player['PlayersID']?>,
     "playerNumber":"<?=$player['PlayerNumber']?>",
     "playerPosition":"<?=$player['PlayerPosition']?>",
     "playerYear":"<?=$player['PlayerYear']?>",
