@@ -54,7 +54,7 @@ function getPlayerStats() {
                 var player = JSON.parse(this.responseText)
 
                 if (player.success) {
-                    for (stat in stats) {
+                    for (stat of stats) {
                         var elem = document.getElementById(stat)
                         elem.value = player[stat]
                     }
