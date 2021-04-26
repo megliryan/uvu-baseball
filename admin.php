@@ -59,10 +59,6 @@ if(isset($_POST['calendarSubmit'])){
   }
 }
 
-// CALENDAR LOOKUP TABLE CODE
-// Always runs
-$calendarEvents = $db->query("SELECT * FROM schedule");
-
 // DELETE CALENDAR EVENT
 if(isset($_POST['deleteCalendarEvent'])){
   $scheduleID = $_POST['ScheduleID'];
@@ -79,6 +75,10 @@ if(isset($_POST['deleteCalendarEvent'])){
     $errorMessage = "Error deleting calendar event.";
   }
 }
+
+// CALENDAR LOOKUP TABLE CODE
+// Always runs
+$calendarEvents = $db->query("SELECT * FROM schedule");
 
 // ANNOUNCEMENT CREATE
 if(isset($_POST['announcementSubmit'])){
@@ -111,7 +111,6 @@ if(isset($_POST['announcementSubmit'])){
     }
   }
 }
-
 
 // LIVESTREAM UPDATING CODE
 // Edits the livestream video.
