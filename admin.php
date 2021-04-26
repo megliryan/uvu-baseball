@@ -296,7 +296,7 @@ global $db;
         <!-- Dropdown for players -->
         <select name="playerID" id="playerID" onchange="getPlayerStats()">
           <option value="new" selected>New Player</option>
-          <?php foreach ($players as $player):?><option value="<?=$player['playerID']?>"><?=$player['playerName']?></option><?php endforeach?>
+          <?php foreach ($players as $player):?><option value="<?=$player['PlayerID']?>"><?=$player['PlayerName']?></option><?php endforeach?>
         </select>
         <div id="playersForm">
           <!-- <link rel="stylesheet" href="popupStyles.css"> -->
