@@ -16,7 +16,8 @@ text-align: center;
 background-color: #501124;
 color: white;
 }
-</style>';
+</style>
+<script src="playeredit.js"></script>';
 
 $action = filter_input(INPUT_POST, 'action');
 if ($action == null) {
@@ -26,6 +27,8 @@ if ($action == null) {
   }
 }
 
+
+// LIVESTREAM UPDATING CODE
 $livestream_msg = '';
 // Edits the livestream video.
 if ($action == 'livestream_edit') {
@@ -185,12 +188,14 @@ include('views/header.php');
     </div>
     <!-- END FULL ROW -->
 
-<!-- section bellow is for uploading and displaying players info
+<!-- section bellow is for uploading and displaying players info. -->
 
 <?php 
+// Player Info section.
 require_once "config.php";
 
 global $db;
+    // Get list of players for the dropdown.
     $query = 'SELECT * FROM players';
     $statement = $db->prepare($query);
     $statement->execute();
@@ -198,6 +203,7 @@ global $db;
     $statement->closeCursor();
 
     if(isset($_POST['playerSubmit'])){
+      $playerID = filter_input(INPUT_POST, 'playerID');
       $playerName = $_POST["playerName"];
       $playerNumber = $_POST["playerNumber"];
       $playerPosition = $_POST["playerPosition"];
@@ -225,10 +231,12 @@ global $db;
       $walks = $_POST["walks"];
       $opponentBattingAverage = $_POST["opponentBattingAverage"];
 
-      $checkQuery = "SELECT * FROM players WHERE PlayerName='$playerName' and PlayerNumber='$playerNumber'";
+      $checkQuery = "SELECT * FROM players WHERE PlayerName=:playerName and PlayerNumber=:playerNumber";
       $statement = $db->prepare($checkQuery);
+      $statement->bindParam(':playerName', $playerName);
+      $statement->bindParam(':playerNumber', $playerNumber);
       $statement->execute();
-      $checkrows = $statement->fetchAll();
+      $checkrows = $statement->rowCount();
       $statement->closeCursor();
       
         $filename = $_FILES["upload_file"]["name"];
@@ -237,21 +245,42 @@ global $db;
               
 
       if (empty($atBats) || empty($plateAppearances) || empty($battingAverage) || empty($onBasePercentage) || empty($slugging) || empty($hits) || empty($singles) || empty($doubles) || empty($triples) || empty($homeruns) || empty($runsBattedIn) || empty($stolenBases) || empty($caughtStealing) || empty($inningsPitched) || empty($wins) || empty($losses) || empty($earnedRunAverage) || empty($whip) || empty($strikeOuts) || empty($walks) || empty($opponentBattingAverage || empty($playerName) || empty($playerNumber) || empty($playerPosition) || empty($playerYear))){
+        // If any fields are empty, reject the input.
         echo "Missing required data.";
-      // } elseif ($checkrows>1) {
-        // echo "Player exists";
-      } else {
-        require_once('config.php');
-        $query3 = "INSERT INTO players (PlayerName, PlayerNumber, PlayerPosition, PlayerYear,  ImagePath, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, W, L, ERA, WHIP, SO, BB, BAA, IP) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt3 = $db->prepare($query3);
-        
-        // Doing this a different way: I'm not writing 21 lines.
-        $stmt3->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
-      
-            if (move_uploaded_file($tempname, $folder))  {
+
+      } elseif ($playerID == 'new') {
+        // Add a new player to the database.
+        if ($checkrows >= 1) {
+          echo "Player with that name and number already exists.";
+
+        } else {
+          // Player does not exist, add it to the database.
+          $newPlayerQuery = "INSERT INTO players (PlayerName, PlayerNumber, PlayerPosition, PlayerYear,  ImagePath, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, IP, W, L, ERA, WHIP, SO, BB, BAA) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+          $newPlayerStmt = $db->prepare($newPlayerQuery);
+          // Executes, but also sanitizes.
+          $newPlayerStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
+          // Move uploaded file into the PlayersPics folder.
+          if (move_uploaded_file($tempname, $folder))  {
               $msg = "Image uploaded successfully";
-          }else{
+          } else {
               $msg = "Failed to upload image";
+          }
+        }
+      } else {
+        // Update a player's information.
+        $updateQuery = "UPDATE players
+                        SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?, ImagePath=?, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
+                        WHERE PlayerID = ?";
+        $updateStmt = $db->prepare($updateQuery);
+        $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
+        if ($updateStmt->rowCount() > 0) {
+          echo "Updated successfully!";
+        }
+        else {
+          echo "Error updating player.";
+        }
+        if (move_uploaded_file($tempname, $folder)) {} else {
+          $msg = "Failed to upload image";
         }
       }
     }
@@ -263,19 +292,25 @@ global $db;
     <form class=".container-fluid" method="POST" enctype="multipart/form-data">
       
       <div class="col-sm-4 right">
-        <b>Add player: </b><br>
+        <b>Select player: </b><br>
+        <!-- Dropdown for players -->
+        <select name="playerID" id="playerID" onchange="getPlayerStats()">
+          <option value="new" selected>New Player</option>
+          <?php foreach ($players as $player):?><option value="<?=$player['playerID']?>"><?=$player['playerName']?></option><?php endforeach?>
+        </select>
         <div id="playersForm">
-          <link rel="stylesheet" href="popupStyles.css">
+          <!-- <link rel="stylesheet" href="popupStyles.css"> -->
+          <!-- What does that do, anyway? -->
           <input type="file" name="upload_file" value=""><br>
-          <b>Name: </b><input type="text" placeholder="Enter Name" name="playerName" required><br>
-          <b>Number: </b><input type="text" placeholder="Enter Number" name="playerNumber" required><br>
-          <b>Position: </b><input type="text" placeholder="Enter Position" name="playerPosition" required><br>
+          <b>Name: </b><input type="text" placeholder="Enter Name" name="playerName" id="playerName" required><br>
+          <b>Number: </b><input type="text" placeholder="Enter Number" name="playerNumber" id="playerNumber" required><br>
+          <b>Position: </b><input type="text" placeholder="Enter Position" name="playerPosition" id="playerPosition" required><br>
           <b>School Year: </b> <input type="text" placeholder="Enter Year" name="playerYear" id="playerYear"><br><br>
         </div>
       </div>
     
       <div class= "col-sm-4 right">
-        <b>Update Hitting Stats</b><br>
+        <b>Hitting Stats</b><br>
         <b>AB:</b> <input type="text" name="atBats" id="atBats" required><br>
         <b>PA:</b> <input type="text" name="plateAppearances" id="plateAppearances" required><br>
         <b>AVG:</b> <input type="text" name="battingAverage" id="battingAverage" required><br>
@@ -292,7 +327,7 @@ global $db;
       </div>
 
       <div class="col-sm-4 right">
-        <b>Update Pitching Stats</b><br>
+        <b>Pitching Stats</b><br>
         <b>IP:</b> <input type="text" name="inningsPitched" id="inningsPitched" required><br></h7>
         <b>W:</b> <input type="text" name="wins" id="wins" required><br>
         <b>L:</b> <input type="text" name="losses" id="losses" required><br>
@@ -302,112 +337,13 @@ global $db;
         <b>BB:</b> <input type="text" name="walks" id="walks" required><br>
         <b>BAA:</b> <input type="text" name="opponentBattingAverage" id="opponentBattingAverage" required><br><br>
       </div>
-      <input type="submit" name="playerSubmit" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Add Player">
+      <input type="submit" name="playerSubmit" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Add Player" id="playerUpdateButton">
     </form>
   </div>
 </div>
 
-<?php foreach ($players as $player): ?>
-
-<?php
-
-if(isset($_POST['updatePlayer'])){
-
-  $playerName = $_POST["playerName"];
-      $playerNumber = $_POST["playerNumber"];
-      $playerPosition = $_POST["playerPosition"];
-      $playerYear = $_POST["playerYear"];
-
-      $atBats = $_POST["atBats"];
-      $plateAppearances = $_POST["plateAppearances"];
-      $battingAverage = $_POST["battingAverage"];
-      $onBasePercentage = $_POST["onBasePercentage"];
-      $slugging = $_POST["slugging"];
-      $hits = $_POST["hits"];
-      $singles = $_POST["singles"];
-      $doubles = $_POST["doubles"];
-      $triples = $_POST["triples"];
-      $homeruns = $_POST["homeruns"];
-      $runsBattedIn = $_POST["runsBattedIn"];
-      $stolenBases = $_POST["stolenBases"];
-      $caughtStealing = $_POST["caughtStealing"];
-      $inningsPitched = $_POST["inningsPitched"];
-      $wins = $_POST["wins"];
-      $losses = $_POST["losses"];
-      $earnedRunAverage = $_POST["earnedRunAverage"];
-      $whip = $_POST["whip"];
-      $strikeOuts = $_POST["strikeOuts"];
-      $walks = $_POST["walks"];
-      $opponentBattingAverage = $_POST["opponentBattingAverage"];
-
-      $filename = $_FILES["upload_file"]["name"];
-      $tempname = $_FILES["upload_file"]["tmp_name"];
-      $folder = "PlayersPics/".$filename;
-
-  $playerID = $player['PlayersID'];
-
-  $updateQuery = "UPDATE players
-  SET (PlayerName = $playerName, PlayerNumber = $playerNumber, PlayerPosition = $playerPosition, PlayerYear = $playerYear, ImagePath = $filename, AB = $atBats, PA = $plateAppearances, AVG = $battingAverage, OBP = $onBasePercentage, SLG = $slugging, H = $hits, 1B = $singles, 2B = $doubles, 3B = $triples, HR = $homeruns, RBI = $runsBattedIn, SB = $stolenBases, CS = $caughtStealing, IP = $inningsPitched, W = $wins, L = $losses, ERA = $earnedRunAverage, WHIP = $whip, SO = $strikeOuts, BB = $walks, BAA = $opponentBattingAverage)
-  -- SET (PlayerName, PlayerNumber, PlayerPosition, PlayerYear, ImagePath, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, IP, W, L, ERA, WHIP, SO, BB, BAA) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  WHERE PlayersID = $playerID;";
-
-  $statement = $db->prepare($updateQuery);
-  $statement->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
-  // $statement->execute();
-  $statement->closeCursor();
-}
-?>
-
-<div class= "jumbotron jumbotron-fluid">
-  <div class= "row">
-    <form class=".container-fluid" method="POST" enctype="multipart/form-data">
-      <b>Edit player: </b><br>
-          <div class="col-sm-4 right">
-        <div id="playersForm">
-          <link rel="stylesheet" href="popupStyles.css">
-          <input type="file" name="upload_file" value="<?=$player['ImagePath']?>"><br>
-          <b>Name: </b><input type="text" value="<?=$player['PlayerName']?>" name="playerName" required><br>
-          <b>Number: </b><input type="text" value="<?=$player['PlayerNumber']?>" name="playerNumber" required><br>
-          <b>Position: </b><input type="text" value="<?=$player['PlayerPosition']?>" name="playerPosition" required><br>
-          <b>School Year: </b> <input type="text" value="<?=$player['PlayerYear']?>" name="playerYear" id="playerYear"><br><br>
-        </div>
-        </div>
-    
-        <div class= "col-sm-4 right">
-        <b>Update Hitting Stats</b><br>
-        <b>AB:</b> <input type="text" name="atBats" value="<?=$player['AB']?>" id="atBats" required><br>
-        <b>PA:</b> <input type="text" name="plateAppearances" value="<?=$player['PA']?>" id="plateAppearances" required><br>
-        <b>AVG:</b> <input type="text" name="battingAverage" value="<?=$player['AVG']?>" id="battingAverage" required><br>
-        <b>OBP:</b> <input type="text" name="onBasePercentage" value="<?=$player['OBP']?>" id="onBasePercentage" required><br>
-        <b>SLG:</b> <input type="text" name="slugging" value="<?=$player['SLG']?>" id="slugging" required><br>
-        <b>H:</b> <input type="text" name="hits" value="<?=$player['H']?>" id="hits" required><br>
-        <b>1B:</b> <input type="text" name="singles" value="<?=$player['1B']?>" id="singles" required><br>
-        <b>2B:</b> <input type="text" name="doubles" value="<?=$player['2B']?>" id="doubles" required><br>
-        <b>3B:</b> <input type="text" name="triples" value="<?=$player['3B']?>" id="triples" required><br>
-        <b>HR:</b> <input type="text" name="homeruns" value="<?=$player['HR']?>" id="homeruns" required><br>
-        <b>RBI:</b> <input type="text" name="runsBattedIn" value="<?=$player['RBI']?>" id="runsBattedIn" required><br>
-        <b>SB:</b> <input type="text" name="stolenBases" value="<?=$player['SB']?>" id="stolenBases" required><br>
-        <b>CS:</b> <input type="text" name="caughtStealing" value="<?=$player['CS']?>" id="caughtStealing" required><br>
-        </div>
-
-        <div class="col-sm-4 right">
-        <b>Update Pitching Stats</b><br>
-        <b>IP:</b> <input type="text" name="inningsPitched" value="<?=$player['IP']?>" id="inningsPitched" required><br></h7>
-        <b>W:</b> <input type="text" name="wins" value="<?=$player['W']?>" id="wins" required><br>
-        <b>L:</b> <input type="text" name="losses" value="<?=$player['L']?>" id="losses" required><br>
-        <b>ERA:</b> <input type="text" name="earnedRunAverage" value="<?=$player['ERA']?>" id="earnedRunAverage" required><br>
-        <b>WHIP:</b> <input type="text" name="whip" value="<?=$player['WHIP']?>" id="whip" required><br>
-        <b>SO:</b> <input type="text" name="strikeOuts" value="<?=$player['SO']?>" id="strikeOuts" required><br>
-        <b>BB:</b> <input type="text" name="walks" value="<?=$player['BB']?>" id="walks" required><br>
-        <b>BAA:</b> <input type="text" name="opponentBattingAverage" value="<?=$player['BAA']?>" id="opponentBattingAverage" required><br><br>
-        </div>
-        <input type="submit" name="updatePlayer" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Update Player">
-    </form>
-  </div>
-</div>
-<?php endforeach?>
 
 
 
-</body>
-</html>
+
+<?php include("views/footer.php");?>
