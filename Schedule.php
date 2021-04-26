@@ -48,13 +48,13 @@ define("Time","Time");
        <br>
        <br>
        <br>
+       <?php if (isset($_SESSION['is_admin']) and $_SESSION['is_admin']):?>
        <div class="text-center"><h1 style="color:white">Change The Schedule</h1></div>
        <br>
        <br>
        <br>
        <br>
        <div class="text-center btn-link">
-       <?php if (isset($_SESSION['is_admin']) and $_SESSION['is_admin']):?>
        <form method="post" value="AddCalendarEvent">
          <button style="padding: 10px;">
             <a href="admin.php">Add a calendar event</a>

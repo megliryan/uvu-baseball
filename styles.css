@@ -112,6 +112,7 @@ body{
         font-size: 14px;
         color: #501124;
         max-width: none;
+        padding-right: 10%;
     }
 
     iframe{
@@ -152,4 +153,6 @@ body{
         width: 400em;
     }
 
-
+    p.white-text {
+        color: white;
+    }

@@ -68,7 +68,7 @@ include('views/header.php');
     <div class="jumbotron jumbotron-fluid">
       <div class="row">
           <div class="col-sm-4">
-            <!-- posts to schedule page-->
+            <!-- posts to db and schedule page-->
             <?php
               if(isset($_POST['calendarSubmit'])){
                 $gameDate = $_POST["gameDate"];
@@ -76,9 +76,11 @@ include('views/header.php');
                 $opponent = $_POST["opponent"];
                 $homeAway = $_POST["homeAway"];
                 
+                // Check for missing data
                 if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
                   echo "Missing required data.";
                 } else {
+                  //Run SQL query for schedule table
                   require_once('config.php');
                   $query = "INSERT INTO schedule (GameDate, GameTime, Opponent, HomeAway) VALUES (:gameDate, :gameTime, :opponent, :homeAway)";
                   $stmt = $db->prepare($query);
@@ -91,99 +93,140 @@ include('views/header.php');
               }
             ?>
 
+            <!-- html for calendar submit form -->
             <form method="POST">
-                <h6><b>Add a calendar event</b></h6>
-                <input type="text" name="gameDate" id="gameDate" placeholder="Game Date">
-                <input type="text" name="gameTime" id="gameTime" placeholder="Game Time">
-                <input type="text" name="opponent" id="opponent" placeholder="Opponent">
-                <input type="text" name="homeAway" id="homeAway" placeholder="Home or Away"><br>
-                <input type="submit" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" name="calendarSubmit" value="Add to calendar">
+              <h6><b>Add a calendar event</b></h6>
+              <input type="text" name="gameDate" id="gameDate" placeholder="Game Date">
+              <input type="text" name="gameTime" id="gameTime" placeholder="Game Time">
+              <input type="text" name="opponent" id="opponent" placeholder="Opponent">
+              <input type="text" name="homeAway" id="homeAway" placeholder="Home or Away"><br>
+              <input type="submit" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" name="calendarSubmit" value="Add to calendar">
             </form>
             <br>
             <br>
-            <form method="POST">
-                <h6><b>Delete a calendar event</b></h6>
-                <input type="text" name="gameDate" id="gameDate" placeholder="Game Date">
-                <input type="text" name="gameTime" id="gameTime" placeholder="Game Time">
-                <input type="text" name="opponent" id="opponent" placeholder="Opponent">
-                <input type="text" name="homeAway" id="homeAway" placeholder="Home or Away"><br>
-                <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="DeleteCalendarEvent" value="Delete Calendar Event">
-            </form>
-          </div>
 
-          <?php
-              if(isset($_POST['announcementSubmit'])){
-                $announcement = $_POST["announcement"];
-                $announcementTitle = $_POST["announcementTitle"];
-
-                $filenameAnnouncement = $_FILES["uploadFile"]["name"];
-                $tempnameAnnouncement = $_FILES["uploadFile"]["tmp_name"];
-                $folder = "Images/".$filenameAnnouncement;
+            <!-- deletes from db and schedule page-->
+            <?php
+              if(isset($_POST['deleteCalendarEvent'])){
+                $gameDate = $_POST["gameDate"];
+                $gameTime = $_POST["gameTime"];
+                $opponent = $_POST["opponent"];
+                $homeAway = $_POST["homeAway"];
                 
-                if (empty($announcement) || empty($announcementTitle) || empty($filenameAnnouncement)){
+                // Check for missing data
+                if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
                   echo "Missing required data.";
                 } else {
+                  //Run SQL query for schedule table
                   require_once('config.php');
-                  $query2 = "INSERT INTO announcements (Announcement, AnnouncementTitle, ImagePath) VALUE (?, ?, ?)";
-                  $stmt2 = $db->prepare($query2);
-                  $stmt2->bindParam(':announcement', $announcement);
-                  $stmt2->bindParam(':announcementTitle', $announcementTitle);
-                  $stmt2->execute([$announcement, $announcementTitle, $filenameAnnouncement]);
+                  $deleteQuery = "DELETE FROM schedule WHERE GameDate = $gameDate, GameTime = $gameTime, Opponent = $opponent, HomeAway = $homeAway";
+                  $stmt = $db->prepare($deleteQuery);
+                  $stmt->bindParam(':gameDate', $gameDate);
+                  $stmt->bindParam(':gameTime', $gameTime);
+                  $stmt->bindParam(':opponent', $opponent);
+                  $stmt->bindParam(':homeAway', $homeAway);
+                  $stmt->execute([$gameDate, $gameTime, $opponent, $homeAway]);
                 }
               }
             ?>
+
+            <!-- html for calendar delete form -->
+            <form method="POST">
+              <h6><b>Delete a calendar event</b></h6>
+              <input type="text" name="gameDate" id="gameDate" placeholder="Game Date">
+              <input type="text" name="gameTime" id="gameTime" placeholder="Game Time">
+              <input type="text" name="opponent" id="opponent" placeholder="Opponent">
+              <input type="text" name="homeAway" id="homeAway" placeholder="Home or Away"><br>
+              <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="deleteCalendarEvent" value="Delete Calendar Event">
+            </form>
+          </div>
+
+          <!-- posts to db and home page-->
+          <?php
+            if(isset($_POST['announcementSubmit'])){
+              $announcement = $_POST["announcement"];
+              $announcementTitle = $_POST["announcementTitle"];
+              // uploads picture to Images folder
+              $filenameAnnouncement = $_FILES["uploadFile"]["name"];
+              $tempnameAnnouncement = $_FILES["uploadFile"]["tmp_name"];
+              $folder = "Images/".$filenameAnnouncement;
+              
+              // checks for missing data
+              if (empty($announcement) || empty($announcementTitle) || empty($filenameAnnouncement)){
+                echo "Missing required data.";
+              } else {
+                //runs SQL statement to announcements table
+                require_once('config.php');
+                $query2 = "INSERT INTO announcements (Announcement, AnnouncementTitle, ImagePath) VALUE (?, ?, ?)";
+                $stmt2 = $db->prepare($query2);
+                $stmt2->bindParam(':announcement', $announcement);
+                $stmt2->bindParam(':announcementTitle', $announcementTitle);
+                $stmt2->execute([$announcement, $announcementTitle, $filenameAnnouncement]);
+              }
+            }
+          ?>
           <!--boostrap for boxes/layout-->
+          <!-- html for announcement form -->
           <div class="col-sm-4">
             <form method="POST" enctype="multipart/form-data">
-              <input type="file" name="uploadFile"><br>
+              <h6><b>Announcement picture</b></h6>
+              <input type="file" name="uploadFile"><br><br>
+
               <h6><b>Announcement heading</b></h6>
               <textarea name="announcementTitle" id="announcementTitle" cols="30" rows="2"></textarea><br><br>
-                <h6><b>Announcement body</b></h6>
+
+              <h6><b>Announcement body</b></h6>
               <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="announcementSubmit" value="Add new announcement">
             </form>
           </div>
 
+          <!-- html for livestream form -->
           <div class="col-sm-4">
-          <form method="POST">
-            <h6><b>Livestream Video URL</b></h6>
-            <input type="hidden" name="action" value="livestream_edit">
-            <input type="text" name="livestream" id="livestream" placeholder="https://www.youtube.com/watch?v=..."><br>
-            <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" value="Add livestream URL">
-            <?=$livestream_msg?>
+            <form method="POST">
+              <h6><b>Livestream Video URL</b></h6>
+              <input type="hidden" name="action" value="livestream_edit">
+              <input type="text" name="livestream" id="livestream" placeholder="https://www.youtube.com/watch?v=..."><br>
+              <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" value="Add livestream URL">
+              <?=$livestream_msg?>
             </form><br>
 
+            <!-- posts to db and video page -->
             <?php
               if(isset($_POST['videoSubmit'])){
+                //uploads video to PlayerVideos folder
                 $filenameVideo = $_FILES["uploadfile"]["name"];
                 $tempnameVideo = $_FILES["uploadfile"]["tmp_name"];
                 $folder = "PlayerVideos/".$filenameVideo;
                 
+                //checks for missing data
                 if (empty($filenameVideo)){
                   echo "Missing required data.";
                 } else {
+                  //runs SQL for videos table
                   require_once('config.php');
                   $videoQuery = "INSERT INTO videos (VideoPath) VALUE (?)";
                   $stmt2 = $db->prepare($videoQuery);
                   $stmt2->execute([$filenameVideo]);
 
+                  //checks to make sure file uploaded correctly
                   if (move_uploaded_file($tempnameVideo, $folder))  {
                     $msg = "Video uploaded successfully";
                   } else{
                     $msg = "Failed to upload video";
-              }
+                  }
                 }
               }
             ?>
+
           <!--boostrap for boxes/layout-->
+          <!-- html for adding or deleting players form -->
             <form method="POST" enctype="multipart/form-data">
               <h6><b>Add a player video</b></h6>
               <input type="file" name="uploadfile"><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="videoSubmit" value="Add new video">
             </form>
-
           </div><br>
-
       </div>
     </div>
     <!-- END FULL ROW -->
@@ -202,6 +245,7 @@ global $db;
     $players = $statement->fetchAll();
     $statement->closeCursor();
 
+    // Checks if playerSubmit button is pressed
     if(isset($_POST['playerSubmit'])){
       $playerID = filter_input(INPUT_POST, 'playerID');
       $playerName = $_POST["playerName"];
@@ -239,9 +283,10 @@ global $db;
       $checkrows = $statement->rowCount();
       $statement->closeCursor();
       
-        $filename = $_FILES["upload_file"]["name"];
-        $tempname = $_FILES["upload_file"]["tmp_name"];
-        $folder = "PlayersPics/".$filename;
+      //uploads picture to PlayersPics
+      $filename = $_FILES["upload_file"]["name"];
+      $tempname = $_FILES["upload_file"]["tmp_name"];
+      $folder = "PlayersPics/".$filename;
               
 
       if (empty($atBats) || empty($plateAppearances) || empty($battingAverage) || empty($onBasePercentage) || empty($slugging) || empty($hits) || empty($singles) || empty($doubles) || empty($triples) || empty($homeruns) || empty($runsBattedIn) || empty($stolenBases) || empty($caughtStealing) || empty($inningsPitched) || empty($wins) || empty($losses) || empty($earnedRunAverage) || empty($whip) || empty($strikeOuts) || empty($walks) || empty($opponentBattingAverage || empty($playerName) || empty($playerNumber) || empty($playerPosition) || empty($playerYear))){
@@ -288,62 +333,59 @@ global $db;
 
 <!-- ROW START -->
 <div class= "jumbotron jumbotron-fluid">
-  <div class= "row">
     <form class=".container-fluid" method="POST" enctype="multipart/form-data">
+      <div class= "row">
       
-      <div class="col-sm-4 right">
-        <b>Select player: </b><br>
-        <!-- Dropdown for players -->
-        <select name="playerID" id="playerID" onchange="getPlayerStats()">
-          <option value="new" selected>New Player</option>
-          <?php foreach ($players as $player):?><option value="<?=$player['PlayersID']?>"><?=$player['PlayerName']?></option><?php endforeach?>
-        </select>
-        <div id="playersForm">
-          <!-- <link rel="stylesheet" href="popupStyles.css"> -->
-          <!-- What does that do, anyway? -->
-          <input type="file" name="upload_file" value=""><br>
-          <b>Name: </b><input type="text" placeholder="Enter Name" name="playerName" id="playerName" required><br>
-          <b>Number: </b><input type="text" placeholder="Enter Number" name="playerNumber" id="playerNumber" required><br>
-          <b>Position: </b><input type="text" placeholder="Enter Position" name="playerPosition" id="playerPosition" required><br>
-          <b>School Year: </b> <input type="text" placeholder="Enter Year" name="playerYear" id="playerYear"><br><br>
+        <!-- First column of player stats -->
+        <div class="col-sm-4 right">
+          <b>Select player: </b><br>
+          <!-- Dropdown for players -->
+          <select name="playerID" id="playerID" onchange="getPlayerStats()">
+            <option value="new" selected>New Player</option>
+            <?php foreach ($players as $player):?><option value="<?=$player['PlayersID']?>"><?=$player['PlayerName']?></option><?php endforeach?>
+          </select>
+          <div id="playersForm">
+            <input type="file" name="upload_file" value=""><br>
+            <b>Name: </b><input type="text" placeholder="Enter Name" name="playerName" id="playerName" required><br>
+            <b>Number: </b><input type="text" placeholder="Enter Number" name="playerNumber" id="playerNumber" required><br>
+            <b>Position: </b><input type="text" placeholder="Enter Position" name="playerPosition" id="playerPosition" required><br>
+            <b>School Year: </b> <input type="text" placeholder="Enter Year" name="playerYear" id="playerYear"><br><br>
+          </div>
+        </div>
+    
+        <!-- Second column of player stats -->
+        <div class="col-sm-4 right">
+          <b>Hitting Stats</b><br>
+          <b>AB:</b> <input type="text" name="atBats" id="atBats" required><br>
+          <b>PA:</b> <input type="text" name="plateAppearances" id="plateAppearances" required><br>
+          <b>AVG:</b> <input type="text" name="battingAverage" id="battingAverage" required><br>
+          <b>OBP:</b> <input type="text" name="onBasePercentage" id="onBasePercentage" required><br>
+          <b>SLG:</b> <input type="text" name="slugging" id="slugging" required><br>
+          <b>H:</b> <input type="text" name="hits" id="hits" required><br>
+          <b>1B:</b> <input type="text" name="singles" id="singles" required><br>
+          <b>2B:</b> <input type="text" name="doubles" id="doubles" required><br>
+          <b>3B:</b> <input type="text" name="triples" id="triples" required><br>
+          <b>HR:</b> <input type="text" name="homeruns" id="homeruns" required><br>
+          <b>RBI:</b> <input type="text" name="runsBattedIn" id="runsBattedIn" required><br>
+          <b>SB:</b> <input type="text" name="stolenBases" id="stolenBases" required><br>
+          <b>CS:</b> <input type="text" name="caughtStealing" id="caughtStealing" required><br>
+        </div>
+        
+        <!-- Third column of player stats -->
+        <div class="col-sm-4 right">
+          <b>Pitching Stats</b><br>
+          <b>IP:</b> <input type="text" name="inningsPitched" id="inningsPitched" required><br></h7>
+          <b>W:</b> <input type="text" name="wins" id="wins" required><br>
+          <b>L:</b> <input type="text" name="losses" id="losses" required><br>
+          <b>ERA:</b> <input type="text" name="earnedRunAverage" id="earnedRunAverage" required><br>
+          <b>WHIP:</b> <input type="text" name="whip" id="whip" required><br>
+          <b>SO:</b> <input type="text" name="strikeOuts" id="strikeOuts" required><br>
+          <b>BB:</b> <input type="text" name="walks" id="walks" required><br>
+          <b>BAA:</b> <input type="text" name="opponentBattingAverage" id="opponentBattingAverage" required><br><br>
+          <input type="submit" name="playerSubmit" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Add Player" id="playerUpdateButton">
         </div>
       </div>
-    
-      <div class= "col-sm-4 right">
-        <b>Hitting Stats</b><br>
-        <b>AB:</b> <input type="text" name="atBats" id="atBats" required><br>
-        <b>PA:</b> <input type="text" name="plateAppearances" id="plateAppearances" required><br>
-        <b>AVG:</b> <input type="text" name="battingAverage" id="battingAverage" required><br>
-        <b>OBP:</b> <input type="text" name="onBasePercentage" id="onBasePercentage" required><br>
-        <b>SLG:</b> <input type="text" name="slugging" id="slugging" required><br>
-        <b>H:</b> <input type="text" name="hits" id="hits" required><br>
-        <b>1B:</b> <input type="text" name="singles" id="singles" required><br>
-        <b>2B:</b> <input type="text" name="doubles" id="doubles" required><br>
-        <b>3B:</b> <input type="text" name="triples" id="triples" required><br>
-        <b>HR:</b> <input type="text" name="homeruns" id="homeruns" required><br>
-        <b>RBI:</b> <input type="text" name="runsBattedIn" id="runsBattedIn" required><br>
-        <b>SB:</b> <input type="text" name="stolenBases" id="stolenBases" required><br>
-        <b>CS:</b> <input type="text" name="caughtStealing" id="caughtStealing" required><br>
-      </div>
-
-      <div class="col-sm-4 right">
-        <b>Pitching Stats</b><br>
-        <b>IP:</b> <input type="text" name="inningsPitched" id="inningsPitched" required><br></h7>
-        <b>W:</b> <input type="text" name="wins" id="wins" required><br>
-        <b>L:</b> <input type="text" name="losses" id="losses" required><br>
-        <b>ERA:</b> <input type="text" name="earnedRunAverage" id="earnedRunAverage" required><br>
-        <b>WHIP:</b> <input type="text" name="whip" id="whip" required><br>
-        <b>SO:</b> <input type="text" name="strikeOuts" id="strikeOuts" required><br>
-        <b>BB:</b> <input type="text" name="walks" id="walks" required><br>
-        <b>BAA:</b> <input type="text" name="opponentBattingAverage" id="opponentBattingAverage" required><br><br>
-      </div>
-      <input type="submit" name="playerSubmit" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Add Player" id="playerUpdateButton">
     </form>
   </div>
-</div>
-
-
-
-
 
 <?php include("views/footer.php");?>
