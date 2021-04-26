@@ -32,6 +32,7 @@ else {
 {
     "success":true,
     "playerID":"<?=$player['PlayersID']?>",
+    "playerName":"<?=$player['PlayerName']?>",
     "playerNumber":"<?=$player['PlayerNumber']?>",
     "playerPosition":"<?=$player['PlayerPosition']?>",
     "playerYear":"<?=$player['PlayerYear']?>",
