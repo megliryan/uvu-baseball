@@ -285,11 +285,11 @@ include('views/header.php');
 
     <?php // Alert section: Success/Failure
     if ($success):?>
-    <div class="alert alert-success p-2 m-2">
+    <div class="alert alert-success p-2 m-3">
       <strong>Success!</strong> <?=$successMessage?>
     </div>
     <?php endif; if ($error):?>
-    <div class="alert alert-danger p-2 m-2">
+    <div class="alert alert-danger p-2 m-3">
       <strong>Error!</strong> <?=$errorMessage?>
     </div>
     <?php endif;?>
