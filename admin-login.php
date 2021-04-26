@@ -41,18 +41,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(':username', $username);
             
-            // Set parameters
-            //$param_username = $username;
-            
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                // Store result
-                //mysqli_stmt_store_result($stmt);
-                
                 // Check if username exists, if yes then verify password
                 if($stmt->rowCount() == 1){                    
                     // Bind result variables
-                    //mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
                     if($user = $stmt->fetch()){
                         if(password_verify($password, $user['password'])){
                             // Password is correct, so start a new session
@@ -83,9 +76,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->closeCursor();
         }
     }
-    
-    // Close connection
-    //mysqli_close($link);
 }
 
 include('views/header.php');
@@ -107,7 +97,6 @@ include('views/header.php');
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
     <!-- Brand -->
-    <!--<a class="navbar-brand" href="#">Navbar</a>-->
     <div id=MMLogo>
     <a class="navbar-brand" href="#"><img src="images/School_Logo.png" alt="Logo" style="width:60px;"></a>
     </div>
@@ -143,26 +132,6 @@ include('views/header.php');
     </ul>
     </div>
 </nav>
-    <!-- <?php include('header.php'); ?> -->
-    <!-- <?php if(!$logged_in) :?> -->
-        <!-- Login Form -->
-        <!-- <div id="data_entry", class="container form-control"> -->
-        <!-- <form action="login.php" method="post"> -->
-            <!-- <br><input type="text" id="username" placeholder="Username"><br> -->
-            <!-- <input type="password" id="password" placeholder="Password"><br> -->
-            <!-- Instructions for players to reach out to the coach if they don't have a login -->
-            <!-- <p>Please reach out to your coach to get a profile set up</p> -->
-            <!-- <button type="submit" id="login">Login</button> <br><br> -->
-            <!-- <div class="errors"><?=$errors?></div> -->
-        <!-- </form>   -->
-        <!-- </div> -->
-
-    <!-- <?php else : ?>
-        <div id="data_entry", class="container">
-        <a href="enter_nums.php">Click to begin</a>
-        <a href="logout.php">Click to logout</a>
-        </div>
-    <?php endif; ?> -->
     <div class="jumbotron shadow-lg w-25 mx-auto container-md">
     <div class="wrapper">
     
@@ -193,7 +162,7 @@ include('views/header.php');
             
         </form>
         <div class=" w-100 mx-auto">
-        <p class="text-dark" "text-center"> User?  <a href="Login.php">Click here!</a></p>
+        <p class="text-dark text-center"> User?  <a href="Login.php">Click here!</a></p>
         </div>
     </div>
     </div>

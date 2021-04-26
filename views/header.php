@@ -68,7 +68,7 @@ $root = '/uvu-baseball/';
       <?php if (isset($_SESSION['is_admin'])):
         # If the user is logged in, show the logout and videos buttons.?>
       <li class="nav-item">
-        <a class="nav-link" href="<?=$root?>Welcome.php">Videos</a>
+        <a class="nav-link" href="<?=$root?>videos.php">Videos</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?=$root?>Logout.php">Logout</a>
