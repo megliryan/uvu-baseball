@@ -59,34 +59,24 @@ if(isset($_POST['calendarSubmit'])){
   }
 }
 
+// CALENDAR LOOKUP TABLE CODE
+// Always runs
+$calendarEvents = $db->query("SELECT * FROM schedule");
+
 // DELETE CALENDAR EVENT
 if(isset($_POST['deleteCalendarEvent'])){
-  $gameDate = $_POST["gameDate"];
-  $gameTime = $_POST["gameTime"];
-  $opponent = $_POST["opponent"];
-  $homeAway = $_POST["homeAway"];
+  $scheduleID = $_POST['ScheduleID'];
   
-  // Check for missing data
-  if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
-    $error = true;
-    $errorMessage = "Missing required data for event deletion.";
+  $delQuery = "DELETE FROM schedule WHERE ScheduleID = :ScheduleID";
+  $delStatement = $db->prepare($delQuery);
+  $delStatement->bindValue(':ScheduleID', $scheduleID);
+  $delStatement->execute();
+  if ($delStatement->rowCount() == 1) {
+    $success = true;
+    $successMessage = "Event deleted successfully.";
   } else {
-    //Run SQL query for schedule table
-    require_once('config.php');
-    $deleteQuery = "DELETE FROM schedule WHERE GameDate = :gameDate, GameTime = :gameTime, Opponent = :opponent, HomeAway = :homeAway";
-    $stmt = $db->prepare($deleteQuery);
-    $stmt->bindParam(':gameDate', $gameDate);
-    $stmt->bindParam(':gameTime', $gameTime);
-    $stmt->bindParam(':opponent', $opponent);
-    $stmt->bindParam(':homeAway', $homeAway);
-    $stmt->execute([$gameDate, $gameTime, $opponent, $homeAway]);
-    if ($stmt->rowCount() == 1) {
-      $success = true;
-      $successMessage = "Calendar event deleted successfully.";
-    } else {
-      $error = true;
-      $errorMessage = "Error deleting calendar event.";
-    }
+    $error = true;
+    $errorMessage = "Error deleting calendar event.";
   }
 }
 
@@ -324,10 +314,13 @@ include('views/header.php');
             <!-- html for calendar delete form -->
             <form method="POST">
               <h6><b>Delete a calendar event</b></h6>
-              <input type="text" name="gameDate" id="gameDate" placeholder="Game Date">
-              <input type="text" name="gameTime" id="gameTime" placeholder="Game Time">
-              <input type="text" name="opponent" id="opponent" placeholder="Opponent">
-              <input type="text" name="homeAway" id="homeAway" placeholder="Home or Away"><br>
+              <select name="ScheduleID">
+                <?php foreach ($calendarEvents as $event):?>
+                <option value="<?=$event['ScheduleID']?>">
+                  <?=$event['GameDate']?> <?=$event['GameTime']?> vs <?=$event['Opponent']?>
+                </option>
+                <?php endforeach;?>
+              </select>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="deleteCalendarEvent" value="Delete Calendar Event">
             </form>
           </div>
