@@ -37,7 +37,7 @@ function getPlayerStats() {
     var playerID = document.getElementById("playerID").value;
     // If the option is to make a new player, clear the form.
     if (playerID == "new") {
-        for (stat in stats) {
+        for (stat of stats) {
             var elem = document.getElementById(stat)
             elem.value = "";
         }
