@@ -27,6 +27,75 @@ if ($action == null) {
   }
 }
 
+// ADD CALENDAR EVENT
+if(isset($_POST['calendarSubmit'])){
+  $gameDate = $_POST["gameDate"];
+  $gameTime = $_POST["gameTime"];
+  $opponent = $_POST["opponent"];
+  $homeAway = $_POST["homeAway"];
+  
+  // Check for missing data
+  if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
+    echo "Missing required data.";
+  } else {
+    //Run SQL query for schedule table
+    require_once('config.php');
+    $query = "INSERT INTO schedule (GameDate, GameTime, Opponent, HomeAway) VALUES (:gameDate, :gameTime, :opponent, :homeAway)";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':gameDate', $gameDate);
+    $stmt->bindParam(':gameTime', $gameTime);
+    $stmt->bindParam(':opponent', $opponent);
+    $stmt->bindParam(':homeAway', $homeAway);
+    $stmt->execute();
+  }
+}
+
+// DELETE CALENDAR EVENT
+if(isset($_POST['deleteCalendarEvent'])){
+  $gameDate = $_POST["gameDate"];
+  $gameTime = $_POST["gameTime"];
+  $opponent = $_POST["opponent"];
+  $homeAway = $_POST["homeAway"];
+  
+  // Check for missing data
+  if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
+    echo "Missing required data.";
+  } else {
+    //Run SQL query for schedule table
+    require_once('config.php');
+    $deleteQuery = "DELETE FROM schedule WHERE GameDate = $gameDate, GameTime = $gameTime, Opponent = $opponent, HomeAway = $homeAway";
+    $stmt = $db->prepare($deleteQuery);
+    $stmt->bindParam(':gameDate', $gameDate);
+    $stmt->bindParam(':gameTime', $gameTime);
+    $stmt->bindParam(':opponent', $opponent);
+    $stmt->bindParam(':homeAway', $homeAway);
+    $stmt->execute([$gameDate, $gameTime, $opponent, $homeAway]);
+  }
+}
+
+// ANNOUNCEMENT CREATE
+if(isset($_POST['announcementSubmit'])){
+  $announcement = $_POST["announcement"];
+  $announcementTitle = $_POST["announcementTitle"];
+  // uploads picture to Images folder
+  $filenameAnnouncement = $_FILES["uploadFile"]["name"];
+  $tempnameAnnouncement = $_FILES["uploadFile"]["tmp_name"];
+  $folder = "Images/".$filenameAnnouncement;
+  
+  // checks for missing data
+  if (empty($announcement) || empty($announcementTitle) || empty($filenameAnnouncement)){
+    echo "Missing required data.";
+  } else {
+    //runs SQL statement to announcements table
+    require_once('config.php');
+    $query2 = "INSERT INTO announcements (Announcement, AnnouncementTitle, ImagePath) VALUE (?, ?, ?)";
+    $stmt2 = $db->prepare($query2);
+    $stmt2->bindParam(':announcement', $announcement);
+    $stmt2->bindParam(':announcementTitle', $announcementTitle);
+    $stmt2->execute([$announcement, $announcementTitle, $filenameAnnouncement]);
+  }
+}
+
 
 // LIVESTREAM UPDATING CODE
 $livestream_msg = '';
@@ -60,39 +129,136 @@ if ($action == 'livestream_edit') {
   }
 }
 
+// VIDEO ADD
+if(isset($_POST['videoSubmit'])){
+  //uploads video to PlayerVideos folder
+  $filenameVideo = $_FILES["uploadfile"]["name"];
+  $tempnameVideo = $_FILES["uploadfile"]["tmp_name"];
+  $folder = "PlayerVideos/".$filenameVideo;
+  
+  //checks for missing data
+  if (empty($filenameVideo)){
+    echo "Missing required data.";
+  } else {
+    //runs SQL for videos table
+    require_once('config.php');
+    $videoQuery = "INSERT INTO videos (VideoPath) VALUE (?)";
+    $stmt2 = $db->prepare($videoQuery);
+    $stmt2->execute([$filenameVideo]);
+
+    //checks to make sure file uploaded correctly
+    if (move_uploaded_file($tempnameVideo, $folder))  {
+      $msg = "Video uploaded successfully";
+    } else{
+      $msg = "Failed to upload video";
+    }
+  }
+}
+
+// PLAYER INFO ADD/UPDATE
+
+global $db;
+// Get list of players for the dropdown.
+$query = 'SELECT * FROM players';
+$statement = $db->prepare($query);
+$statement->execute();
+$players = $statement->fetchAll();
+$statement->closeCursor();
+
+// Checks if playerSubmit button is pressed
+if(isset($_POST['playerSubmit'])){
+  $playerID = filter_input(INPUT_POST, 'playerID');
+  $playerName = $_POST["playerName"];
+  $playerNumber = $_POST["playerNumber"];
+  $playerPosition = $_POST["playerPosition"];
+  $playerYear = $_POST["playerYear"];
+
+  $atBats = $_POST["atBats"];
+  $plateAppearances = $_POST["plateAppearances"];
+  $battingAverage = $_POST["battingAverage"];
+  $onBasePercentage = $_POST["onBasePercentage"];
+  $slugging = $_POST["slugging"];
+  $hits = $_POST["hits"];
+  $singles = $_POST["singles"];
+  $doubles = $_POST["doubles"];
+  $triples = $_POST["triples"];
+  $homeruns = $_POST["homeruns"];
+  $runsBattedIn = $_POST["runsBattedIn"];
+  $stolenBases = $_POST["stolenBases"];
+  $caughtStealing = $_POST["caughtStealing"];
+  $inningsPitched = $_POST["inningsPitched"];
+  $wins = $_POST["wins"];
+  $losses = $_POST["losses"];
+  $earnedRunAverage = $_POST["earnedRunAverage"];
+  $whip = $_POST["whip"];
+  $strikeOuts = $_POST["strikeOuts"];
+  $walks = $_POST["walks"];
+  $opponentBattingAverage = $_POST["opponentBattingAverage"];
+
+  $checkQuery = "SELECT * FROM players WHERE PlayerName=:playerName and PlayerNumber=:playerNumber";
+  $statement = $db->prepare($checkQuery);
+  $statement->bindParam(':playerName', $playerName);
+  $statement->bindParam(':playerNumber', $playerNumber);
+  $statement->execute();
+  $checkrows = $statement->rowCount();
+  $statement->closeCursor();
+  
+  //uploads picture to PlayersPics
+  $filename = $_FILES["upload_file"]["name"];
+  $tempname = $_FILES["upload_file"]["tmp_name"];
+  $folder = "PlayersPics/".$filename;
+          
+
+  if (empty($atBats) || empty($plateAppearances) || empty($battingAverage) || empty($onBasePercentage) || empty($slugging) || empty($hits) || empty($singles) || empty($doubles) || empty($triples) || empty($homeruns) || empty($runsBattedIn) || empty($stolenBases) || empty($caughtStealing) || empty($inningsPitched) || empty($wins) || empty($losses) || empty($earnedRunAverage) || empty($whip) || empty($strikeOuts) || empty($walks) || empty($opponentBattingAverage || empty($playerName) || empty($playerNumber) || empty($playerPosition) || empty($playerYear))){
+    // If any fields are empty, reject the input.
+    echo "Missing required data.";
+
+  } elseif ($playerID == 'new') {
+    // Add a new player to the database.
+    if ($checkrows >= 1) {
+      echo "Player with that name and number already exists.";
+
+    } else {
+      // Player does not exist, add it to the database.
+      $newPlayerQuery = "INSERT INTO players (PlayerName, PlayerNumber, PlayerPosition, PlayerYear,  ImagePath, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, IP, W, L, ERA, WHIP, SO, BB, BAA) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      $newPlayerStmt = $db->prepare($newPlayerQuery);
+      // Executes, but also sanitizes.
+      $newPlayerStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
+      // Move uploaded file into the PlayersPics folder.
+      if (move_uploaded_file($tempname, $folder))  {
+          $msg = "Image uploaded successfully";
+      } else {
+          $msg = "Failed to upload image";
+      }
+    }
+  } else {
+    // Update a player's information.
+    $updateQuery = "UPDATE players
+                    SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?, ImagePath=?, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
+                    WHERE PlayersID = ?";
+    $updateStmt = $db->prepare($updateQuery);
+    $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
+    if ($updateStmt->rowCount() > 0) {
+      echo "Updated successfully!";
+    }
+    else {
+      echo "Error updating player.";
+    }
+    if (move_uploaded_file($tempname, $folder)) {} else {
+      $msg = "Failed to upload image";
+    }
+  }
+}
+
 include('views/header.php');
 ?>
+
     <h1 class="white">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Edit site details below.</h1>
 
     <!-- FULL ROW -->
     <div class="jumbotron jumbotron-fluid">
       <div class="row">
           <div class="col-sm-4">
-            <!-- posts to db and schedule page-->
-            <?php
-              if(isset($_POST['calendarSubmit'])){
-                $gameDate = $_POST["gameDate"];
-                $gameTime = $_POST["gameTime"];
-                $opponent = $_POST["opponent"];
-                $homeAway = $_POST["homeAway"];
-                
-                // Check for missing data
-                if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
-                  echo "Missing required data.";
-                } else {
-                  //Run SQL query for schedule table
-                  require_once('config.php');
-                  $query = "INSERT INTO schedule (GameDate, GameTime, Opponent, HomeAway) VALUES (:gameDate, :gameTime, :opponent, :homeAway)";
-                  $stmt = $db->prepare($query);
-                  $stmt->bindParam(':gameDate', $gameDate);
-                  $stmt->bindParam(':gameTime', $gameTime);
-                  $stmt->bindParam(':opponent', $opponent);
-                  $stmt->bindParam(':homeAway', $homeAway);
-                  $stmt->execute();
-                }
-              }
-            ?>
-
             <!-- html for calendar submit form -->
             <form method="POST">
               <h6><b>Add a calendar event</b></h6>
@@ -105,31 +271,6 @@ include('views/header.php');
             <br>
             <br>
 
-            <!-- deletes from db and schedule page-->
-            <?php
-              if(isset($_POST['deleteCalendarEvent'])){
-                $gameDate = $_POST["gameDate"];
-                $gameTime = $_POST["gameTime"];
-                $opponent = $_POST["opponent"];
-                $homeAway = $_POST["homeAway"];
-                
-                // Check for missing data
-                if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
-                  echo "Missing required data.";
-                } else {
-                  //Run SQL query for schedule table
-                  require_once('config.php');
-                  $deleteQuery = "DELETE FROM schedule WHERE GameDate = $gameDate, GameTime = $gameTime, Opponent = $opponent, HomeAway = $homeAway";
-                  $stmt = $db->prepare($deleteQuery);
-                  $stmt->bindParam(':gameDate', $gameDate);
-                  $stmt->bindParam(':gameTime', $gameTime);
-                  $stmt->bindParam(':opponent', $opponent);
-                  $stmt->bindParam(':homeAway', $homeAway);
-                  $stmt->execute([$gameDate, $gameTime, $opponent, $homeAway]);
-                }
-              }
-            ?>
-
             <!-- html for calendar delete form -->
             <form method="POST">
               <h6><b>Delete a calendar event</b></h6>
@@ -141,30 +282,6 @@ include('views/header.php');
             </form>
           </div>
 
-          <!-- posts to db and home page-->
-          <?php
-            if(isset($_POST['announcementSubmit'])){
-              $announcement = $_POST["announcement"];
-              $announcementTitle = $_POST["announcementTitle"];
-              // uploads picture to Images folder
-              $filenameAnnouncement = $_FILES["uploadFile"]["name"];
-              $tempnameAnnouncement = $_FILES["uploadFile"]["tmp_name"];
-              $folder = "Images/".$filenameAnnouncement;
-              
-              // checks for missing data
-              if (empty($announcement) || empty($announcementTitle) || empty($filenameAnnouncement)){
-                echo "Missing required data.";
-              } else {
-                //runs SQL statement to announcements table
-                require_once('config.php');
-                $query2 = "INSERT INTO announcements (Announcement, AnnouncementTitle, ImagePath) VALUE (?, ?, ?)";
-                $stmt2 = $db->prepare($query2);
-                $stmt2->bindParam(':announcement', $announcement);
-                $stmt2->bindParam(':announcementTitle', $announcementTitle);
-                $stmt2->execute([$announcement, $announcementTitle, $filenameAnnouncement]);
-              }
-            }
-          ?>
           <!--boostrap for boxes/layout-->
           <!-- html for announcement form -->
           <div class="col-sm-4">
@@ -191,34 +308,6 @@ include('views/header.php');
               <?=$livestream_msg?>
             </form><br>
 
-            <!-- posts to db and video page -->
-            <?php
-              if(isset($_POST['videoSubmit'])){
-                //uploads video to PlayerVideos folder
-                $filenameVideo = $_FILES["uploadfile"]["name"];
-                $tempnameVideo = $_FILES["uploadfile"]["tmp_name"];
-                $folder = "PlayerVideos/".$filenameVideo;
-                
-                //checks for missing data
-                if (empty($filenameVideo)){
-                  echo "Missing required data.";
-                } else {
-                  //runs SQL for videos table
-                  require_once('config.php');
-                  $videoQuery = "INSERT INTO videos (VideoPath) VALUE (?)";
-                  $stmt2 = $db->prepare($videoQuery);
-                  $stmt2->execute([$filenameVideo]);
-
-                  //checks to make sure file uploaded correctly
-                  if (move_uploaded_file($tempnameVideo, $folder))  {
-                    $msg = "Video uploaded successfully";
-                  } else{
-                    $msg = "Failed to upload video";
-                  }
-                }
-              }
-            ?>
-
           <!--boostrap for boxes/layout-->
           <!-- html for adding or deleting players form -->
             <form method="POST" enctype="multipart/form-data">
@@ -232,104 +321,6 @@ include('views/header.php');
     <!-- END FULL ROW -->
 
 <!-- section bellow is for uploading and displaying players info. -->
-
-<?php 
-// Player Info section.
-require_once "config.php";
-
-global $db;
-    // Get list of players for the dropdown.
-    $query = 'SELECT * FROM players';
-    $statement = $db->prepare($query);
-    $statement->execute();
-    $players = $statement->fetchAll();
-    $statement->closeCursor();
-
-    // Checks if playerSubmit button is pressed
-    if(isset($_POST['playerSubmit'])){
-      $playerID = filter_input(INPUT_POST, 'playerID');
-      $playerName = $_POST["playerName"];
-      $playerNumber = $_POST["playerNumber"];
-      $playerPosition = $_POST["playerPosition"];
-      $playerYear = $_POST["playerYear"];
-
-      $atBats = $_POST["atBats"];
-      $plateAppearances = $_POST["plateAppearances"];
-      $battingAverage = $_POST["battingAverage"];
-      $onBasePercentage = $_POST["onBasePercentage"];
-      $slugging = $_POST["slugging"];
-      $hits = $_POST["hits"];
-      $singles = $_POST["singles"];
-      $doubles = $_POST["doubles"];
-      $triples = $_POST["triples"];
-      $homeruns = $_POST["homeruns"];
-      $runsBattedIn = $_POST["runsBattedIn"];
-      $stolenBases = $_POST["stolenBases"];
-      $caughtStealing = $_POST["caughtStealing"];
-      $inningsPitched = $_POST["inningsPitched"];
-      $wins = $_POST["wins"];
-      $losses = $_POST["losses"];
-      $earnedRunAverage = $_POST["earnedRunAverage"];
-      $whip = $_POST["whip"];
-      $strikeOuts = $_POST["strikeOuts"];
-      $walks = $_POST["walks"];
-      $opponentBattingAverage = $_POST["opponentBattingAverage"];
-
-      $checkQuery = "SELECT * FROM players WHERE PlayerName=:playerName and PlayerNumber=:playerNumber";
-      $statement = $db->prepare($checkQuery);
-      $statement->bindParam(':playerName', $playerName);
-      $statement->bindParam(':playerNumber', $playerNumber);
-      $statement->execute();
-      $checkrows = $statement->rowCount();
-      $statement->closeCursor();
-      
-      //uploads picture to PlayersPics
-      $filename = $_FILES["upload_file"]["name"];
-      $tempname = $_FILES["upload_file"]["tmp_name"];
-      $folder = "PlayersPics/".$filename;
-              
-
-      if (empty($atBats) || empty($plateAppearances) || empty($battingAverage) || empty($onBasePercentage) || empty($slugging) || empty($hits) || empty($singles) || empty($doubles) || empty($triples) || empty($homeruns) || empty($runsBattedIn) || empty($stolenBases) || empty($caughtStealing) || empty($inningsPitched) || empty($wins) || empty($losses) || empty($earnedRunAverage) || empty($whip) || empty($strikeOuts) || empty($walks) || empty($opponentBattingAverage || empty($playerName) || empty($playerNumber) || empty($playerPosition) || empty($playerYear))){
-        // If any fields are empty, reject the input.
-        echo "Missing required data.";
-
-      } elseif ($playerID == 'new') {
-        // Add a new player to the database.
-        if ($checkrows >= 1) {
-          echo "Player with that name and number already exists.";
-
-        } else {
-          // Player does not exist, add it to the database.
-          $newPlayerQuery = "INSERT INTO players (PlayerName, PlayerNumber, PlayerPosition, PlayerYear,  ImagePath, AB, PA, AVG, OBP, SLG, H, 1B, 2B, 3B, HR, RBI, SB, CS, IP, W, L, ERA, WHIP, SO, BB, BAA) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-          $newPlayerStmt = $db->prepare($newPlayerQuery);
-          // Executes, but also sanitizes.
-          $newPlayerStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
-          // Move uploaded file into the PlayersPics folder.
-          if (move_uploaded_file($tempname, $folder))  {
-              $msg = "Image uploaded successfully";
-          } else {
-              $msg = "Failed to upload image";
-          }
-        }
-      } else {
-        // Update a player's information.
-        $updateQuery = "UPDATE players
-                        SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?, ImagePath=?, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
-                        WHERE PlayersID = ?";
-        $updateStmt = $db->prepare($updateQuery);
-        $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
-        if ($updateStmt->rowCount() > 0) {
-          echo "Updated successfully!";
-        }
-        else {
-          echo "Error updating player.";
-        }
-        if (move_uploaded_file($tempname, $folder)) {} else {
-          $msg = "Failed to upload image";
-        }
-      }
-    }
-?>
 
 <!-- ROW START -->
 <div class= "jumbotron jumbotron-fluid">
