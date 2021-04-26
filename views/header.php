@@ -66,12 +66,15 @@ $root = '/uvu-baseball/';
       </li>
       <?php endif?>
       <?php if (isset($_SESSION['is_admin'])):
-        # If the user is logged in, show the logout button.?>
+        # If the user is logged in, show the logout and videos buttons.?>
+      <li class="nav-item">
+        <a class="nav-link" href="<?=$root?>Welcome.php">Videos</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="<?=$root?>Logout.php">Logout</a>
       </li>
       <?php if ($_SESSION['is_admin']):
-        # If previous & the user is an admin, show the manage button.?>
+        # If previous & the user is an admin, show the manage buttons.?>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
         Manage
