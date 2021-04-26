@@ -3,6 +3,12 @@ $title = "Welcome";
 // Initialize the session
 session_start();
 require('config.php');
+
+$success = false;
+$error = false;
+$successMessage = "";
+$errorMessage = "";
+
  
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || !$_SESSION['is_admin']){
@@ -36,7 +42,8 @@ if(isset($_POST['calendarSubmit'])){
   
   // Check for missing data
   if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
-    echo "Missing required data.";
+    $error = true;
+    $errorMessage = "Missing required data for calendar event.";
   } else {
     //Run SQL query for schedule table
     require_once('config.php');
@@ -47,6 +54,8 @@ if(isset($_POST['calendarSubmit'])){
     $stmt->bindParam(':opponent', $opponent);
     $stmt->bindParam(':homeAway', $homeAway);
     $stmt->execute();
+    $success = true;
+    $successMessage = "Calendar event added successfully.";
   }
 }
 
@@ -59,17 +68,25 @@ if(isset($_POST['deleteCalendarEvent'])){
   
   // Check for missing data
   if (empty($gameDate) || empty($gameTime) || empty($opponent) || empty($homeAway)){
-    echo "Missing required data.";
+    $error = true;
+    $errorMessage = "Missing required data for event deletion.";
   } else {
     //Run SQL query for schedule table
     require_once('config.php');
-    $deleteQuery = "DELETE FROM schedule WHERE GameDate = $gameDate, GameTime = $gameTime, Opponent = $opponent, HomeAway = $homeAway";
+    $deleteQuery = "DELETE FROM schedule WHERE GameDate = :gameDate, GameTime = :gameTime, Opponent = :opponent, HomeAway = :homeAway";
     $stmt = $db->prepare($deleteQuery);
     $stmt->bindParam(':gameDate', $gameDate);
     $stmt->bindParam(':gameTime', $gameTime);
     $stmt->bindParam(':opponent', $opponent);
     $stmt->bindParam(':homeAway', $homeAway);
     $stmt->execute([$gameDate, $gameTime, $opponent, $homeAway]);
+    if ($stmt->rowCount() == 1) {
+      $success = true;
+      $successMessage = "Calendar event deleted successfully.";
+    } else {
+      $error = true;
+      $errorMessage = "Error deleting calendar event.";
+    }
   }
 }
 
@@ -84,15 +101,24 @@ if(isset($_POST['announcementSubmit'])){
   
   // checks for missing data
   if (empty($announcement) || empty($announcementTitle) || empty($filenameAnnouncement)){
-    echo "Missing required data.";
+    $error = true;
+    $errorMessage = "Missing data for announcement creation.";
   } else {
     //runs SQL statement to announcements table
     require_once('config.php');
     $query2 = "INSERT INTO announcements (Announcement, AnnouncementTitle, ImagePath) VALUE (?, ?, ?)";
     $stmt2 = $db->prepare($query2);
-    $stmt2->bindParam(':announcement', $announcement);
-    $stmt2->bindParam(':announcementTitle', $announcementTitle);
+    // $stmt2->bindParam(':announcement', $announcement);
+    // $stmt2->bindParam(':announcementTitle', $announcementTitle);
+    // This is the purpose of the array below. -RF
     $stmt2->execute([$announcement, $announcementTitle, $filenameAnnouncement]);
+    if ($stmt2->rowCount() == 1) {
+      $success = true;
+      $successMessage = "Announcement created successfully!";
+    } else {
+      $error = true;
+      $errorMessage = "Error while creating announcement.";
+    }
   }
 }
 
@@ -119,12 +145,15 @@ if ($action == 'livestream_edit') {
       $stmt->bindParam(':video_id', $video_id);
       $stmt->execute();
       if ($stmt->rowCount()) {
-        $livestream_msg = "Video changed successfully!";
+        $success = true;
+        $successMessage = "Video changed successfully!";
       } else {
-        $livestream_msg = "Error changing video.";
+        $error = true;
+        $errorMessage = "Error changing video.";
       }
     } else {
-      $livestream_msg = "Must be a YouTube 'watch' URL!";
+      $error = true;
+      $errorMessage = "Must be a YouTube 'watch' URL!";
     }
   }
 }
@@ -138,7 +167,8 @@ if(isset($_POST['videoSubmit'])){
   
   //checks for missing data
   if (empty($filenameVideo)){
-    echo "Missing required data.";
+    $error = true;
+    $errorMessage = "Missing required data for video upload.";
   } else {
     //runs SQL for videos table
     require_once('config.php');
@@ -148,9 +178,11 @@ if(isset($_POST['videoSubmit'])){
 
     //checks to make sure file uploaded correctly
     if (move_uploaded_file($tempnameVideo, $folder))  {
-      $msg = "Video uploaded successfully";
+      $success = true;
+      $successMessage = "Video uploaded successfully";
     } else{
-      $msg = "Failed to upload video";
+      $error = true;
+      $errorMessage = "Failed to upload video";
     }
   }
 }
@@ -211,12 +243,14 @@ if(isset($_POST['playerSubmit'])){
 
   if (empty($atBats) || empty($plateAppearances) || empty($battingAverage) || empty($onBasePercentage) || empty($slugging) || empty($hits) || empty($singles) || empty($doubles) || empty($triples) || empty($homeruns) || empty($runsBattedIn) || empty($stolenBases) || empty($caughtStealing) || empty($inningsPitched) || empty($wins) || empty($losses) || empty($earnedRunAverage) || empty($whip) || empty($strikeOuts) || empty($walks) || empty($opponentBattingAverage || empty($playerName) || empty($playerNumber) || empty($playerPosition) || empty($playerYear))){
     // If any fields are empty, reject the input.
-    echo "Missing required data.";
+    $error = true;
+    $errorMessage = "Missing required data for player submission.";
 
   } elseif ($playerID == 'new') {
     // Add a new player to the database.
     if ($checkrows >= 1) {
-      echo "Player with that name and number already exists.";
+      $error = true;
+      $errorMessage = "Player with that name and number already exists.";
 
     } else {
       // Player does not exist, add it to the database.
@@ -226,9 +260,11 @@ if(isset($_POST['playerSubmit'])){
       $newPlayerStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
       // Move uploaded file into the PlayersPics folder.
       if (move_uploaded_file($tempname, $folder))  {
-          $msg = "Image uploaded successfully";
+        //$msg = "Image uploaded successfully";
+        // Do we need that?
       } else {
-          $msg = "Failed to upload image";
+        $error = true;
+        $errorMessage = "Failed to upload image";
       }
     }
   } else {
@@ -239,13 +275,16 @@ if(isset($_POST['playerSubmit'])){
     $updateStmt = $db->prepare($updateQuery);
     $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
     if ($updateStmt->rowCount() > 0) {
-      echo "Updated successfully!";
+      $success = true;
+      $successMessage = "Updated successfully!";
     }
     else {
-      echo "Error updating player.";
+      $error = true;
+      $errorMessage = "Error updating player.";
     }
     if (move_uploaded_file($tempname, $folder)) {} else {
-      $msg = "Failed to upload image";
+      $error = true;
+      $errorMessage = "Failed to upload image";
     }
   }
 }
@@ -254,6 +293,17 @@ include('views/header.php');
 ?>
 
     <h1 class="white">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Edit site details below.</h1>
+
+    <?php // Alert section: Success/Failure
+    if ($success):?>
+    <div class="alert alert-success">
+      <strong>Success!</strong> <?=$successMessage?>
+    </div>
+    <?php endif; if ($error):?>
+    <div class="alert alert-danger">
+      <strong>Error!</strong> <?=$errorMessage?>
+    </div>
+    <?php endif;?>
 
     <!-- FULL ROW -->
     <div class="jumbotron jumbotron-fluid">
@@ -305,7 +355,6 @@ include('views/header.php');
               <input type="hidden" name="action" value="livestream_edit">
               <input type="text" name="livestream" id="livestream" placeholder="https://www.youtube.com/watch?v=..."><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" value="Add livestream URL">
-              <?=$livestream_msg?>
             </form><br>
 
           <!--boostrap for boxes/layout-->
