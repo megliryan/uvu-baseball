@@ -19,6 +19,8 @@ else {
 
     if ($stmt->rowCount() == 1) {
         $success = true;
+        $player = $stmt->fetch();
+        $stmt->closeCursor();
     } else {
         $success = false;
         $message = "Player ID not found.";
