@@ -54,6 +54,7 @@ define("Time","Time");
        <br>
        <br>
        <div class="text-center btn-link">
+       <?php if (isset($_SESSION['is_admin']) and $_SESSION['is_admin']):?>
        <form method="post" value="AddCalendarEvent">
          <button style="padding: 10px;">
             <a href="admin.php">Add a calendar event</a>
@@ -66,6 +67,7 @@ define("Time","Time");
             <a href="admin.php">Delete a calendar event</a> 
         </button>
        </form>
+       <?php endif;?>
        </div>   
     </div>
   </div>
