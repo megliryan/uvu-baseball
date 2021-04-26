@@ -12,7 +12,7 @@ if ($playerID == null) {
 }
 else {
     require_once("config.php");
-    $query = "SELECT * FROM players WHERE playerID = :playerID";
+    $query = "SELECT * FROM players WHERE PlayersID = :playerID";
     $stmt = $db->prepare($query);
     $stmt->bindValue(':playerID', $playerID);
     $stmt->execute();
@@ -29,7 +29,7 @@ else {
 <?php if ($success):?>
 {
     "success":true,
-    "playerID":<?=$player['PlayersID']?>,
+    "playerID":"<?=$player['PlayersID']?>",
     "playerNumber":"<?=$player['PlayerNumber']?>",
     "playerPosition":"<?=$player['PlayerPosition']?>",
     "playerYear":"<?=$player['PlayerYear']?>",
