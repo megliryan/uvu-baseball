@@ -124,12 +124,12 @@ if(isset($_POST['announcementSubmit'])){
 
 
 // LIVESTREAM UPDATING CODE
-$livestream_msg = '';
 // Edits the livestream video.
 if ($action == 'livestream_edit') {
   $link = filter_input(INPUT_POST, 'livestream');
   if (!$link) {
-    $livestream_msg = 'Must enter a video URL!';
+    $error = true;
+    $errorMessage = 'Must enter a video URL!';
   } else {
     // Try to regex match the video link.
     // Matches a youtube watch URL
