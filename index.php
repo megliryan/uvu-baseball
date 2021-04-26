@@ -1,28 +1,6 @@
 <?php
 $title = "MMHS Baseball";
 require('config.php');
-/*php reference SQL database for current announcements data
-
-$servername = "localhost";
-$username = "username";
-$password = "password";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password);
-
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
-echo "Connected successfully";
-// echo out the data needed
-
-// php reference database for upcoming games data (same thing as seen above)
-
-*/
-/*php Firebase alternate declaration
-
-*/
 
 // Get livestream URL
 $query = 'SELECT * FROM livestream;';
@@ -30,8 +8,6 @@ $stmt = $db->prepare($query);
 $stmt->execute();
 $video_url = $stmt->fetch()['url'];
 $stmt->closeCursor();
-
-
 
 include('views/header.php');
 ?>

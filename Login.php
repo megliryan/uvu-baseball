@@ -1,20 +1,3 @@
-<!-- <?php
-$title = 'Login'
-    // session_start();
-        // $logged_in = false;
-        // $errors = filter_input(INPUT_GET, 'errors');
-        // $username_cookie = filter_input(INPUT_COOKIE, 'username;');
-        // $password_cookie = filter_input(INPUT_COOKIE, 'password;');
-
-        // if( isset($_SESSION['username']) && isset($_SESSION['logged_in']) ){
-            // $logged_in = true;
-        // }elseif( $username_cookie == 'first' && $password_cookie == 'player'){
-            // $_SESSION['username'] = $username_cookie;
-            // $_SESSION['logged_in'] = TRUE;
-            // $logged_in = TRUE;
-        // }
-?> -->
-
 <?php
 // Initialize the session
 session_start();
@@ -63,14 +46,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                // Store result
-                // mysqli_stmt_store_result($stmt);
-                
                 // Check if username exists, if yes then verify password
                 if($stmt->rowCount() == 1){                    
                     // Bind result variables
                     $user = $stmt->fetch();
-                    // I think I'm doing this right, not certain.
                     if($user){
                         if(password_verify($password, $user['password'])){
                             // Password is correct, so start a new session
@@ -101,33 +80,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->closeCursor();
         }
     }
-    
-    // Close connection
-    //mysqli_close($link);
 }
 
 include('views/header.php');
 ?>
-
-    <!-- <?php if(!$logged_in) :?> -->
-      <!-- Login Form -->
-        <!-- <div id="data_entry", class="container form-control"> -->
-        <!-- <form action="login.php" method="post"> -->
-            <!-- <br><input type="text" id="username" placeholder="Username"><br> -->
-            <!-- <input type="password" id="password" placeholder="Password"><br> -->
-            <!-- Instructions for players to reach out to the coach if they don't have a login -->
-            <!-- <p>Please reach out to your coach to get a profile set up</p> -->
-            <!-- <button type="submit" id="login">Login</button> <br><br> -->
-            <!-- <div class="errors"><?=$errors?></div> -->
-        <!-- </form>   -->
-        <!-- </div> -->
-
-    <!-- <?php else : ?>
-        <div id="data_entry", class="container">
-        <a href="enter_nums.php">Click to begin</a>
-        <a href="logout.php">Click to logout</a>
-        </div>
-    <?php endif; ?> -->
 <div class="jumbotron shadow-lg w-25 mx-auto container-md">
     <div class="wrapper">
         <h2>Login</h2>
@@ -156,7 +112,7 @@ include('views/header.php');
             </div>
         </form>
         <div class=" w-100 mx-auto">
-        <p class="text-dark" "text-center"> Admin? <a href="admin-login.php">Click here!</a></p>
+        <p class="text-dark text-center"> Admin? <a href="admin-login.php">Click here!</a></p>
         </div>
     </div>
 </div>

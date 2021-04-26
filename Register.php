@@ -98,9 +98,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->closeCursor();
         }
     }
-    
-    // Close connection
-    //mysqli_close($link);
 }
 
 include('views/header.php');
