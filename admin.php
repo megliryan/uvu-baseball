@@ -112,6 +112,32 @@ if(isset($_POST['announcementSubmit'])){
   }
 }
 
+// ANNOUNCEMENT DELETE
+if (isset($_POST['announcementDelete'])) {
+  $announcementID = $_POST['announcementID'];
+  $selquery = "SELECT ImagePath FROM announcements WHERE AnnouncementID = :AnnouncementID";
+  $selstmt = $db->prepare($selquery);
+  $selstmt->bindValue(':AnnouncementID', $announcementID);
+  $selstmt->execute();
+  $announcementPic = $selstmt->fetch()['ImagePath'];
+
+  $query = "DELETE FROM announcements WHERE AnnouncementID = :AnnouncementID";
+  $stmt = $db->prepare($query);
+  $stmt->bindValue(':AnnouncementID', $announcementID);
+  $stmt->execute();
+  if ($stmt->rowCount() == 1) {
+    $success = true;
+    $successMessage = "Announcement deleted successfully!";
+    unlink('images/'.$announcementPic);
+  } else {
+    $error = true;
+    $errorMessage = "Error deleting announcement.";
+  }
+}
+
+// Announcement list
+$announcements = $db->query("SELECT * FROM announcements");
+
 // LIVESTREAM UPDATING CODE
 // Edits the livestream video.
 if ($action == 'livestream_edit') {
@@ -337,6 +363,15 @@ include('views/header.php');
               <h6><b>Announcement body</b></h6>
               <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="announcementSubmit" value="Add new announcement">
+            </form>
+            <form method="POST">
+              <h6><b>Delete Announcement</b></h6>
+              <select name="announcementID">
+              <?php foreach($announcements as $announcement):?>
+                <option value="<?=$announcement['AnnouncementID']?>"><?=$announcement['AnnouncementTitle']?></option>
+              <?php endforeach;?>
+              </select>
+              <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="announcementDelete" value="Delete Announcement">
             </form>
           </div>
 
