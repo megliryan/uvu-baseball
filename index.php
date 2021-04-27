@@ -39,7 +39,7 @@ include('views/header.php');
 <!--declaration of announcements section-->
 <div id="demo" class="carousel slide" data-ride="carousel">
   <ul class="carousel-indicators">
-    <?php for ($i = 0; $i < count($announcements); $i++):?>
+    <?php for ($i = 0; $i <= count($announcements); $i++):?>
     <li data-target="#demo" data-slide-to="<?=$i?>" <?php if ($i == 0) {echo 'class="active"';}?>></li>
     <?php endfor;?>
   </ul>
