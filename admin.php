@@ -364,6 +364,7 @@ include('views/header.php');
               <textarea name="announcement" id="announcement" cols="30" rows="2"></textarea><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="announcementSubmit" value="Add new announcement">
             </form>
+            <br>
             <form method="POST">
               <h6><b>Delete Announcement</b></h6>
               <select name="announcementID">
