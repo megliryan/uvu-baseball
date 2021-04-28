@@ -44,7 +44,7 @@ include('views/header.php');
     <?php endfor;?>
   </ul>
   <div class="carousel-inner">
-    <div class="carousel-item active">
+    <!-- <div class="carousel-item active">
       <img src="images\Team_Photo.jpg" alt="Team_Photo" width="900" height="250">
     
       <div class="carousel-caption">
@@ -53,12 +53,12 @@ include('views/header.php');
         <p>Welcome to the new Maple Mountain Basbeball website!</p>
       </div> 
     </div>  
-  </div>
+  </div> -->
     <?php foreach ($announcements as $announcement):
       $result = $announcement['ImagePath'];
       $filename = "Images/".$result;
             ?>
-      <div class="carousel-item">
+      <div class="carousel-item<?php if ($announcement === $announcements[0]) {echo " active";}?>
         <img src="<?=$filename?>" width="900" height="250">
         <div class="carousel-caption">
           <div class="newsbackground">
