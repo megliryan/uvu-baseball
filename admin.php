@@ -324,14 +324,14 @@ if(isset($_POST['playerSubmit'])){
     $errorMessage = "Must select a player to delete!";
   } else {
     // Get the player so we can delete the image.
-    $selquery = "SELECT * FROM players WHERE PlayerID = :playerID";
+    $selquery = "SELECT * FROM players WHERE PlayersID = :playerID";
     $selstmt = $db->prepare($selquery);
     $selstmt->bindValue(':playerID', $playerID);
     $selstmt->execute();
     $deletedPlayer = $selstmt->fetch();
     unlink('PlayersPics/'.$deletedPlayer['ImagePath']);
     // Then actually delete the player.
-    $delQuery = "DELETE FROM players WHERE PlayerID = :playerID";
+    $delQuery = "DELETE FROM players WHERE PlayersID = :playerID";
     $delStatement = $db->prepare($delQuery);
     $delStatement->bindValue(':playerID', $playerID);
     $delStatement->execute();
