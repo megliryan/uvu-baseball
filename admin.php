@@ -105,6 +105,7 @@ if(isset($_POST['announcementSubmit'])){
     if ($stmt2->rowCount() == 1) {
       $success = true;
       $successMessage = "Announcement created successfully!";
+      move_uploaded_file($tempnameAnnouncement, $folder);
     } else {
       $error = true;
       $errorMessage = "Error while creating announcement.";
