@@ -203,6 +203,27 @@ if(isset($_POST['videoSubmit'])){
   }
 }
 
+// VIDEO DELETE
+if(isset($_POST['videoDelete'])) {
+  $videoID = $_POST['videoID'];
+  // Get video ID and delete
+  $getVideoStmt = $db->prepare("SELECT * FROM videos WHERE VideoID = :videoID");
+  $getVideoStmt->bindValue(':videoID', $videoID);
+  $getVideoStmt->execute();
+  $videoPath = $getVideoStmt->fetch()['VideoPath'];
+  $delVideoStmt = $db->prepare("DELETE FROM videos WHERE VideoID = :videoID");
+  $delVideoStmt->bindValue(':videoID', $videoID);
+  $delVideoStmt->execute();
+  if ($delVideoStmt->rowCount() == 1) {
+    unlink('PlayerVideos/'.$videoPath);
+    $success = true;
+    $successMessage = "Video deleted successfully!";
+  }
+}
+
+// Get videos
+$videos = $db->query("SELECT * FROM videos");
+
 // PLAYER INFO ADD/UPDATE/DELETE
 
 // Checks if playerSubmit button is pressed
@@ -417,8 +438,18 @@ include('views/header.php');
             <form method="POST" enctype="multipart/form-data">
               <h6><b>Add a player video</b></h6>
               <input type="file" name="uploadfile"><br>
-              <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="videoSubmit" value="Add new video">
+              <input type="submit" class="btn btn-info w-50 btn-sm"  name="videoSubmit" value="Add new video">
             </form>
+            <br>
+            <form method="POST">
+              <h6>Delete player video</h6>
+              <select name="videoID">
+                <?php foreach ($videos as $video):?><option value="<?=$video['VideoID']?>"><?=htmlspecialchars($video['VideoPath'])?></option><?php endforeach?>
+              </select>
+              <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="videoDelete" value="Delete video">
+            </form>
+            <br>
+            <a href="/forms/manage.php" class="btn btn-info w-50 btm-sm" style="margin: 2px;">Manage Forms</a>
           </div><br>
       </div>
     </div>
