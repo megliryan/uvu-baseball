@@ -449,7 +449,7 @@ include('views/header.php');
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="videoDelete" value="Delete video">
             </form>
             <br>
-            <a href="/forms/manage.php" class="btn btn-info w-50 btm-sm" style="margin: 2px;">Manage Forms</a>
+            <a href="forms/manage.php" class="btn btn-info w-50 btm-sm" style="margin: 2px;">Manage Forms</a>
           </div><br>
       </div>
     </div>
