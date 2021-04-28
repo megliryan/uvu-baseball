@@ -1,4 +1,4 @@
-<!--chads section -->
+
 
   <?php 
   $title = "Roster";
@@ -54,6 +54,7 @@
     Number: <?=$player['PlayerNumber']?><br>
     Position: <?=$player['PlayerPosition']?><br>
   </div>
+  <br>
 
     
   <!-- pulls players stats into bootstrap layout-->
