@@ -42,6 +42,7 @@ function getPlayerStats() {
             elem.value = "";
         }
         document.getElementById("playerUpdateButton").value = "Add Player"
+        document.getElementById("playerDeleteButton").disabled = false
     }
     else {
         // Get the player's information.
@@ -59,6 +60,7 @@ function getPlayerStats() {
                         elem.value = player[stat]
                     }
                     document.getElementById("playerUpdateButton").value = "Update Player"
+                    document.getElementById("playerDeleteButton").disabled = true
                 }
 
             }

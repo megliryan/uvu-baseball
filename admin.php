@@ -454,7 +454,7 @@ include('views/header.php');
           <b>BB:</b> <input type="text" name="walks" id="walks" required><br>
           <b>BAA:</b> <input type="text" name="opponentBattingAverage" id="opponentBattingAverage" required><br><br>
           <input type="submit" name="playerSubmit" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Add Player" id="playerUpdateButton"><br>
-          <input type="submit" name="playerDelete" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Delete Player" id="playerDeleteButton"><br>
+          <input type="submit" name="playerDelete" class="btn btn-info w-50 shadow-lg" style="margin: 2px;" value="Delete Player" id="playerDeleteButton" disabled><br>
 
 
 
