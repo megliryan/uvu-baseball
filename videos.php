@@ -40,5 +40,7 @@ $query = 'SELECT * FROM videos';
   ?>
 
   <!-- pulls pictures form database-->
-  <img src="<?php echo $filename?>"><br>
+  <!-- <img src="<?php echo $filename?>"><br> -->
+  <?php // Aren't these videos? ?>
+  <video src="<?php echo $filename?>" width="640" height="480" controls></video><br>
   <?php endforeach ?>
