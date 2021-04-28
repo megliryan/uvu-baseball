@@ -39,21 +39,11 @@ include('views/header.php');
 <!--declaration of announcements section-->
 <div id="demo" class="carousel slide" data-ride="carousel">
   <ul class="carousel-indicators">
-    <?php for ($i = 0; $i <= count($announcements); $i++):?>
+    <?php for ($i = 0; $i < count($announcements); $i++):?>
     <li data-target="#demo" data-slide-to="<?=$i?>" <?php if ($i == 0) {echo 'class="active"';}?>></li>
     <?php endfor;?>
   </ul>
   <div class="carousel-inner">
-    <!-- <div class="carousel-item active">
-      <img src="images\Team_Photo.jpg" alt="Team_Photo" width="900" height="250">
-    
-      <div class="carousel-caption">
-        <div class="newsbackground">
-        <h1>Maple Mountain Baseball</h1>
-        <p>Welcome to the new Maple Mountain Basbeball website!</p>
-      </div> 
-    </div>  
-  </div> -->
     <?php foreach ($announcements as $announcement):
       $result = $announcement['ImagePath'];
       $filename = "Images/".$result;
