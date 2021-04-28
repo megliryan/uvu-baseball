@@ -58,7 +58,7 @@ include('views/header.php');
       $result = $announcement['ImagePath'];
       $filename = "Images/".$result;
             ?>
-      <div class="carousel-item<?php if ($announcement === $announcements[0]) {echo " active";}?>
+      <div class="carousel-item<?php if ($announcement === $announcements[0]) {echo " active";}?>">
         <img src="<?=$filename?>" width="900" height="250">
         <div class="carousel-caption">
           <div class="newsbackground">
