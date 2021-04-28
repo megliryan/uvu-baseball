@@ -18,7 +18,7 @@ include('views/header.php');
     <link rel="styles.css">
     <h1 class="white my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
     <p>
-        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+        <a href="reset-password.php" class="btn btn-warning btn-block">Reset Your Password</a>
     </p>
 <?php include('views/footer.php');?>
 
