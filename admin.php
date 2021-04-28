@@ -442,10 +442,10 @@ include('views/header.php');
             </form>
             <br>
             <form method="POST">
-              <h6>Delete player video</h6>
+              <h6><b>Delete player video</b></h6>
               <select name="videoID">
                 <?php foreach ($videos as $video):?><option value="<?=$video['VideoID']?>"><?=htmlspecialchars($video['VideoPath'])?></option><?php endforeach?>
-              </select>
+              </select><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="videoDelete" value="Delete video">
             </form>
             <br>
