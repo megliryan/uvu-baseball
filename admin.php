@@ -203,15 +203,7 @@ if(isset($_POST['videoSubmit'])){
   }
 }
 
-// PLAYER INFO ADD/UPDATE
-
-global $db;
-// Get list of players for the dropdown.
-$query = 'SELECT * FROM players';
-$statement = $db->prepare($query);
-$statement->execute();
-$players = $statement->fetchAll();
-$statement->closeCursor();
+// PLAYER INFO ADD/UPDATE/DELETE
 
 // Checks if playerSubmit button is pressed
 if(isset($_POST['playerSubmit'])){
@@ -303,7 +295,41 @@ if(isset($_POST['playerSubmit'])){
       $errorMessage = "Failed to upload image";
     }
   }
+} elseif (isset($_POST['playerDelete'])) {
+  $playerID = $_POST['playerID'];
+  // Just in case.
+  if ($playerID == 'new') {
+    $error = true;
+    $errorMessage = "Must select a player to delete!";
+  } else {
+    // Get the player so we can delete the image.
+    $selquery = "SELECT * FROM players WHERE PlayerID = :playerID";
+    $selstmt = $db->prepare($selquery);
+    $selstmt->bindValue(':playerID', $playerID);
+    $selstmt->execute();
+    $deletedPlayer = $selstmt->fetch();
+    unlink('PlayersPics/'.$deletedPlayer['ImagePath']);
+    // Then actually delete the player.
+    $delQuery = "DELETE FROM players WHERE PlayerID = :playerID";
+    $delStatement = $db->prepare($delQuery);
+    $delStatement->bindValue(':playerID', $playerID);
+    $delStatement->execute();
+    if ($delStatement->rowCount() == 1) {
+      $success = true;
+      $successMessage = "Player deleted successfully.";
+    } else {
+      $error = true;
+      $errorMessage = "Error while deleting player.";
+    }
+  }
 }
+
+// Get list of players for the dropdown.
+$query = 'SELECT * FROM players';
+$statement = $db->prepare($query);
+$statement->execute();
+$players = $statement->fetchAll();
+$statement->closeCursor();
 
 include('views/header.php');
 ?>
