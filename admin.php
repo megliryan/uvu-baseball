@@ -98,9 +98,6 @@ if(isset($_POST['announcementSubmit'])){
     require_once('config.php');
     $query2 = "INSERT INTO announcements (Announcement, AnnouncementTitle, ImagePath) VALUE (?, ?, ?)";
     $stmt2 = $db->prepare($query2);
-    // $stmt2->bindParam(':announcement', $announcement);
-    // $stmt2->bindParam(':announcementTitle', $announcementTitle);
-    // This is the purpose of the array below. -RF
     $stmt2->execute([$announcement, $announcementTitle, $filenameAnnouncement]);
     if ($stmt2->rowCount() == 1) {
       $success = true;
@@ -475,7 +472,7 @@ include('views/header.php');
             <b>Name: </b><input type="text" placeholder="Enter Name" name="playerName" id="playerName" required><br>
             <b>Number: </b><input type="text" placeholder="Enter Number" name="playerNumber" id="playerNumber" required><br>
             <b>Position: </b><input type="text" placeholder="Enter Position" name="playerPosition" id="playerPosition" required><br>
-            <b>School Year: </b> <input type="text" placeholder="Enter Year" name="playerYear" id="playerYear"><br><br>
+            <b>School Year: </b> <input type="text" placeholder="Sophomore, Junior, etc..." name="playerYear" id="playerYear"><br><br>
           </div>
         </div>
     
