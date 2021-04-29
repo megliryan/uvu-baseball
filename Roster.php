@@ -14,22 +14,34 @@
   $statement->closeCursor();
   ?>
 
+
   <!-- grey box header-->
   <div class="jumbotron">
     <h1>Roster</h1>      
     <h4></h4>
   </div>
+
+
   <div class="container-fluid">
     <!-- searches database for players-->
     <?php foreach($players as $player):?>
   <div>
     
+  <!-- background -->
+  <style>
+    body{
+      background-image: url("images/re2pect-jordan-brand-pays-tribute-to-derek-jeter-last-season-01.jpg"), url("images/re2pect-jordan-brand-pays-tribute-to-derek-jeter-last-season-01.jpg");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: -650px, 1275px;
+    }
+  </style>
+
+<!-- variable for players pictures -->
   <?php
   $result = $player['ImagePath'];
   $filename = "PlayersPics/".$result;
   ?>
-
-
 
   <!-- pulls pictures form database-->
   <style>
