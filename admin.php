@@ -304,7 +304,7 @@ if(isset($_POST['playerSubmit'])){
       $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
     } else {
       $updateQuery = "UPDATE players
-                      SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?,, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
+                      SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
                       WHERE PlayersID = ?";
       $updateStmt = $db->prepare($updateQuery);
       $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
