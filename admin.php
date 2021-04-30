@@ -295,11 +295,19 @@ if(isset($_POST['playerSubmit'])){
     }
   } else {
     // Update a player's information.
-    $updateQuery = "UPDATE players
-                    SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?, ImagePath=?, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
-                    WHERE PlayersID = ?";
-    $updateStmt = $db->prepare($updateQuery);
-    $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
+    if (isset($_FILES['upload_file'])) {
+      $updateQuery = "UPDATE players
+                      SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?, ImagePath=?, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
+                      WHERE PlayersID = ?";
+      $updateStmt = $db->prepare($updateQuery);
+      $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
+    } else {
+      $updateQuery = "UPDATE players
+                      SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?,, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
+                      WHERE PlayersID = ?";
+      $updateStmt = $db->prepare($updateQuery);
+      $updateStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage, $playerID]);
+    }
     if ($updateStmt->rowCount() > 0) {
       $success = true;
       $successMessage = "Updated successfully!";
@@ -308,10 +316,11 @@ if(isset($_POST['playerSubmit'])){
       $error = true;
       $errorMessage = "Error updating player.";
     }
-    if (move_uploaded_file($tempname, $folder)) {} else {
-      $error = true;
-      $errorMessage = "Failed to upload image";
-    }
+    move_uploaded_file($tempname, $folder);
+    // if (move_uploaded_file($tempname, $folder)) {} else {
+    //   $error = true;
+    //   $errorMessage = "Failed to upload image";
+    // }
   }
 } elseif (isset($_POST['playerDelete'])) {
   $playerID = $_POST['playerID'];
