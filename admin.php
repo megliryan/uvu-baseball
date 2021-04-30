@@ -81,15 +81,14 @@ if(isset($_POST['deleteCalendarEvent'])){
 $calendarEvents = $db->query("SELECT * FROM schedule");
 
 if (isset($_POST['deleteUser'])) {
-  $userIdentifier = $_POST['userIdentifier'];
-  [$userID, $type] = explode(';', $userIdentifier);
-  if ($type == 'adminuser') {
+  $userIdentifier = explode(';', $_POST['userIdentifier']);
+  if ($userIdentifier[1] == 'adminuser') {
     $query = "DELETE FROM adminusers WHERE id = :userID";
   } else {
     $query = "DELETE FROM users WHERE id = :userID";
   } 
   $stmt = $db->prepare($query);
-  $stmt->bindValue(':userID', $userID);
+  $stmt->bindValue(':userID', $userIdentifier[0]);
   $stmt->execute();
   if ($stmt->rowCount() == 1) {
     $success = true;
