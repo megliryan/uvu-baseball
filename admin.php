@@ -80,6 +80,30 @@ if(isset($_POST['deleteCalendarEvent'])){
 // Always runs
 $calendarEvents = $db->query("SELECT * FROM schedule");
 
+if (isset($_POST['deleteUser'])) {
+  $userIdentifier = $_POST['userIdentifier'];
+  [$userID, $type] = explode(';', $userIdentifier);
+  if ($type == 'adminuser') {
+    $query = "DELETE FROM adminusers WHERE id = :userID";
+  } else {
+    $query = "DELETE FROM users WHERE id = :userID";
+  } 
+  $stmt = $db->prepare($query);
+  $stmt->bindValue(':userID', $userID);
+  $stmt->execute();
+  if ($stmt->rowCount() == 1) {
+    $success = true;
+    $successMessage = "User successfully deleted.";
+  } else {
+    $error = true;
+    $errorMessage = "Error deleting user.";
+  }
+}
+
+$users = $db->query("SELECT id, username FROM users");
+$admins = $db->query("SELECT id, username from adminusers");
+
+
 // ANNOUNCEMENT CREATE
 if(isset($_POST['announcementSubmit'])){
   $announcement = $_POST["announcement"];
@@ -402,6 +426,19 @@ include('views/header.php');
                 <?php endforeach;?>
               </select>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="deleteCalendarEvent" value="Delete Calendar Event">
+            </form>
+
+            <form method="POST">
+              <h6>Delete Users/Admins</h6>
+              <select name="UserIdentifier">
+                <?php foreach($users as $user):?>
+                <option value="<?=$user['id']?>;user"><?=$user['username']?></option>
+                <?php endforeach;?>
+                <?php foreach ($admins as $admin):?>
+                <option value="<?=$admin['id']?>;adminuser"><?=$admin['username']?> (Admin)</option>
+                <?php endforeach?>
+              </select>
+              <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="deleteUser" value="Delete User/Admin">
             </form>
           </div>
 
