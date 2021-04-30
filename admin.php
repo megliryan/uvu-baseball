@@ -295,7 +295,8 @@ if(isset($_POST['playerSubmit'])){
     }
   } else {
     // Update a player's information.
-    if (isset($_FILES['upload_file'])) {
+    if ($_FILES['upload_file']['error'] == UPLOAD_ERR_OK) {
+      // It would be UPLOAD_ERROR_NO_FILE if no file is uploaded.
       $updateQuery = "UPDATE players
                       SET PlayerName = ?, PlayerNumber = ?, PlayerPosition = ?, PlayerYear = ?, ImagePath=?, AB=?, PA=?, AVG=?, OBP=?, SLG=?, H=?, 1B=?, 2B=?, 3B=?, HR=?, RBI=?, SB=?, CS=?, IP=?, W=?, L=?, ERA=?, WHIP=?, SO=?, BB=?, BAA=?
                       WHERE PlayersID = ?";
