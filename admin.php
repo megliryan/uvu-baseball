@@ -428,7 +428,7 @@ include('views/header.php');
             </form>
 
             <form method="POST">
-              <h6>Delete Users/Admins</h6>
+              <h6><b>Delete Users/Admins</b></h6>
               <select name="UserIdentifier">
                 <?php foreach($users as $user):?>
                 <option value="<?=$user['id']?>;user"><?=$user['username']?></option>
@@ -436,7 +436,7 @@ include('views/header.php');
                 <?php foreach ($admins as $admin):?>
                 <option value="<?=$admin['id']?>;adminuser"><?=$admin['username']?> (Admin)</option>
                 <?php endforeach?>
-              </select>
+              </select><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="deleteUser" value="Delete User/Admin">
             </form>
           </div>
