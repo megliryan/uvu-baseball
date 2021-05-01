@@ -426,7 +426,7 @@ include('views/header.php');
               </select>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="deleteCalendarEvent" value="Delete Calendar Event">
             </form>
-
+            <br>
             <form method="POST">
               <h6><b>Delete Users/Admins</b></h6>
               <select name="UserIdentifier">
