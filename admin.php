@@ -80,6 +80,8 @@ if(isset($_POST['deleteCalendarEvent'])){
 // Always runs
 $calendarEvents = $db->query("SELECT * FROM schedule");
 
+
+// DELETE USER OR ADMIN
 if (isset($_POST['deleteUser'])) {
   $userIdentifier = explode(';', $_POST['UserIdentifier']);
   if ($userIdentifier[1] == 'adminuser') {
@@ -98,7 +100,7 @@ if (isset($_POST['deleteUser'])) {
     $errorMessage = "Error deleting user.";
   }
 }
-
+// Get users/admins for the dropdown
 $users = $db->query("SELECT id, username FROM users");
 $admins = $db->query("SELECT id, username from adminusers");
 
