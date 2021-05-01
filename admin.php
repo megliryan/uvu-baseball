@@ -403,6 +403,7 @@ include('views/header.php');
     <div class="jumbotron jumbotron-fluid">
       <div class="row">
           <div class="col-sm-4">
+            
             <!-- html for calendar submit form -->
             <form method="POST">
               <h6><b>Add a calendar event</b></h6>
@@ -425,7 +426,7 @@ include('views/header.php');
                 </option>
                 <?php endforeach;?>
               </select><br>
-              <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="deleteCalendarEvent" value="Delete Calendar Event">
+              <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="deleteCalendarEvent" value="Delete Calendar Event"><br><br><br>
             </form>
             <br>
             <form method="POST">
@@ -492,7 +493,7 @@ include('views/header.php');
               </select><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="videoDelete" value="Delete video">
             </form>
-            <br>
+            <br><br><br>
             <a href="forms/manage.php" class="btn btn-info w-50 btm-sm" style="margin: 2px;">Manage Forms</a>
           </div><br>
       </div>
@@ -502,10 +503,18 @@ include('views/header.php');
 <!-- section bellow is for uploading and displaying players info. -->
 
 <!-- ROW START -->
+
 <div class= "jumbotron jumbotron-fluid">
+  <style>
+    h1{
+      font-size:30px;
+      text-align: center;
+    }
+  </style>
+  <h1>Players Section</h1><br>
     <form class=".container-fluid" method="POST" enctype="multipart/form-data">
       <div class= "row">
-      
+
         <!-- First column of player stats -->
         <div class="col-sm-4 right">
           <b>Select player: </b><br>
