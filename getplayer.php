@@ -2,7 +2,7 @@
 
 // NOT FOR USER ACCESS
 // This page is used in "playeredit.js" to get the stats for a specific player.
-// It returns it in a JSON format.
+// It returns it in a JSON format, albeit with whitespace.
 // success will be true if successful, otherwise false.
 
 $playerID = filter_input(INPUT_GET, 'playerID');

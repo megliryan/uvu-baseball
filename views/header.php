@@ -2,7 +2,7 @@
 # Special variables for the header:
   # $title = title of the page
   # $head = other code that needs to go in <head>
-  # $root = (below) where all the files are stored on the server.
+  # $root = (defined below) where all the files are stored on the server.
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }

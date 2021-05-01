@@ -75,13 +75,8 @@ include('views/header.php');
   <div class="col-sm-12">
     <div class="jumbotron">
       <h2>Livestream</h2>
-      <!-- 
-          Livestream Embed from Youtube
-      /* You have to ask users to store the 11 character code from the youtube video. For e.g. http://www.youtube.com/watch?v=Ahg6qcgoay4 The eleven character code is : Ahg6qcgoay4
-      You then take this code and place it in your database. Then wherever you want to place the youtube video in your page, load the character from the database and put the following 
-      code:-g. for Ahg6qcgoay4 it will be : */
-      <object width="425" height="350" data="http://www.youtube.com/v/Ahg6qcgoay4" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/Ahg6qcgoay4" /></object> -->
-      
+      <!-- Livestream Embed from Youtube
+      Edit video ID from the admin console.  -->
       <iframe width="90%" height="600" src="https://www.youtube.com/embed/<?=$video_url?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
   </div>

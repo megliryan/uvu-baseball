@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php include('views/header.php');
 require('config.php');
 $query = 'SELECT * FROM Schedule';
