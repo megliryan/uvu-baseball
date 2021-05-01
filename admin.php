@@ -312,16 +312,7 @@ if(isset($_POST['playerSubmit'])){
       // Executes, but also sanitizes.
       $newPlayerStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
       // Move uploaded file into the PlayersPics folder.
-      if($imageHeight > $maxHeight){
-        $newHeight = $maxHeight;
-        $newWidth = $imageWidth * ($maxHeight / $imageHeight);
-      }
-      if($imageWidth > $maxWidth){
-        $newWidth = $maxWidth;
-        $newHeight = $imageHeight * ($maxWidth / $imageWidth);
 
-      }
-      resize('ImagePath', $newWidth, $newHeight);
 
       if (move_uploaded_file($tempname, $folder))  {
       } else {
