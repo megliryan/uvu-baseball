@@ -20,7 +20,6 @@ include('views/header.php');
     <p>
         <a href="reset-password.php" class="btn btn-warning btn-block">Reset Your Password</a>
     </p>
-<?php include('views/footer.php');?>
 
 <?php
   require_once('config.php');
@@ -39,8 +38,7 @@ $query = 'SELECT * FROM videos';
   $filename = "PlayerVideos/".$result;
   ?>
 
-  <!-- pulls pictures form database-->
-  <!-- <img src="<?php echo $filename?>"><br> -->
-  <?php // Aren't these videos? ?>
   <video src="<?php echo $filename?>" width="640" height="480" controls></video><br>
   <?php endforeach ?>
+
+<?php include('views/footer.php');?>
