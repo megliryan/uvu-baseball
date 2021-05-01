@@ -52,6 +52,7 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+      width: 150px;
     }
   </style>
   <img src="<?php echo $filename?>" class="center"><br>

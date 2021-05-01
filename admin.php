@@ -8,6 +8,8 @@ $success = false;
 $error = false;
 $successMessage = "";
 $errorMessage = "";
+$maxHeight = 1000;
+$maxWidth = 1000;
 
  
 // Check if the user is logged in, if not then redirect him to login page
@@ -286,7 +288,7 @@ if(isset($_POST['playerSubmit'])){
   $checkrows = $statement->rowCount();
   $statement->closeCursor();
   
-  //uploads picture to PlayersPics
+  //uploads picture to PlayersPics in database
   $filename = $_FILES["upload_file"]["name"];
   $tempname = $_FILES["upload_file"]["tmp_name"];
   $folder = "PlayersPics/".$filename;
@@ -310,9 +312,18 @@ if(isset($_POST['playerSubmit'])){
       // Executes, but also sanitizes.
       $newPlayerStmt->execute([$playerName, $playerNumber, $playerPosition, $playerYear, $filename, $atBats, $plateAppearances, $battingAverage, $onBasePercentage, $slugging, $hits, $singles, $doubles, $triples, $homeruns, $runsBattedIn, $stolenBases, $caughtStealing, $inningsPitched, $wins, $losses, $earnedRunAverage, $whip, $strikeOuts, $walks, $opponentBattingAverage]);
       // Move uploaded file into the PlayersPics folder.
+      if($imageHeight > $maxHeight){
+        $newHeight = $maxHeight;
+        $newWidth = $imageWidth * ($maxHeight / $imageHeight);
+      }
+      if($imageWidth > $maxWidth){
+        $newWidth = $maxWidth;
+        $newHeight = $imageHeight * ($maxWidth / $imageWidth);
+
+      }
+      resize('ImagePath', $newWidth, $newHeight);
+
       if (move_uploaded_file($tempname, $folder))  {
-        //$msg = "Image uploaded successfully";
-        // Do we need that?
       } else {
         $error = true;
         $errorMessage = "Failed to upload image";
@@ -343,10 +354,7 @@ if(isset($_POST['playerSubmit'])){
       $errorMessage = "Error updating player.";
     }
     move_uploaded_file($tempname, $folder);
-    // if (move_uploaded_file($tempname, $folder)) {} else {
-    //   $error = true;
-    //   $errorMessage = "Failed to upload image";
-    // }
+
   }
 } elseif (isset($_POST['playerDelete'])) {
   $playerID = $_POST['playerID'];
@@ -355,7 +363,7 @@ if(isset($_POST['playerSubmit'])){
     $error = true;
     $errorMessage = "Must select a player to delete!";
   } else {
-    // Get the player so we can delete the image.
+    // get the picture/data user selected via variable so start the deleting process
     $selquery = "SELECT * FROM players WHERE PlayersID = :playerID";
     $selstmt = $db->prepare($selquery);
     $selstmt->bindValue(':playerID', $playerID);
@@ -425,7 +433,7 @@ include('views/header.php');
                   <?=$event['GameDate']?> <?=$event['GameTime']?> vs <?=$event['Opponent']?>
                 </option>
                 <?php endforeach;?>
-              </select>
+              </select><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="deleteCalendarEvent" value="Delete Calendar Event">
             </form>
             <br>
@@ -464,7 +472,7 @@ include('views/header.php');
               <?php foreach($announcements as $announcement):?>
                 <option value="<?=$announcement['AnnouncementID']?>"><?=$announcement['AnnouncementTitle']?></option>
               <?php endforeach;?>
-              </select>
+              </select><br>
               <input type="submit" class="btn btn-info w-50 btn-sm" style="margin: 2px;" name="announcementDelete" value="Delete Announcement">
             </form>
           </div>

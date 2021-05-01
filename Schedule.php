@@ -56,19 +56,12 @@ define("Time","Time");
        <br>
        <div class="text-center btn-link">
        <form method="post" value="AddCalendarEvent">
-         <button style="padding: 10px;">
-            <a href="admin.php">Add a calendar event</a>
+         <button style="padding: 10px; margin-bottom: 10%">
+            <a href="admin.php">Add or Delete a calendar event</a>
          </button>
        </form>
        </div>
-       <div class="text-center btn-link">
-       <form action="post" value="DeleteCalendarEvent">
-        <button style="padding: 10px; margin:50px;">
-            <a href="admin.php">Delete a calendar event</a> 
-        </button>
-       </form>
        <?php endif;?>
-       </div>   
     </div>
   </div>
 </div>

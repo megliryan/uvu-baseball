@@ -135,7 +135,7 @@ include('views/header.php');
     <div class="jumbotron shadow-lg w-25 mx-auto container-md">
     <div class="wrapper">
     
-        <h2>Login</h2>
+        <h2>Admin Login</h2>
         <br>
 
         <?php 
