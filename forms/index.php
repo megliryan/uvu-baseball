@@ -23,7 +23,7 @@ include('../views/header.php');
 </div>
 <!-- End of heading for forms page -->
 <?php if (sizeof($forms_available) >= 1):?>
-<div class="m-4" style="width:100%">
+<div class="row m-4">
   <div class="float-left">Find the document you want to download, then click the download button.</div>
   <?php if (isset($_SESSION['is_admin']) and $_SESSION['is_admin']):?>
   <div class="float-right"><a class="btn btn-light" href="manage.php">Manage Forms</a></div>
