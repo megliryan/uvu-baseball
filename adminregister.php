@@ -101,7 +101,7 @@ include('views/header.php');
 ?>
 <div class="wrapper">
         <h2>Sign Up</h2>
-        <p class="white-text">Please fill out this form to create an <strong>administrator</strong> account.</p>
+        <p style="color: white">Please fill out this form to create an <strong>administrator</strong> account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Username</label>

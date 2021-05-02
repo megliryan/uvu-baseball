@@ -104,7 +104,7 @@ include('views/header.php');
 ?>
 <div class="wrapper">
         <h2>Sign Up</h2>
-        <p class="white-text">Please fill this form to create an account.</p>
+        <p style="color: white">Please fill this form to create an account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Username</label>

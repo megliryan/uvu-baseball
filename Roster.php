@@ -30,7 +30,7 @@
   <!-- background -->
   <style class="responsive">
     body{
-      background-image: url("images/re2pect-jordan-brand-pays-tribute-to-derek-jeter-last-season-01.jpg"), url("images/re2pect-jordan-brand-pays-tribute-to-derek-jeter-last-season-01.jpg");
+      /* background-image: url("images/re2pect-jordan-brand-pays-tribute-to-derek-jeter-last-season-01.jpg"), url("images/re2pect-jordan-brand-pays-tribute-to-derek-jeter-last-season-01.jpg"); */
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-position: -525px, 1390px;
