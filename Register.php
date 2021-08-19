@@ -36,7 +36,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 /* store result */
-                //mysqli_stmt_store_result($stmt);
                 
                 if($stmt->rowCount() == 1){
                     $username_err = "This username is already taken.";

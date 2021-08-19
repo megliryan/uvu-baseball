@@ -13,15 +13,15 @@ CREATE TABLE `schedule` (
 
 CREATE TABLE `adminusers` (
   `id` INT AUTO_INCREMENT,
-  `username` VARCHAR(50),
-  `password` VARCHAR(50),
+  `username` VARCHAR(255),
+  `password` VARCHAR(255),
   PRIMARY KEY (`id`)
 )
 
 CREATE TABLE `users` (
   `id` INT AUTO_INCREMENT,
-  `username` VARCHAR(50),
-  `password` VARCHAR(50),
+  `username` VARCHAR(255),
+  `password` VARCHAR(255),
   PRIMARY KEY (`id`)
 );
 
@@ -35,13 +35,6 @@ CREATE TABLE `livestream` (
   `url` VARCHAR(255)
 );
 
-CREATE TABLE `announcements` (
-  `AnnouncementID` INT AUTO_INCREMENT,
-  `AnnouncementTitle` VARCHAR(50),
-  `Announcement` VARCHAR(20),
-  `ImagePath` VARCHAR(100),
-  PRIMARY KEY (`AnnouncementID`)
-);
 
 CREATE TABLE `players` (
   `PlayersID` INT AUTO_INCREMENT,
@@ -71,7 +64,7 @@ CREATE TABLE `players` (
   `BB` INT,
   `BAA` VARCHAR(5),
   `IP` INT,
-  PRIMARY KEY (`StatisticsID`)
+  PRIMARY KEY (`PlayersID`)
 );
 
 ## /forms
